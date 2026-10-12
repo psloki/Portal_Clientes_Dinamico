@@ -1,0 +1,1508 @@
+﻿﻿
+@{
+    ViewBag.Title = "Extracto Bancario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type='text/javascript' src='http://paperjs.org/assets/js/paper.js'></script>
+<style>
+    .badge-custom {
+        background-color: #eaf7f8; /* Amarillo personalizado */
+        color: #30b8bf; /* Texto oscuro */
+    }
+</style>
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Rango de fechas</label>
+                            <input class="form-control " placeholder="Pick date rage" id="rangoFechas" value="@(DateTime.Now.ToString("01/MM/yyyy")) - @(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                        </div>
+
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Cuenta origen</label>
+                            <select id="cuentabancaria" name="cuentabancaria" class="form-select" data-control="select2" data-placeholder="Filtrar por una cuenta bancaria">
+                                <option></option>
+                                <option selected value="0">Todas</option>
+                                @{
+                                    if (ViewBag.ListaCuentas != null)
+                                    {
+                                        foreach (var item in ViewBag.ListaCuentas)
+                                        {
+                                            <option value="@item.CUENTA_BANCO">@item.COMPLETO</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Tipo</label>
+                            <select id="tipo" name="tipo" class="form-select" data-control="select2" data-placeholder="Filtrar por una tipo">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="TEF">TEF</option>
+                                <option value="DEP">DEP</option>
+                                <option value="T/C">T/C</option>
+                                <option value="T/D">T/D</option>
+
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Subtipo</label>
+                            <select id="subtipo" name="subtipo" class="form-select" data-control="select2" data-placeholder="Filtrar por un subtipo">
+                                <option></option>
+                                <option selected value="00">Todos</option>
+                                @{
+                                    if (ViewBag.ListaSubtiposTODOS != null)
+                                    {
+                                        foreach (var item in ViewBag.ListaSubtiposTODOS)
+                                        {
+                                            <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                        }
+                                    }
+                                }
+
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Documento</label>
+                            <select id="docusoftland" name="docusoftland" class="form-select" data-control="select2" data-placeholder="Filtrar por un documento de Softland">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                @{
+                                    if (ViewBag.ListaDocumentos != null)
+                                    {
+                                        foreach (var item in ViewBag.ListaDocumentos)
+                                        {
+                                            <option value="@item.DOCUMENTO">@item.DOCUMENTO</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        @*<div class="form-group col-md-3 mt-3 ">
+                                <label>Monto</label>
+                                <select id="monto" name="monto" class="form-select" data-control="select2" data-placeholder="Filtrar por un monto">
+                                    <option></option>
+                                    <option selected value="0">Todos</option>
+
+                                </select>
+                            </div>*@
+                        @*<div class="form-group col-md-3 mt-3 ">
+                                <label>Estado CXC</label>
+                                <select id="softlandcc" name="softlandcc" class="form-select" data-control="select2" data-placeholder="Filtrar por un estado cc">
+                                    <option></option>
+                                    <option selcted value="0">Todos</option>
+                                    <option value="NO ERP CXC">NO ERP CXC</option>
+                                    <option value="SI ERP CXC">SI ERP CXC</option>
+                                    <option value="No aplica">No aplica</option>
+
+                                </select>
+                            </div>*@
+                        @*<div class="form-group col-md-3 mt-3 ">
+                                <label>Cargado ERP</label>
+                                <select id="softlandcb" name="softlandcc" class="form-select" data-control="select2" data-placeholder="Filtrar por un estado cb">
+                                    <option></option>
+                                    <option selected value="0">Todos</option>
+                                    <option  value="NO">NO</option>
+                                    <option  value="SI ">SI</option>
+                                    <option value="No aplica">No aplica</option>
+
+                                </select>
+                            </div>*@
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Proveedor</label>
+                            <select id="proveedor" name="proveedor" class="form-select" data-control="select2" data-placeholder="Filtrar por un proveedor">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                @{
+                                    if (ViewBag.ListaProveedores != null)
+                                    {
+                                        foreach (var item in ViewBag.ListaProveedores)
+                                        {
+                                            <option value="@item.PROVEEDOR">@item.COMPLETO</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Cliente</label>
+                            <select id="cliente" name="cliente" class="form-select" data-control="select2" data-placeholder="Filtrar por un cliente">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                @{
+                                    if (ViewBag.ListaClientes != null)
+                                    {
+                                        foreach (var item in ViewBag.ListaClientes)
+                                        {
+                                            <option value="@item.CLIENTE">@item.COMPLETO</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Débitos | Créditos</label>
+                            <select id="credeb" name="credeb" class="form-select" data-control="select2" data-placeholder="Filtrar por créditos y débitos">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="C">Créditos</option>
+                                <option value="D">Déditos</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>CC | CP | CB</label>
+                            <select id="cargado" name="cargado" class="form-select" data-control="select2" data-placeholder="Filtrar por cargado">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="CXC">CARGADO CC</option>
+                                <option value="CXP">CARGADO CP</option>
+                                <option value="CB">CARGADO CB</option>
+                                <option value="N/D">NO CARGADO</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Cargado a conciliación bancaria</label>
+                            <select id="conciliados" name="conciliados" class="form-select" data-control="select2" data-placeholder="Filtrar por conciliados">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card table-container">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+
+                        <table class="table align-middle table-striped fs-6 gy-4 table-responsive" id="miTabla">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                    @*<th class="min-w-100px">Order ID</th>*@
+                                    <th class="w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" value="1" />
+                                        </div>
+                                    </th>
+                                    <th class="text-left min-w-125px"># Banco</th>
+                                    <th class="text-left min-w-150px">Cuenta origen</th>
+                                    <th class="text-left min-w-40px">H2H</th>
+                                    <th class="text-left min-w-80px"># SFTL</th>
+                                    <th class="text-left min-w-50px">Tipo</th>
+                                    <th class="text-left min-w-75px">Subtipo</th>
+                                    <th class="text-left min-w-80px">ESTADO</th>
+                                    <th class="text-left min-w-80px"># FUSION</th>
+                                    <th class="text-left min-w-80px">CC | CP | CB</th>
+                                    <th class="text-left min-w-20px">CONC</th>
+                                    <th class="text-left min-w-75px">Fecha</th>
+                                    <th class="text-left min-w-250px">Concepto</th>
+                                    <th class="text-left min-w-50px">LIBROS</th>
+                                    <th class="text-left min-w-175px">Débito</th>
+                                    <th class="text-left min-w-175px">Crédito</th>
+                                    @*<th class="text-left min-w-125px">Estado CXC</th>*@
+                                    @*<th class="text-left min-w-125px">Cargado ERP</th>*@
+                                    <th class="text-left min-w-100px">Proveedor</th>
+                                    <th class="text-left min-w-100px">Cliente</th>
+                                    <th class="text-left min-w-75px">Fecha MT</th>
+                                    <th class="text-left min-w-150px"># CONC Bancos</th>
+                                    <th class="text-left min-w-150px"># CONC Libros</th>
+                                    <th class="text-left min-w-90px">ASIENTO</th>
+                                    @*<th class="text-left min-w-100px">Subtipo</th>*@
+                                    <th class="text-left min-w-200px">Acciones</th>
+                                    @*<th class="text-end"></th>*@
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-bold text-gray-600">
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+
+<div class="modal fade" tabindex="-1" id="modalBusqueda">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Subir excel del banco</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <!--begin::Form-->
+                <form class="form" action="#" method="post">
+                    <!--begin::Form-->
+                    <form class="form" action="#" method="post">
+                        <!--begin::Input group-->
+                        <div class="fv-row">
+                            <!--begin::Dropzone-->
+                            <div class="dropzone" id="kt_dropzonejs_example_1">
+                                <br /><br /><br /><br /><br /><br /><br /><br />
+                                <!--begin::Message-->
+                                <div class="dz-message needsclick">
+                                    <i class="la la-file-upload fs-3x text-primary"><span class="path1"></span><span class="path2"></span></i>
+
+                                    <!--begin::Info-->
+                                    <div class="ms-4">
+                                        <h3 class="fs-5 fw-bold text-gray-900 mb-1">Suelte los archivos aquí o haga clic para cargarlos.</h3>
+                                        <span class="fs-7 fw-semibold text-gray-500">Tamaño máximo de archivo: 10MB</span>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <br /><br /><br /><br /><br /><br /><br /><br />
+                            </div>
+                            <!--end::Dropzone-->
+                        </div>
+                        <!--end::Input group-->
+                    </form>
+                    <!--end::Form-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalAsociarCliente">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar cliente y concepto</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Tipo <span style="color: red;">*</span></label>
+                        <select id="tipo_cxc" data-dropdown-parent="#modalAsociarCliente" name="tipo_cxc" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="TEF">TEF</option>
+                            <option value="DEP">DEP</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo <span style="color: red;">*</span></label>
+                        <select id="subtipo_cxc" data-dropdown-parent="#modalAsociarCliente" name="tipo_cxc" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaSubtiposCC != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposCC)
+                                    {
+                                        <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cliente a asignar <span style="color: red;">*</span></label>
+                        <select id="cliente_cxc" data-dropdown-parent="#modalAsociarCliente" name="cliente_cxc" class="form-select" data-control="select2" data-placeholder="Seleccione un cliente">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaClientes != null)
+                                {
+                                    foreach (var item in ViewBag.ListaClientes)
+                                    {
+                                        <option value="@item.CLIENTE">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Concepto <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="concepto_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cuenta origen</label>
+                        <input disabled type="text" class="form-control" id="cuentabancaria_cxc" value="" maxlength="22" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha</label>
+                        <input disabled type="text" class="form-control" id="fechadoc_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Moneda</label>
+                        <input disabled type="text" class="form-control" id="moneda_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Tipo de cambio</label>
+                        <input disabled type="text" class="form-control" id="tipocambio_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Monto</label>
+                        <input disabled type="number" class="form-control" id="monto_cxc" value="" min="0" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Redireccion</label>
+                        <input disabled type="text" class="form-control" id="redireccion_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Documento</label>
+                        <input type="text" class="form-control" id="documento_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="idlinea_cxc" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                @*<button type="button" onclick="GuardarAsignarCCAplicar()" class="btn btn-primary">Guardar y aplicar</button>*@
+                <button type="button" onclick="GuardarAsignarCC()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="modalCambiarConsecutivo">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar consecutivo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Consecutivo actual</label>
+                        <input disabled type="text" class="form-control" id="consecutivo_actual" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Consecutivo sugerido</label>
+                        <input type="text" class="form-control" id="consecutivo_nuevo" onchange="ValidarNuevoConsecutivo()" value="" maxlength="30" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="idlinea_consecutivo" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                @*<button type="button" onclick="GuardarAsignarCCAplicar()" class="btn btn-primary">Guardar y aplicar</button>*@
+                <button type="button" onclick="ConfirmarCambiarConsecutivo()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="modalH2H">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Credenciales H2H</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Tipo <span style="color: red;">*</span></label>
+                        <select id="cuentah2h" data-dropdown-parent="#modalH2H" name="cuentah2h" class="form-select" data-control="select2" data-placeholder="Seleccione una cuenta">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaCuentas != null)
+                                {
+                                    foreach (var item in ViewBag.ListaCuentas)
+                                    {
+                                        <option value="@item.CUENTA_BANCO">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <!--begin::Input group=-->
+                    <div class="form-group mb-6">
+                        <!--begin::Input group-->
+                        <div class="input-group form-floating">
+                            <input type="text" class="form-control bg-transparent" autocomplete="off" placeholder="Usuario" aria-label="usuarioh2h" id="usuarioh2h" aria-describedby="usuarioh2h" name="usuarioh2h" />
+
+                            <label for="password">Usuario <span style="color: red;">*</span></label>
+
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <!--end::Input group=-->
+                    <div class="form-group mb-6">
+                        <!--begin::Input group-->
+                        <div class="input-group form-floating">
+                            <input type="password" class="form-control bg-transparent" autocomplete="off" placeholder="Contraseña" aria-label="passwordh2h" id="passwordh2h" aria-describedby="passwordh2h" name="passwordh2h" />
+
+                            <label for="passwordh2h">Contraseña <span style="color: red;">*</span></label>
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="las la-eye-slash fs-4" id="icono"><span class="path1"></span><span class="path2"></span></i>
+                            </span>
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <div class="form-group mb-6">
+                        <!--begin::Input group-->
+                        <div class="input-group form-floating mb-5">
+                            <input type="password" class="form-control bg-transparent" autocomplete="off" placeholder="Contraseña" aria-label="tokenh2h" id="tokenh2h" aria-describedby="tokenh2h" name="tokenh2h" />
+
+                            <label for="passwordh2h">Token</label>
+                            <span class="input-group-text" id="basic-addon3">
+                                <i class="las la-eye-slash fs-4" id="icono"><span class="path1"></span><span class="path2"></span></i>
+                            </span>
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <!--end::Input group=-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarTXT()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalAsociarProveedor">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar proveedor y concepto</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Tipo <span style="color: red;">*</span></label>
+                        <select id="tipo_cxp" data-dropdown-parent="#modalAsociarProveedor" name="tipo_cxp" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="TEF">TEF</option>
+                            <option value="DEP">DEP</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo <span style="color: red;">*</span></label>
+                        <select id="subtipo_cxp" data-dropdown-parent="#modalAsociarProveedor" name="subtipo_cxp" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaSubtiposCP != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposCP)
+                                    {
+                                        <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Proveedor a asignar <span style="color: red;">*</span></label>
+                        <select id="proveedor_cxp" data-dropdown-parent="#modalAsociarProveedor" name="proveedor" class="form-select" data-control="select2" data-placeholder="Seleccione un proveedor">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaProveedores != null)
+                                {
+                                    foreach (var item in ViewBag.ListaProveedores)
+                                    {
+                                        <option value="@item.PROVEEDOR">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Concepto</label>
+                        <input type="text" class="form-control" id="concepto_cxp" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cuenta origen</label>
+                        <input disabled type="text" class="form-control" id="cuentabancaria_cxp" value="" maxlength="22" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha</label>
+                        <input disabled type="text" class="form-control" id="fechadoc_cxp" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Moneda</label>
+                        <input disabled type="text" class="form-control" id="moneda_cxp" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Tipo de cambio</label>
+                        <input disabled type="text" class="form-control" id="tipocambio_cxp" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Monto</label>
+                        <input disabled type="number" class="form-control" id="monto_cxp" value="" min="0" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Documento</label>
+                        <input type="text" class="form-control" id="documento_cxp" value="" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="idlinea_cxp" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarCP()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="modalAsociarProveedorBatch">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar proveedor y concepto en batch</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Tipo</label>
+                        <select id="tipo_cxp_batch" data-dropdown-parent="#modalAsociarProveedorBatch" name="tipo_cxp_batch" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="TEF">TEF</option>
+                            <option value="DEP">DEP</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo</label>
+                        <select id="subtipo_cxp_batch" data-dropdown-parent="#modalAsociarProveedorBatch" name="subtipo_cxp_batch" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaSubtiposCP != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposCP)
+                                    {
+                                        <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Proveedor a asignar</label>
+                        <select id="proveedor_cxp_batch" data-dropdown-parent="#modalAsociarProveedorBatch" name="proveedor" class="form-select" data-control="select2" data-placeholder="Seleccione un proveedor">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaProveedores != null)
+                                {
+                                    foreach (var item in ViewBag.ListaProveedores)
+                                    {
+                                        <option value="@item.PROVEEDOR">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarCPBatch()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalAsociarClienteBatch">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar cliente y concepto en batch</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Tipo <span style="color: red;">*</span></label>
+                        <select id="tipo_cxc_batch" data-dropdown-parent="#modalAsociarClienteBatch" name="tipo_cxc_batch" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="TEF">TEF</option>
+                            <option value="DEP">DEP</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo <span style="color: red;">*</span></label>
+                        <select id="subtipo_cxc_batch" data-dropdown-parent="#modalAsociarClienteBatch" name="subtipo_cxc_batch" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaSubtiposCP != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposCP)
+                                    {
+                                        <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cliente a asignar <span style="color: red;">*</span></label>
+                        <select id="cliente_cxc_batch" data-dropdown-parent="#modalAsociarClienteBatch" name="cliente" class="form-select" data-control="select2" data-placeholder="Seleccione un cliente">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaClientes != null)
+                                {
+                                    foreach (var item in ViewBag.ListaClientes)
+                                    {
+                                        <option value="@item.CLIENTE">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarCCBatch()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="modalAsociarControlBancario">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cargar a control bancario</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6 d-none">
+                        <label>Documento</label>
+                        <input disabled type="text" class="form-control" id="documento_control" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Tipo <span style="color: red;">*</span></label>
+                        <select id="tipo_control" data-dropdown-parent="#modalAsociarControlBancario" name="tipo_control" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="T/C">T/C</option>
+                            <option value="T/D">T/D</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo <span style="color: red;">*</span></label>
+                        <select id="subtipo_control" data-dropdown-parent="#modalAsociarControlBancario" name="subtipo_control" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaSubtiposControlBancario != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposControlBancario)
+                                    {
+                                        <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Concepto <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="concepto_control" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cuenta origen</label>
+                        <input disabled type="text" class="form-control" id="cuentabancaria_control" value="" maxlength="22" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha</label>
+                        <input disabled type="text" class="form-control" id="fechadoc_control" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Moneda</label>
+                        <input disabled type="text" class="form-control" id="moneda_control" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Tipo de cambio</label>
+                        <input disabled type="text" class="form-control" id="tipocambio_control" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Monto</label>
+                        <input disabled type="number" class="form-control" id="monto_control" value="" min="0" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="idlinea_control" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarControl()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalAsociarConciliacionBancaria">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cargar a conciliación bancaria</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6 d-none">
+                        <label>Documento</label>
+                        <input disabled type="text" class="form-control" id="documento_conciliacion" value="" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Tipo <span style="color: red;">*</span></label>
+                        <input disabled type="text" class="form-control" id="tipodoc_conciliacion" value="" maxlength="22" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Conciliacion <span style="color: red;">*</span></label>
+                        <select id="tipo_conciliacion" data-dropdown-parent="#modalAsociarConciliacionBancaria" name="tipo_conciliacion" class="form-select" data-control="select2" data-placeholder="Seleccione una conciliación">
+                            <option></option>
+                            <option value="N">Sin conciliación</option>
+                            @{
+                                if (ViewBag.ListaConciliaciones != null)
+                                {
+                                    foreach (var item in ViewBag.ListaConciliaciones)
+                                    {
+                                        <option value="@item.CONCILIACION">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Cuentas</label>
+                        <select disabled id="cuentas_conciliacion" data-dropdown-parent="#modalAsociarConciliacionBancaria" name="tipo_conciliacion" class="form-select" data-control="select2" data-placeholder="Seleccione una conciliación">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaCuentas != null)
+                                {
+                                    foreach (var item in ViewBag.ListaCuentas)
+                                    {
+                                        <option value="@item.CUENTA_BANCO">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Concepto <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="concepto_conciliacion" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cuenta origen</label>
+                        <input disabled type="text" class="form-control" id="cuentabancaria_conciliacion" value="" maxlength="22" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha</label>
+                        <input disabled type="text" class="form-control" id="fechadoc_conciliacion" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Monto</label>
+                        <input disabled type="number" class="form-control" id="monto_conciliacion" value="" min="0" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="idlinea_conciliacion" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarConciliacion()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalAsociarConciliacionBancariaBatch">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cargar a conciliación bancaria en batch</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Conciliacion <span style="color: red;">*</span></label>
+                        <select id="tipo_conciliacion_batch" data-dropdown-parent="#modalAsociarConciliacionBancariaBatch" name="tipo_conciliacion_batch" class="form-select" data-control="select2" data-placeholder="Seleccione una conciliación">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaConciliaciones != null)
+                                {
+                                    foreach (var item in ViewBag.ListaConciliaciones)
+                                    {
+                                        <option value="@item.CONCILIACION">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Cuentas</label>
+                        <select disabled id="cuentas_conciliacion_batch" data-dropdown-parent="#modalAsociarConciliacionBancaria" name="tipo_conciliacion" class="form-select" data-control="select2" data-placeholder="Seleccione una conciliación">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaCuentas != null)
+                                {
+                                    foreach (var item in ViewBag.ListaCuentas)
+                                    {
+                                        <option value="@item.CUENTA_BANCO">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarConciliacionBatch()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalAsociarControlBancarioBatch">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cargar a control bancario en batch</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Tipo</label>
+                        <select id="tipo_control_batch" data-dropdown-parent="#modalAsociarControlBancarioBatch" name="tipo_control_batch" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="T/C">T/C</option>
+                            <option value="T/D">T/D</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo</label>
+                        <select id="subtipo_control_batch" data-dropdown-parent="#modalAsociarControlBancarioBatch" name="subtipo_control_batch" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaSubtiposControlBancario != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposControlBancario)
+                                    {
+                                        <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                    }
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarControlBatch()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="modalSubtipo">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cambiar subtipo de documento</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Referencia</label>
+                        <input type="text" class="form-control form-control-solid" id="referenciasubtipo" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo</label>
+                        <select id="subtipocambio" name="subtipocambio" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+                            <option value="TF">Transferencia de Fondos</option>
+                            <option value="PE">Pagos de Planilla</option>
+                            <option value="PP">Pago Proveedores</option>
+                            <option value="MC">Crédito Misceláneo</option>
+                            <option value="TS">Transferencias por SINPE</option>
+                            <option value="59">Comisión de Débitos</option>
+                            <option value="WC">Transferencia Cablegráfica</option>
+                            <option value="3V">Transferencia Internacional</option>
+
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarSubtipo()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="modalTipo">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cambiar tipo de documento</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Referencia</label>
+                        <input type="text" class="form-control form-control-solid" id="referenciatipo" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Tipo</label>
+                        <select id="tipocambio" name="tipocambio" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            <option value="REC">REC</option>
+                            <option value="DEP">DEP</option>
+                            <option value="TEF">TEF</option>
+
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarTipo()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" tabindex="-1" id="modalCambiarNumero">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cambiar número de banco</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>NUMERO ACTUAL</label>
+                        <input disabled type="text" class="form-control" id="numActual_cambiarNumero" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>NUEVO NUMERO</label>
+                        <input type="number" class="form-control" id="numNuevo_cambiarNumero" value="" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID LINEA</label>
+                        <input type="text" class="form-control" id="idlinea_cambiarNumero" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="cambiarNumBancoPaso2()" class="btn btn-success">Cambiar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-engage" id="kt_app_engage">
+    <!--<!--begin::Prebuilts toggle-->
+    <!--<a href="javascript:;" onclick="asignarCliente('', 'Varias transferencias')" class="app-engage-btn hover-primary d-none multi">-->
+    <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+    <!--<span class="svg-icon svg-icon-1 pt-1 mb-2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="currentColor" />
+            <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="currentColor" />
+        </svg>
+    </span>-->
+    <!--end::Svg Icon-->
+    <!--Edit Cli
+    </a>-->
+    <!--begin::Prebuilts toggle-->
+    <!--<a href="javascript:;" onclick="CrearCCBatch()" class="app-engage-btn hover-success d-none multi">-->
+    <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+    <!--<span class="svg-icon svg-icon-1 pt-1 mb-2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.3" d="M10.3 14.3L11 13.6L7.70002 10.3C7.30002 9.9 6.7 9.9 6.3 10.3C5.9 10.7 5.9 11.3 6.3 11.7L10.3 15.7C9.9 15.3 9.9 14.7 10.3 14.3Z" fill="currentColor" />
+            <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM11.7 15.7L17.7 9.70001C18.1 9.30001 18.1 8.69999 17.7 8.29999C17.3 7.89999 16.7 7.89999 16.3 8.29999L11 13.6L7.70001 10.3C7.30001 9.89999 6.69999 9.89999 6.29999 10.3C5.89999 10.7 5.89999 11.3 6.29999 11.7L10.3 15.7C10.5 15.9 10.8 16 11 16C11.2 16 11.5 15.9 11.7 15.7Z" fill="currentColor" />
+        </svg>
+    </span>-->
+    <!--end::Svg Icon-->
+    <!--Doc CC
+    </a>-->
+    <!--begin::Prebuilts toggle-->
+    <!--<a href="javascript:;" onclick="CrearCBBatch()" class="app-engage-btn hover-success d-none multi">-->
+    <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+    <!--<span class="svg-icon svg-icon-1 pt-1 mb-2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM11.7 17.7L16 14C16.4 13.6 16.4 12.9 16 12.5C15.6 12.1 15.4 12.6 15 13L11 16L9 15C8.6 14.6 8.4 14.1 8 14.5C7.6 14.9 8.1 15.6 8.5 16L10.3 17.7C10.5 17.9 10.8 18 11 18C11.2 18 11.5 17.9 11.7 17.7Z" fill="currentColor" />
+            <path d="M10.4343 15.4343L9.25 14.25C8.83579 13.8358 8.16421 13.8358 7.75 14.25C7.33579 14.6642 7.33579 15.3358 7.75 15.75L10.2929 18.2929C10.6834 18.6834 11.3166 18.6834 11.7071 18.2929L16.25 13.75C16.6642 13.3358 16.6642 12.6642 16.25 12.25C15.8358 11.8358 15.1642 11.8358 14.75 12.25L11.5657 15.4343C11.2533 15.7467 10.7467 15.7467 10.4343 15.4343Z" fill="currentColor" />
+            <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+        </svg>
+    </span>-->
+    <!--end::Svg Icon-->
+    <!--Doc CB
+    </a>-->
+    <!--begin::Prebuilts toggle-->
+    <!--<a href="javascript:;" onclick="CargarConciliacion('Varios')" class="app-engage-btn hover-success d-none multi">-->
+    <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+    <!--<span class="svg-icon svg-icon-1 pt-1 mb-2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM14.5 12L12.7 9.3C12.3 8.9 11.7 8.9 11.3 9.3L10 12H11.5V17C11.5 17.6 11.4 18 12 18C12.6 18 12.5 17.6 12.5 17V12H14.5Z" fill="currentColor" />
+            <path d="M13 11.5V17.9355C13 18.2742 12.6 19 12 19C11.4 19 11 18.2742 11 17.9355V11.5H13Z" fill="currentColor" />
+            <path d="M8.2575 11.4411C7.82942 11.8015 8.08434 12.5 8.64398 12.5H15.356C15.9157 12.5 16.1706 11.8015 15.7425 11.4411L12.4375 8.65789C12.1875 8.44737 11.8125 8.44737 11.5625 8.65789L8.2575 11.4411Z" fill="currentColor" />
+            <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+        </svg>
+    </span>-->
+    <!--end::Svg Icon-->
+    <!--Cargar CC
+    </a>-->
+    <!--begin::Prebuilts toggle-->
+    <!--<a href="javascript:;" onclick="CambiarTipo('Varios')" class="app-engage-btn hover-primary d-none multi">
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z" fill="currentColor" />
+                <path opacity="0.3" d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z" fill="currentColor" />
+            </svg>
+        </span>
+        Tipo
+    </a>-->
+    @*end::Prebuilts toggle
+        <a class="app-engage-btn hover-success" data-bs-toggle="tooltip" title="Descarga un reporte en excel de las requisiciones">
+        begin::Svg Icon | path: icons/duotune/abstract/abs042.svg
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Microsoft Excel</title><path d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z" fill="currentColor" /></svg>
+        </span>
+        end::Svg Icon
+        Excel
+        </a>*@
+    <!--begin::Get help-->
+    <!--begin::Get help-->
+    @*<a href="javascript:;" onclick="modalH2H()" class="app-engage-btn hover-primary">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-poll-h fs-2x"></i>
+            </span>Bot H2H
+        </a>*@
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary d-none multi_fusionar" onclick="Fusionar()">
+        <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/art/art005.svg-->
+        <span class="svg-icon svg-icon-primary svg-icon-2x">
+            <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Media/Repeat.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <defs />
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24" />
+                    <path d="M12,8 L8,8 C5.790861,8 4,9.790861 4,12 L4,13 C4,14.6568542 5.34314575,16 7,16 L7,18 C4.23857625,18 2,15.7614237 2,13 L2,12 C2,8.6862915 4.6862915,6 8,6 L12,6 L12,4.72799742 C12,4.62015048 12.0348702,4.51519416 12.0994077,4.42878885 C12.264656,4.2075478 12.5779675,4.16215674 12.7992086,4.32740507 L15.656242,6.46136716 C15.6951359,6.49041758 15.7295917,6.52497737 15.7585249,6.56395854 C15.9231063,6.78569617 15.876772,7.09886961 15.6550344,7.263451 L12.798001,9.3840407 C12.7118152,9.44801079 12.607332,9.48254921 12.5,9.48254921 C12.2238576,9.48254921 12,9.25869158 12,8.98254921 L12,8 Z" fill="#000000" />
+                    <path d="M12.0583175,16 L16,16 C18.209139,16 20,14.209139 20,12 L20,11 C20,9.34314575 18.6568542,8 17,8 L17,6 C19.7614237,6 22,8.23857625 22,11 L22,12 C22,15.3137085 19.3137085,18 16,18 L12.0583175,18 L12.0583175,18.9825492 C12.0583175,19.2586916 11.8344599,19.4825492 11.5583175,19.4825492 C11.4509855,19.4825492 11.3465023,19.4480108 11.2603165,19.3840407 L8.40328311,17.263451 C8.18154548,17.0988696 8.13521119,16.7856962 8.29979258,16.5639585 C8.32872576,16.5249774 8.36318164,16.4904176 8.40207551,16.4613672 L11.2591089,14.3274051 C11.48035,14.1621567 11.7936615,14.2075478 11.9589099,14.4287888 C12.0234473,14.5151942 12.0583175,14.6201505 12.0583175,14.7279974 L12.0583175,16 Z" fill="#000000" opacity="0.3" />
+                </g>
+            </svg><!--end::Svg Icon-->
+        </span>
+        <!--end::Svg Icon-->Fusionar
+    </a>
+    @if (Session["PERMISOS_TESORERIA"].ToString().Split(',').Contains("86"))
+    {
+        <a href="javascript:;" class="app-engage-btn hover-primary d-none multi_cliente" onclick="Cliente()">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/art/art005.svg-->
+            <span class="svg-icon svg-icon-info svg-icon-1">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.3" d="M16.5 9C16.5 13.125 13.125 16.5 9 16.5C4.875 16.5 1.5 13.125 1.5 9C1.5 4.875 4.875 1.5 9 1.5C13.125 1.5 16.5 4.875 16.5 9Z" fill="currentColor" />
+                    <path d="M9 16.5C10.95 16.5 12.75 15.75 14.025 14.55C13.425 12.675 11.4 11.25 9 11.25C6.6 11.25 4.57499 12.675 3.97499 14.55C5.24999 15.75 7.05 16.5 9 16.5Z" fill="currentColor" />
+                    <rect x="7" y="6" width="4" height="4" rx="2" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->Cliente
+        </a>
+    }
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    @if (Session["PERMISOS_TESORERIA"].ToString().Split(',').Contains("87"))
+    {
+        <a href="javascript:;" class="app-engage-btn hover-primary d-none multi_proveedor" onclick="Proveedor()">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/art/art005.svg-->
+            <span class="svg-icon svg-icon-primary svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16"> <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" /> </svg>
+            </span>
+            <!--end::Svg Icon-->Proveedor
+        </a>
+    }
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    @if (Session["PERMISOS_TESORERIA"].ToString().Split(',').Contains("89"))
+    {
+        <a href="javascript:;" class="app-engage-btn hover-primary d-none multi_bancos" onclick="Bancos()">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/art/art005.svg-->
+            <span class="svg-icon svg-icon-success svg-icon-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z" fill="currentColor" />
+                    <path opacity="0.3" d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->Bancos
+        </a>
+    }
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    @if (Session["PERMISOS_TESORERIA"].ToString().Split(',').Contains("88"))
+    {
+        <a href="javascript:;" class="app-engage-btn hover-primary d-none multi_libros" onclick="Libros()">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/art/art005.svg-->
+            <span class="svg-icon svg-icon-primary svg-icon-2x">
+                <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Home/Book-open.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <defs />
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M13.6855025,18.7082217 C15.9113859,17.8189707 18.682885,17.2495635 22,17 C22,16.9325178 22,13.1012863 22,5.50630526 L21.9999762,5.50630526 C21.9999762,5.23017604 21.7761292,5.00632908 21.5,5.00632908 C21.4957817,5.00632908 21.4915635,5.00638247 21.4873465,5.00648922 C18.658231,5.07811173 15.8291155,5.74261533 13,7 C13,7.04449645 13,10.79246 13,18.2438906 L12.9999854,18.2438906 C12.9999854,18.520041 13.2238496,18.7439052 13.5,18.7439052 C13.5635398,18.7439052 13.6264972,18.7317946 13.6855025,18.7082217 Z" fill="currentColor" />
+                        <path d="M10.3144829,18.7082217 C8.08859955,17.8189707 5.31710038,17.2495635 1.99998542,17 C1.99998542,16.9325178 1.99998542,13.1012863 1.99998542,5.50630526 L2.00000925,5.50630526 C2.00000925,5.23017604 2.22385621,5.00632908 2.49998542,5.00632908 C2.50420375,5.00632908 2.5084219,5.00638247 2.51263888,5.00648922 C5.34175439,5.07811173 8.17086991,5.74261533 10.9999854,7 C10.9999854,7.04449645 10.9999854,10.79246 10.9999854,18.2438906 L11,18.2438906 C11,18.520041 10.7761358,18.7439052 10.4999854,18.7439052 C10.4364457,18.7439052 10.3734882,18.7317946 10.3144829,18.7082217 Z" fill="currentColor" opacity="0.3" />
+                    </g>
+                </svg><!--end::Svg Icon-->
+            </span>
+            <!--end::Svg Icon-->Libros
+        </a>
+    }
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    @if (Session["PERMISOS_TESORERIA"].ToString().Split(',').Contains("88"))
+    {
+        <a href="javascript:;" class="app-engage-btn hover-primary d-none multi_conciliar" onclick="Conciliar()">
+            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2023-01-26-051612/core/html/src/media/icons/duotune/art/art005.svg-->
+            <span class="svg-icon svg-icon-dark svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <path d="M12.4644661,14.5355339 L9.46446609,14.5355339 C8.91218134,14.5355339 8.46446609,14.9832492 8.46446609,15.5355339 C8.46446609,16.0878187 8.91218134,16.5355339 9.46446609,16.5355339 L12.4644661,16.5355339 L12.4644661,17.5355339 C12.4644661,18.6401034 11.5690356,19.5355339 10.4644661,19.5355339 L6.46446609,19.5355339 C5.35989659,19.5355339 4.46446609,18.6401034 4.46446609,17.5355339 L4.46446609,13.5355339 C4.46446609,12.4309644 5.35989659,11.5355339 6.46446609,11.5355339 L10.4644661,11.5355339 C11.5690356,11.5355339 12.4644661,12.4309644 12.4644661,13.5355339 L12.4644661,14.5355339 Z" fill="currentColor" opacity="0.3" transform="translate(8.464466, 15.535534) rotate(-45.000000) translate(-8.464466, -15.535534) " />
+                        <path d="M11.5355339,9.46446609 L14.5355339,9.46446609 C15.0878187,9.46446609 15.5355339,9.01675084 15.5355339,8.46446609 C15.5355339,7.91218134 15.0878187,7.46446609 14.5355339,7.46446609 L11.5355339,7.46446609 L11.5355339,6.46446609 C11.5355339,5.35989659 12.4309644,4.46446609 13.5355339,4.46446609 L17.5355339,4.46446609 C18.6401034,4.46446609 19.5355339,5.35989659 19.5355339,6.46446609 L19.5355339,10.4644661 C19.5355339,11.5690356 18.6401034,12.4644661 17.5355339,12.4644661 L13.5355339,12.4644661 C12.4309644,12.4644661 11.5355339,11.5690356 11.5355339,10.4644661 L11.5355339,9.46446609 Z" fill="currentColor" transform="translate(15.535534, 8.464466) rotate(-45.000000) translate(-15.535534, -8.464466) " />
+                    </g>
+                </svg>
+            </span>
+            <!--end::Svg Icon-->Conciliar
+        </a>
+    }
+    <!--end::Get help-->
+    <!--end::Get help-->
+    <a href="javascript:;" onclick="descargarExcel()" class="app-engage-btn hover-success">
+        <span class="svg-icon svg-icon-2">
+            <i class="las la-file-excel fs-2x"></i>
+        </span>Reporte @*ESTO BAJA A EXCEL LO QUE ESTE EN EL FILTRO*@
+    </a>
+    <!--end::Get help-->
+    @if (Session["PERMISOS_TESORERIA"].ToString().Split(',').Contains("40"))
+    {
+        <a href="javascript:;" onclick="ExcelBusqueda()" class="app-engage-btn hover-success ">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-file-upload fs-2x"></i>
+            </span>Subir
+        </a>
+    }
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableRight()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M9.63433 11.4343L5.45001 7.25C5.0358 6.83579 5.0358 6.16421 5.45001 5.75C5.86423 5.33579 6.5358 5.33579 6.95001 5.75L12.4929 11.2929C12.8834 11.6834 12.8834 12.3166 12.4929 12.7071L6.95001 18.25C6.5358 18.6642 5.86423 18.6642 5.45001 18.25C5.0358 17.8358 5.0358 17.1642 5.45001 16.75L9.63433 12.5657C9.94675 12.2533 9.94675 11.7467 9.63433 11.4343Z" fill="currentColor" />
+                <path d="M15.6343 11.4343L11.45 7.25C11.0358 6.83579 11.0358 6.16421 11.45 5.75C11.8642 5.33579 12.5358 5.33579 12.95 5.75L18.4929 11.2929C18.8834 11.6834 18.8834 12.3166 18.4929 12.7071L12.95 18.25C12.5358 18.6642 11.8642 18.6642 11.45 18.25C11.0358 17.8358 11.0358 17.1642 11.45 16.75L15.6343 12.5657C15.9467 12.2533 15.9467 11.7467 15.6343 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Derecha
+    </a>
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableLeft()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Izquierda
+    </a>
+    <a href="javascript:;" onclick="Volver()" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+
+<script>
+    const Transferencias_URL = '@Url.Content("~/Transferencias")'
+    const rolUsuario = '1'
+    const TRANSFERENCIAS = '1' @*'@Session["TRANSFERENCIAS"].ToString()' === '1'*@
+     const P_EXTRACTOBANCARIO = '@Session["PERMISOS_TESORERIA"]'
+</script>
+@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/TransferenciasIndex", true))

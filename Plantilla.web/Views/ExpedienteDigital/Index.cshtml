@@ -1,0 +1,496 @@
+﻿
+@{
+    ViewBag.Title = "Expediente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .offcanvas-mobile img {
+        width: 100% !important;
+    }
+</style>
+
+
+<link href="~/assets/plugins/custom/uppy/uppy.bundle.css" rel="stylesheet" type="text/css" />
+<link href="~/Styles/App.css" rel="stylesheet" />
+@*<script src="~/Scripts/heic2any.js"></script>*@
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Page Heading-->
+                <div class="d-flex align-items-baseline mr-5">
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold my-2 mr-5">Expediente digital</h5>
+                    <!--end::Page Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm mr-2">
+                        <li class="breadcrumb-item">
+                            <a href="@Url.Content("~/Solicitud")" class="text-muted"></a>
+                        </li>
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page Heading-->
+            </div>
+            <!--end::Info-->
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-fluid m-3">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <!--begin::Card-->
+                    <div class="card">
+                        <div class="card-body">
+                            <!--begin::Search Form-->
+                            <div class="mb-7">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-12 col-xl-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    @*<div class="col-md-4">
+                                                            <form id="RangoFecha">
+                                                                <label for="">Buscar por rango de fecha</label>
+                                                                <div class="input-daterange input-group" id="kt_datepicker_5">
+                                                                    <input type="text" class="form-control filtro" id="FechaInicio" name="start" autocomplete="off" value="@(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-3).ToString("dd/MM/yyyy"))" />
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+                                                                    </div>
+                                                                    <input type="text" class="form-control filtro" id="FechaFin" name="end" autocomplete="off" value="@(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1).ToString("dd/MM/yyyy"))" />
+                                                                </div>
+                                                            </form>
+                                                        </div>*@
+                                                    <div class="form-group col-md-2 mb-3">
+                                                        <label>Rango de fechas</label>
+                                                        <input class="form-control filtro" placeholder="Pick date rage" id="FechaInicioV" value="@((new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy"))+ " - " + DateTime.Now.ToString("dd/MM/yyyy"))" onchange="DocumentosProvCLiente();" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label>Tipo</label>
+                                                        <select @(string.IsNullOrEmpty(Request["modulo"]) ? "" : "disabled") id="filtrotipo" style="width:100%" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por tipo" onchange="CargaSubTipoModulo();">
+                                                            @*onchange="CargaProveedor();"*@
+                                                            <option></option>
+                                                            <option selected value="0">Todos</option>
+                                                            @if (ViewBag.Tipos != null)
+                                                            {
+                                                                foreach (var item in ViewBag.Tipos)
+                                                                {
+                                                                    <option @(item.TIPO_EXPEDIENTE_DIGITAL == Request["modulo"] ? "selected" : "") value="@item.TIPO_EXPEDIENTE_DIGITAL">@item.DESCRIPCION</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="ocfiltro">Modulo</label>
+                                                        <select @(string.IsNullOrEmpty(Request["tipo"]) ? "" : "disabled") name="ModuloFiltro" style="width:100%" id="ModuloFiltro" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por subtipo modulo">
+                                                            <option value="0">Todas</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <label for="proveedor">Proveedor/Cliente</label>
+                                                        <select @(string.IsNullOrEmpty(Request["proveedor"]) ? "" : "disabled") name="filtroProveedor" style="width:100%" id="filtroProveedor" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por proveedor">
+                                                            <option selected value="0">Todos</option>
+                                                            @*@if (ViewBag.Proveedores_Cliente != null)
+                                                                {
+                                                                    foreach (var item in ViewBag.Proveedores_Cliente)
+                                                                    {
+
+                                                                        <option @(item.PROVEEDOR_CLIENTE == Request["proveedor"] ? "selected" : "") value="@item.PROVEEDOR_CLIENTE">@item.PROVEEDOR_CLIENTE-@item.NOMBRE</option>
+                                                                    }
+                                                                }*@
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <label for="solicitudFiltro">Documento</label>
+                                                        <select @(string.IsNullOrEmpty(Request["documento"]) ? "" : "disabled") name="documentocxcFiltro" style="width:100%" id="documentocxcFiltro" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por documento">
+                                                            <option selected value="0">Todas</option>
+                                                            @if (ViewBag.DocumentosCXC != null)
+                                                            {
+                                                                foreach (var item in ViewBag.DocumentosCXC)
+                                                                {
+                                                                    <option @(item.DOCUMENTO == Request["documento"] ? "selected" : "") value="@item.DOCUMENTO">@item.DOCUMENTO</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div hidden class="col-md-2">
+                                                        <label for="cotizacionFiltro">Cotización</label>
+                                                        <select name="cotizacion" style="width:100%" id="cotizacionFiltro" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por cotización">
+                                                            <option selected value="0">Todas</option>
+                                                            @if (ViewBag.Cotizaciones != null)
+                                                            {
+                                                                foreach (var item in ViewBag.Cotizaciones)
+                                                                {
+                                                                    <option @(item.COTIZACION == Request["cotizacion"] ? "selected" : "") value="@item.COTIZACION">@item.COTIZACION</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div hidden class="col-md-2">
+                                                        <label for="solicitudFiltro">Solicitud de compra</label>
+                                                        <select name="solicitud" style="width:100%" id="solicitudFiltro" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por solicitud">
+                                                            <option selected value="0">Todas</option>
+                                                            @if (ViewBag.Solicitudes != null)
+                                                            {
+                                                                foreach (var item in ViewBag.Solicitudes)
+                                                                {
+                                                                    <option @(item.SOLICITUD == Request["solicitud"] ? "selected" : "") value="@item.SOLICITUD">@item.SOLICITUD</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                    <div hidden class="col-md-2">
+                                                        <label for="ocfiltro">Orden compra</label>
+                                                        <select name="ordenCompra" style="width:100%" id="ordenCompraFiltro" class="form-control filtro" data-control="select2" data-placeholder="Filtrar por orden compra">
+                                                            <option selected value="0">Todas</option>
+                                                            @if (ViewBag.Ordenes != null)
+                                                            {
+                                                                foreach (var item in ViewBag.Ordenes)
+                                                                {
+                                                                    <option @(item.ORDEN_COMPRA == Request["orden"] ? "selected" : "") value="@item.ORDEN_COMPRA">@item.ORDEN_COMPRA</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2 mt-5">
+                                                        <div class="input-icon">
+                                                            <input type="text" class="form-control" style="width:100%" placeholder="Buscar..." id="kt_datatable_search_query" autocomplete="off" />
+                                                            <span>
+                                                                <i class="flaticon2-search-1 text-muted"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Search Form-->
+                        </div>
+                    </div>
+                    <!--end::Card-->
+                    <!--begin::Card-->
+                    <div class="card">
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-dashed fs-6 gy-4" id="tabla">
+                                <!--begin::Table head-->
+                                <thead>
+                                    <!--begin::Table row-->
+                                    <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                        <th class="text-left min-w-60px">Tipo</th>
+                                        <th class="text-left min-w-60px">Modulo</th>
+                                        <th class="text-left min-w-60px">Prov_Cliente</th>
+                                        <th class="w-100px" style="text-align:right">Referencia</th>
+                                        <th class="text-left min-w-100px" style="text-align:center">Fecha</th>
+                                        <th class="text-left min-w-100px">Acciones</th>
+                                    </tr>
+                                    <!--end::Table row-->
+                                </thead>
+                                <!--end::Table head-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                    <!--end::Card-->
+                </div>
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+
+<div class="modal fade" id="modalArchivos" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalArchivosLabel2">Ajuntar archivo</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body row">
+                <div class="col-md-6">
+                    <div class="col-md-12 mt-2 mb-4">
+                        <label for="">Tipo</label>
+                        <select name="documento" class="form-control" style="width:100%" id="documento" data-control="select2" data-placeholder="Seleccione un referencia" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.Tipos != null)
+                            {
+                                foreach (var item in ViewBag.Tipos)
+                                {
+                                    <option value="@item.TIPO_EXPEDIENTE_DIGITAL">@item.DESCRIPCION</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mt-2 mb-4">
+                        <label for="">Modulo</label>
+                        <select name="tipo" class="form-control" style="width:100%" id="tipoDocumento" data-control="select2" data-placeholder="Seleccione un tipo de documento" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.Documentos != null)
+                            {
+                                foreach (var item in ViewBag.Documentos)
+                                {
+                                    <option selected value="@item.TIPO">@item.TIPO || @item.SUBTIPO ||@item.DESCRIPCION</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div hidden class="col-md-12 mb-4">
+                        <label for="proveedor">Proveedor/Cliente</label>
+                        <select name="proveedor" style="width:100%" id="proveedor" class="form-control" data-control="select2" data-placeholder="Seleccione un proveedor" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.Proveedores != null)
+                            {
+                                foreach (var item in ViewBag.Proveedores)
+                                {
+                                    //<option value="@item.PROVEEDOR">@item.PROVEEDOR-@item.NOMBRE</option>
+                                    <option @(item.PROVEEDOR == Request["proveedor"] ? "selected" : "") value="@item.PROVEEDOR">@item.NOMBRE</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="solicitud">Referencia</label>
+                        <select name="solicitud" style="width:100%" id="solicitud" class="form-control documento" data-control="select2" data-placeholder="Seleccione una solicitud" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.Solicitudes != null)
+                            {
+                                foreach (var item in ViewBag.Solicitudes)
+                                {
+                                    <option @(item.SOLICITUD == Request["solicitud"] ? "selected" : "") value="@item.SOLICITUD">@item.SOLICITUD</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="solicitudLinea">Linea</label>
+                        <select name="solicitudLinea" style="width:100%" id="solicitudLinea" class="form-control documento" data-control="select2" data-placeholder="Seleccione un línea de solicitud" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.SolicitudesLinea != null)
+                            {
+                                foreach (var item in ViewBag.SolicitudesLinea)
+                                {
+                                    <option @(item.SOLICITUD_OC_LINEA == (Request["linea"] != null ? int.Parse(Request["linea"]) : 0)) value="@item.SOLICITUD_OC_LINEA">@item.SOLICITUD_OC_LINEA</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="ordenCompra">Orden compra</label>
+                        <select name="ordenCompra" style="width:100%" id="ordenCompra" class="form-control documento" data-control="select2" data-placeholder="Seleccione una orden compra" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.Ordenes != null)
+                            {
+                                foreach (var item in ViewBag.Ordenes)
+                                {
+                                    <option @(item.ORDEN_COMPRA == Request["orden"] ? "selected" : "") value="@item.ORDEN_COMPRA">@item.ORDEN_COMPRA</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div hidden class="col-md-12 mb-4 d-none">
+                        <label for="ordenCompra">Orden compra Línea</label>
+                        <select name="ordenCompraLinea" style="width:100%" id="ordenCompraLinea" class="form-control documento" data-control="select2" data-placeholder="Seleccione una línea de orden compra" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            <option value="0">0</option>
+                            @*@if (ViewBag.Ordenes != null)
+                                {
+                                    foreach (var item in ViewBag.Ordenes)
+                                    {
+                                        <option value="@item.ORDEN_COMPRA">@item.DESCRIPCION</option>
+                                    }
+                                }*@
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="cotizacion">Cotización</label>
+                        <select id="cotizacion" name="cotizacion" style="width:100%" class="form-control documento" data-control="select2" data-placeholder="Seleccione una cotización" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @if (ViewBag.Cotizaciones != null)
+                            {
+                                foreach (var item in ViewBag.Cotizaciones)
+                                {
+                                    <option value="@item.COTIZACION">@item.COTIZACION</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="cotizacion">Cotización Línea</label>
+                        <select id="cotizacionLinea" name="cotizacionLinea" style="width:100%" class="form-control documento" data-control="select2" data-placeholder="Seleccione una línea de cotización" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @*@if (ViewBag.Cotizaciones != null)
+                                {
+                                    foreach (var item in ViewBag.Cotizaciones)
+                                    {
+                                        <option value="@item.COTIZACION">@item.COTIZACION</option>
+                                    }
+                                }*@
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="documentocxc">Referencia</label>
+                        <select id="documentoCXC" name="documentoCXC" style="width:100%" class="form-control documento" data-control="select2" data-placeholder="Seleccione un documento cxc" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            @*@if (ViewBag.DocumentosCXC != null)
+                                {
+                                    foreach (var item in ViewBag.DocumentosCXC)
+                                    {
+                                        <option value="@item.DOCUMENTO">@item.DOCUMENTO</option>
+                                    }
+                                }*@
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label for="documentoCXCLinea">Referencia Linea</label>
+                        <select id="documentoCXCLinea" name="documentoCXCLinea" style="width:100%" class="form-control documento" data-control="select2" data-placeholder="Seleccione una línea de documento cxc" data-dropdown-parent="#modalArchivos">
+                            <option></option>
+                            <option value="0">0</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label for="descripcion">Comentario</label>
+                        <input class="form-control " value="" placeholder="Ingrese una descripción" id="descripcion">
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="uppy" id="kt_uppy">
+                        <div class="uppy-dashboard"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cancelar</button>
+                @*<button type="button"  class="btn btn-primary font-weight-bold" value="Default">Adjuntar foto</button>*@
+                <button type="button" id="btnGuardarAdjuntosExpediente" onclick="GuardarAdjuntos();" class="btn btn-success font-weight-bold" value="Default">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL Ver PDF ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+
+<div class="modal fade" id="modalverarchivo" tabindex="-1" role="dialog" aria-labelledby="modalArchivosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Ver archivo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close" id="CerrarModal" onclick="CloseModalVerArchivo()">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body p-0">
+                <div class="mb-4 col-md-12" id="divvisualizar">
+                    <div class="card card-custom ">
+                        <div class="card-body row">
+                            @*<h5 class="text-dark font-weight-bold my-2 mr-5">Visualizar archivo</h5>*@
+                            <div class="row align-items-center" style="width:100%">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 offset-md-4 d-none justify-content-center" id="spinner">
+                                            <div class="spinner spinner-primary h-300px"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <img class="image d-none" id="adjuntoimg" style="width:100%" />
+                                            <div id="pdf_preview" style="pointer-events:auto;">
+                                                @*<div class="d-md-none d-lg-none d-xl-none d-none" id="mobile-pdf">
+                                                        <p>
+                                                            Tu navergador no soporta previsualización de pdf<a id="pdf-link" href="" target="_blank">
+                                                                Clic aquí para ver el documento
+                                                            </a>
+                                                        </p>
+                                                    </div>*@
+                                                <div class="offcanvas-mobile">
+                                                    <embed type="application/pdf" id="pdf" src="" style="width:100%; height:600px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" onclick="CloseModalVerArchivo()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--begin::Engage-->
+<!--end::Engage-->
+@*@if (Array.IndexOf(Session["PERMISOS_EXPEDIENTE"].ToString().Split(','), "10") != -1)
+    {*@
+<div class="app-engage" id="kt_app_engage">
+
+    @*@if (Array.IndexOf(Session["PERMISOS_EXPEDIENTE_DIGITAL"].ToString().Split(','), "2") != -1)
+        {*@
+    <a href="javascript:;" onclick="AdjuntarArchivos()" class="app-engage-btn hover-success ">
+        <span class="svg-icon svg-icon-2">
+            <i class="la la-plus fs-2x"></i>
+        </span>Adjuntar
+    </a>
+    @*}*@
+</div>
+@*}*@
+<script>
+    const EXPEDIENTE_DIGITAL_URL = '@Url.Content("~/ExpedienteDigital")'
+
+    const uppyUrl = '@Url.Content("~/ExpedienteDigital/SubirArchivos")'
+    const archivosurl = '@Url.Content("~/Files")'
+    const archivourl = '@Url.Content("~/Files/Adjuntos/SC-0000015/Cotizacion2.pdf")'
+    const MODULO_EXPEDIENTE = '@Session["MOD_EXPEDIENTE_DIGITAL"]'
+    const PERMISOS_MOD_EXPEDIENTE = '@Session["PERMISOS_EXPEDIENTE_DIGITAL"]'
+    const reporteUbicacion = '@Session["UbicacionArchivos"]'
+
+</script>
+
+<script src="~/assets/plugins/custom/uppy/uppy.bundle.js"></script>
+@*<script src="~/Scripts/heic2any.js"></script>*@
+
+@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/ExpedienteDigitalIndex", true))

@@ -1,0 +1,527 @@
+﻿
+@{
+    ViewBag.Title = "Configuración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+
+            <!--begin::Content-->
+            <div class="flex-lg-row-fluid ms-lg-15">
+                <!--begin:::Tabs-->
+                <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
+                    <!--begin:::Tab item-->
+                    <li class="nav-item">
+                        <a id="optprin" class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#tabEstados" onclick="RecargarTabla(1)">Estado PED</a>
+                    </li>
+                    <!--end:::Tab item-->
+                    <!--begin:::Tab item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#tabsucesos" onclick="RecargarTabla(2)">Sucesos</a>
+                    </li>
+                    <!--end:::Tab item-->
+                    <!--begin:::Tab item-->
+                    <li class="nav-item">
+                        <a id="optchat" class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#tabseguirfac" onclick="RecargarTabla(3)">Seguir FAC</a>
+                    </li>
+                    <!--end:::Tab item-->
+                </ul>
+                <!--end:::Tabs-->
+                <!--begin:::Tab content-->
+                <div class="tab-content" id="myTabContent">
+                    <!--begin:::Tab pane-->
+                    <div class="tab-pane fade show active" id="tabEstados" role="tabpanel">
+                        <!--begin::Card-->
+
+                        <div class="card">
+                            <!--begin::Card header-->
+                            <div class="card-header border-0">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Estado PED</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <div class="card-body pt-0">
+                                <!--begin::Table-->
+                                <table class="table align-middle table-row-dashed fs-6 gy-4" id="tablaEstados">
+                                    <!--begin::Table head-->
+                                    <thead>
+                                        <!--begin::Table row-->
+                                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+
+                                            <th class="text-left min-w-100px">Consecutivo</th>
+                                            <th class="text-left min-w-100px">Estado</th>
+                                            <th class="text-left min-w-150px">Descripción</th>
+                                            <th class="text-left min-w-100px">Color hex</th>
+                                            <th class="text-left min-w-150px">Acciones</th>
+                                        </tr>
+                                        <!--end::Table row-->
+                                    </thead>
+                                    <!--end::Table head-->
+                                    <!--begin::Table body-->
+                                    <tbody class="fw-bold text-gray-600">
+                                    </tbody>
+                                    <!--end::Table body-->
+                                </table>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::Navbar-->
+                    </div>
+                    <!--end:::Tab pane-->
+                    <!--begin:::Tab pane-->
+                    <div class="tab-pane fade" id="tabsucesos" role="tabpanel">
+                        <!--begin::Card-->
+
+                        <div class="card">
+                            <!--begin::Card header-->
+                            <div class="card-header border-0">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Sucesos</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <div class="card-body pt-0">
+                                <!--begin::Table-->
+                                <table class="table align-middle table-row-dashed fs-6 gy-4" id="tablaSucesos">
+                                    <!--begin::Table head-->
+                                    <thead>
+                                        <!--begin::Table row-->
+                                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+
+                                            <th class="text-left min-w-100px">Consecutivo</th>
+                                            <th class="text-left min-w-100px">Suceso</th>
+                                            <th class="text-left min-w-150px">Descripción</th>
+                                            <th class="text-left min-w-150px">Acciones</th>
+                                        </tr>
+                                        <!--end::Table row-->
+                                    </thead>
+                                    <!--end::Table head-->
+                                    <!--begin::Table body-->
+                                    <tbody class="fw-bold text-gray-600">
+                                    </tbody>
+                                    <!--end::Table body-->
+                                </table>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::Navbar-->
+
+                    </div>
+                    <!--end:::Tab pane-->
+                    <!--begin:::Tab pane-->
+                    <div class="tab-pane fade" id="tabseguirfac" role="tabpanel">
+                        <!--begin::Card-->
+
+                        <div class="card">
+                            <!--begin::Card header-->
+                            <div class="card-header border-0">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Seguir Fac</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <div class="card-body pt-0">
+                                <!--begin::Table-->
+                                <table class="table align-middle table-row-dashed fs-6 gy-4" id="tablaFac">
+                                    <!--begin::Table head-->
+                                    <thead>
+                                        <!--begin::Table row-->
+                                        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+
+                                            <th class="text-left min-w-100px">Consecutivo</th>
+                                            <th class="text-left min-w-100px">Seguir Fac</th>
+                                            <th class="text-left min-w-150px">Descripción</th>
+                                            <th class="text-left min-w-100px">Color hex</th>
+                                            <th class="text-left min-w-150px">Acciones</th>
+                                        </tr>
+                                        <!--end::Table row-->
+                                    </thead>
+                                    <!--end::Table head-->
+                                    <!--begin::Table body-->
+                                    <tbody class="fw-bold text-gray-600">
+                                    </tbody>
+                                    <!--end::Table body-->
+                                </table>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::Navbar-->
+                    </div>
+                    <!--end:::Tab pane-->
+                </div>
+                <!--end:::Tab content-->
+            </div>
+            <!--end::Content-->
+
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL AGREGAR ESTADO ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="NuevoSeguimientoModal">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="NuevoSeguimientoModalLabel">Estado nuevo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Estado</label>
+                        <input type="text" class="form-control text-gray-500" id="EstadoIns" style="font-size:0.90rem;" name="EstadoIns" autocomplete="off" value="" placeholder="Ingrese el nombre del nuevo estado" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control text-gray-500" id="DescripcionInsDescripcionIns" style="font-size:0.90rem;" name="desc" placeholder="Descripción TLA" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Color hexadecimal</label>
+                        <select id="coloresIns" name="coloresIns" class="form-select" data-control="select2" data-placeholder="Seleccione un color">
+                            <option></option>
+                            @if (ViewBag.Segui_Pedido != null)
+                            {
+                                foreach (var item in ViewBag.Segui_Pedido)
+                                {
+                                    <option value="@item.COLOR">@item.ESTADO</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesos" onclick="GuardarEstadoPedidos();" value="Default" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL EDITAR ESTADO ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalEditarRol">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar descripción</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Código</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarRolCodigo" style="font-size:0.90rem;" name="codigo" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Estado</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarRolDescripcion" style="font-size:0.90rem;" name="Descripcion" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarRolDescripcion_Det" style="font-size:0.90rem;" name="desc" placeholder="Descripción TLA" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Color hexadecimal</label>
+                        <select id="colores" name="colores" class="form-select" data-control="select2" data-placeholder="Seleccione un color">
+                            <option></option>
+                            @if (ViewBag.Segui_Pedido != null)
+                            {
+                                foreach (var item in ViewBag.Segui_Pedido)
+                                {
+                                    <option value="@item.COLOR">@item.ESTADO</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesos" onclick="ActualizarEstadoPedidos();" value="Default" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL NUEVO SUCESO ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalInsert_Suceso">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar suceso</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Suceso</label>
+                        <input type="text" class="form-control text-gray-500" id="InsertSucesoEstado" style="font-size:0.90rem;" name="Descripcion" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control text-gray-500" id="InsertSucesoDescripcion" style="font-size:0.90rem;" name="desc" placeholder="Descripción del suceso" autocomplete="off" value="" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesos" onclick="GuardarSuceso();" value="Default" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL EDITAR SUCESO ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalEditar_Suceso">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar suceso</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Código</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarSucesoId_Fac" style="font-size:0.90rem;" name="codigo" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Suceso</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarSucesoEstado" style="font-size:0.90rem;" name="Descripcion" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarSucesoDescripcion" style="font-size:0.90rem;" name="desc" placeholder="Descripción del suceso" autocomplete="off" value="" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesos" onclick="ActualizarSuceso();" value="Default" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL EDITAR SEGUIR FACT ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalEditar_Fac">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar seguir fact</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Código</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarRolCodigo_Fac" style="font-size:0.90rem;" name="codigo" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Seguir fact</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarRolDescripcion_Fac" style="font-size:0.90rem;" name="Descripcion" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control text-gray-500" id="EditarRolDescripcion_Det_Fac" style="font-size:0.90rem;" name="desc" placeholder="Descripción TLA" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Color hexadecimal</label>
+                        <select id="colores_edit_fac" name="colores_edit_fac" class="form-select" data-control="select2" data-placeholder="Seleccione un color">
+                            <option></option>
+                            @if (ViewBag.Segui_Pedido != null)
+                            {
+                                foreach (var item in ViewBag.Segui_Pedido)
+                                {
+                                    <option value="@item.COLOR">@item.ESTADO</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesos" onclick="ActualizarSeguimientoFactura();" value="Default" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL CREAR SEGUIR FACT ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="NuevoSeguimientoModal_Fac">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="NuevoSeguimientoModalLabel_Fac">Nuevo seguir fact</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Nuevo Seguir fact</label>
+                        <input type="text" class="form-control text-gray-500" id="EstadoIns_Fac" style="font-size:0.90rem;" name="Descripcion" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control text-gray-500" id="DescripcionIns_Fac" style="font-size:0.90rem;" name="desc" placeholder="Descripción TLA" autocomplete="off" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Color hexadecimal</label>
+                        <select id="coloresIns_Fac" name="colores_edit_fac" class="form-select" data-control="select2" data-placeholder="Seleccione un color">
+                            <option></option>
+                            @if (ViewBag.Segui_Pedido != null)
+                            {
+                                foreach (var item in ViewBag.Segui_Pedido)
+                                {
+                                    <option value="@item.COLOR">@item.ESTADO</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesos" onclick="GuardarSeguimientoFactura();" value="Default" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--begin::Engage-->
+<div class="app-engage" id="kt_app_engage">
+    @if (Array.IndexOf(Session["PERMISOS_CONFIGURACION"].ToString().Split(','), "65") != -1)
+    {
+        <a href="javascript:;" id="agregar_estado_ped" onclick="NuevoEstadoPedido()" class="app-engage-btn hover-primary" data-original-title="Nuevo estado">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-plus fs-2x"></i>
+            </span>Estado
+        </a>
+    }
+    @if (Array.IndexOf(Session["PERMISOS_CONFIGURACION"].ToString().Split(','), "66") != -1)
+    {
+        <a href="javascript:;" id="agregar_nuevo_suceso" onclick="NuevoSuceso()" class="app-engage-btn hover-success" data-original-title="Nuevo suceso">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-plus fs-2x"></i>
+            </span>Suceso
+        </a>
+    }
+    @if (Array.IndexOf(Session["PERMISOS_CONFIGURACION"].ToString().Split(','), "67") != -1)
+    {
+
+        <a href="javascript:;" id="agregar_seguimiento_factura" onclick="NuevoSeguimiento_FAC()" class="app-engage-btn hover-dark" data-original-title="Nuevo seguimiento">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-plus fs-2x"></i>
+            </span>Seg Fac
+        </a>
+    }
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+<script>
+    const CURL = '@Url.Content("~/Configuracion")'
+    const CONFIGURACION_PER = '@Session["CONFIGURACION_PER"]' == 1
+     const MODULO_CONFIGURACION = '@Session["MOD_CONFIGURACION"]'
+    const PERMISOS_MOD_CONFIGURACION = '@Session["PERMISOS_CONFIGURACION"]'
+</script>
+
+@*Desarrollo*@
+@*Produccion*@
+@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/ConfiguracionIndex", true))

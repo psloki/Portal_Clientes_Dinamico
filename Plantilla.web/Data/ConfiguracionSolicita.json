@@ -1,0 +1,15 @@
+[
+
+	{
+		"SOLICITA": 1,
+		"CODIGO_SOLICITA": "S0001",
+		"DESCRIPCION": "Colegiado",
+		"ACTIVO": "N"
+	},
+	{
+		"SOLICITA": 2,
+		"CODIGO_SOLICITA": "S0002",
+		"DESCRIPCION": "Empresa con autorizaci\u00f3n",
+		"ACTIVO": "S"
+	}
+]

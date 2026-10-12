@@ -1,0 +1,98 @@
+
+[
+
+	{
+		"INFORMACION": 1,
+		"NOMBRE": "MARCIAL ESTEBAN SOLIS RODRIGUEZ",
+		"CEDULA": "205340314",
+		"CORREO": "msolis@cnfl.go.cr",
+		"TELEFONO": "88970034",
+		"GENERO": "M",
+		"CONDICION": "Al d\u00eda",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Alajuela",
+		"DISTRITO": "Turrucares",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "01",
+		"CODIGO_GENERO": "01",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "0"
+	},
+	{
+		"INFORMACION": 2,
+		"NOMBRE": "JOSUE ANTONIO ARIAS QUESADA",
+		"CEDULA": "206670649",
+		"CORREO": "josueq66@hotmail.com",
+		"TELEFONO": "70149291",
+		"GENERO": "M",
+		"CONDICION": "Al d\u00eda",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Alajuela",
+		"DISTRITO": "San Isidro",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "01",
+		"CODIGO_GENERO": "01",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "0"
+	},
+	{
+		"INFORMACION": 3,
+		"NOMBRE": "ALEJANDRO CHACON SOTO",
+		"CEDULA": "206100558",
+		"CORREO": "achaconso@ice.go.cr",
+		"TELEFONO": "85190524",
+		"GENERO": "M",
+		"CONDICION": "Al d\u00eda",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Alajuela",
+		"DISTRITO": "R\u00edo Segundo",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "01",
+		"CODIGO_GENERO": "01",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "0"
+	},
+	{
+		"INFORMACION": 4,
+		"NOMBRE": "JORGE ALBERTO NAVARRO CALVO",
+		"CEDULA": "401840446",
+		"CORREO": "janc19cr@hotmail.com",
+		"TELEFONO": "88362721",
+		"GENERO": "M",
+		"CONDICION": "Al d\u00eda",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Alajuela",
+		"DISTRITO": "R\u00edo Segundo",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "01",
+		"CODIGO_GENERO": "01",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "0"
+	},
+	{
+		"INFORMACION": 5,
+		"NOMBRE": "GERARDO VARGAS VILLALOBOS",
+		"CEDULA": "206140572",
+		"CORREO": "gvargas.villalobos@gmail.com",
+		"TELEFONO": "83099107",
+		"GENERO": "M",
+		"CONDICION": "Al d\u00eda",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Alajuela",
+		"DISTRITO": "San Isidro",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "01",
+		"CODIGO_GENERO": "01",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "0"
+	}
+]
+
+
+
+

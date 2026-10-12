@@ -1,0 +1,463 @@
+﻿@{ Layout = null; }
+<!DOCTYPE html>
+<!--
+Author: Keenthemes
+Product Name: Metronic
+Product Version: 8.1.7
+Purchase: https://1.envato.market/EA4JP
+Website: http://www.keenthemes.com
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
+-->
+<html lang="es">
+<head>
+    <title>Grupo 86 | Portal de clientes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#d62027" />
+    <link rel="shortcut icon" href="@Url.Content("~/img/Cliente/favicon.png")" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700" />
+    <link href="@Url.Content("~/assets/plugins/global/plugins.bundle.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/assets/css/style.bundle.css")" rel="stylesheet" type="text/css" />
+    <style>
+        /* Estilos exclusivos de esta pantalla; no modifican el tema del portal. */
+        body.group86-login {
+            --login-red: #d62027;
+            --login-black: #202020;
+            margin: 0;
+            background: var(--login-red) !important;
+            color: #fff;
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        .group86-login #kt_app_root {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+        }
+
+        .group86-login .login-shell {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .group86-login .login-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.035);
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.025);
+        }
+
+        .group86-login .login-body {
+            padding: 40px;
+        }
+
+        .group86-login .login-heading {
+            margin-bottom: 34px;
+            text-align: center;
+        }
+
+        .group86-login .login-client-logo {
+            display: block;
+            width: 170px;
+            height: 170px;
+            object-fit: contain;
+            margin: 0 auto 28px;
+            /* Versión monocromática del logo original sobre el fondo de marca. */
+            filter: brightness(0) invert(1);
+        }
+
+        .group86-login .login-title {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+
+        .group86-login .login-subtitle {
+            margin: 0;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .group86-login .login-field {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .group86-login .login-field .form-control {
+                min-height: 56px;
+                height: 56px;
+                border: 1px solid transparent;
+                border-radius: 7px;
+                background-color: #fff;
+                color: var(--login-black);
+                font-size: 14px;
+                box-shadow: none;
+            }
+
+            .group86-login .login-field label {
+                color: #626262;
+            }
+
+            .group86-login .login-field .form-control:focus {
+                border-color: var(--login-black);
+                box-shadow: 0 0 0 3px rgba(32, 32, 32, 0.2);
+            }
+
+        .group86-login .login-password .form-control {
+            padding-right: 62px;
+        }
+
+        .group86-login .login-password label {
+            max-width: calc(100% - 58px);
+        }
+
+        .group86-login .login-password-toggle {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            bottom: 1px;
+            z-index: 5;
+            width: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border: 0;
+            border-left: 1px solid #e9e9e9;
+            border-radius: 0 6px 6px 0;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+            .group86-login .login-password-toggle i {
+                color: #676767;
+                font-size: 21px;
+            }
+
+            .group86-login .login-password-toggle:hover {
+                background: #ececec;
+            }
+
+            .group86-login .login-password-toggle:focus-visible,
+            .group86-login .login-submit:focus-visible {
+                outline: 3px solid #fff;
+                outline-offset: 4px;
+            }
+
+        .group86-login .login-submit {
+            width: 100%;
+            min-height: 50px;
+            margin-top: 6px;
+            border: 1px solid var(--login-black);
+            border-radius: 7px;
+            background: var(--login-black);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.15s ease;
+        }
+
+            .group86-login .login-submit:hover,
+            .group86-login .login-submit:focus,
+            .group86-login .login-submit:active {
+                background: #0c0c0c !important;
+                border-color: #0c0c0c !important;
+                color: #fff !important;
+            }
+
+            .group86-login .login-submit:disabled {
+                background: var(--login-black);
+                color: #fff;
+                opacity: 0.7;
+            }
+
+        .group86-login .login-recovery {
+            margin-top: 22px;
+            text-align: center;
+        }
+
+        .group86-login .login-forgot-link {
+            display: inline-block;
+            padding: 6px 0;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+            text-decoration: none;
+        }
+
+            .group86-login .login-forgot-link:hover,
+            .group86-login .login-forgot-link:focus {
+                color: #fff;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+
+            .group86-login .login-forgot-link:focus-visible {
+                outline: 2px solid #fff;
+                outline-offset: 4px;
+                border-radius: 2px;
+            }
+
+        .group86-login .login-footer {
+            margin-top: 26px;
+            text-align: center;
+        }
+
+        .group86-login .login-provider-logo {
+            display: block;
+            width: 184px;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 16px;
+            filter: brightness(0) invert(1);
+        }
+
+        .group86-login .login-footer p {
+            margin: 0;
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @@media (max-width: 480px) {
+            .group86-login #kt_app_root {
+                padding: 32px 24px;
+            }
+
+            .group86-login .login-body {
+                padding: 32px 24px;
+            }
+
+            .group86-login .login-client-logo {
+                width: 146px;
+                height: 146px;
+                margin-bottom: 24px;
+            }
+
+            .group86-login .login-field .form-control {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body id="kt_body" class="app-blank group86-login">
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <div id="kt_app_root" role="main" aria-labelledby="login-title">
+        <div class="login-shell">
+            <div class="login-card">
+                <div class="login-body">
+                    <div class="d-flex flex-column" id="login-signin">
+                        <form class="form w-100" id="login-form" novalidate>
+                            <div class="login-heading">
+                                <img class="login-client-logo" alt="Grupo 86"
+                                     src="@Url.Content("~/img/Cliente/cliente.png")" width="170" height="170" />
+                                <h1 class="login-title" id="login-title">Login</h1>
+                                <p class="login-subtitle">Ingrese sus credenciales</p>
+                            </div>
+
+                            <div class="fv-row form-floating login-field">
+                                <input type="text" placeholder="Usuario" name="username" id="usuario"
+                                       autocomplete="username" autocapitalize="none" spellcheck="false"
+                                       class="form-control" value="" />
+                                <label for="usuario">Usuario</label>
+                            </div>
+
+                            <div class="fv-row form-floating login-field login-password">
+                                <input type="password" placeholder="Contraseña" name="password" id="passwordL"
+                                       autocomplete="current-password" class="form-control" value="" />
+                                <label for="passwordL">Contraseña</label>
+                                <button type="button" class="login-password-toggle" id="basic-addon2"
+                                        aria-label="Mostrar contraseña" aria-controls="passwordL" aria-pressed="false">
+                                    <i class="las la-eye-slash" id="icono" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <button type="submit" id="kt_sign_in_submit" class="btn login-submit">
+                                <span class="indicator-label">Ingresar</span>
+                                <span class="indicator-progress">
+                                    Por favor espere...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2" aria-hidden="true"></span>
+                                </span>
+                            </button>
+                        </form>
+
+                        <div class="login-recovery">
+                            <a href="#register-confirm" id="kt_login_forgot" class="login-forgot-link"
+                               aria-controls="register-confirm" onclick="forgot(); return false;">¿Olvidaste tu contraseña?</a>
+                        </div>
+
+                        <footer class="login-footer">
+                            <img class="login-provider-logo" alt="Produsoft Business Intelligence"
+                                 src="@Url.Content("~/img/Produsoft/LogoOscuro.png")" width="184" height="52" />
+                            <p>Portal de clientes · Grupo 86</p>
+                        </footer>
+                    </div>
+
+                    <div class="d-none flex-center flex-column-fluid pb-15 pb-lg-20" id="login-signup">
+                        <!--begin::Form-->
+                        <div class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
+                            <!--begin::Heading-->
+                            <div class="text-center mb-11">
+                                <a href="javascript:;" class="mb-10">
+                                    <img alt="Logo" src="@Url.Content("~/img/Cliente/cliente.png")" width="200" />
+                                </a>
+                                <!--begin::Title-->
+                                <h1 class="text-white fw-bolder mb-3">Registrarse</h1>
+                                <!--end::Title-->
+                                <!--begin::Subtitle-->
+                                <div class="text-gray-500 fw-semibold fs-6">Ingresa tus datos para registrarte</div>
+                                <!--end::Subtitle=-->
+                            </div>
+                            <div class="fv-row mb-5">
+                                <input class="form-control h-auto form-control-solid py-4 px-8" id="cedjud" type="hidden" placeholder="Cédula" name="username" />
+                            </div>
+                            <!--begin::Input group=-->
+                            <div class="fv-row mb-8">
+                                <!--begin::Email-->
+                                <input class="form-control h-auto form-control py-4 px-8" id="nomb" type="text" placeholder="Nombre" name="username" />
+                                <!--end::Email-->
+                            </div>
+                            <!--begin::Input group-->
+                            <!--begin::Input group=-->
+                            <div class="fv-row mb-8">
+                                <!--begin::Email-->
+                                <input class="form-control h-auto form-control py-4 px-8" id="idusuario" type="text" placeholder="Usuario" name="username" />
+                                <!--end::Email-->
+                            </div>
+                            <!--begin::Input group-->
+                            <!--begin::Input group=-->
+                            <div class="fv-row mb-8">
+                                <!--begin::Email-->
+                                <input class="form-control h-auto form-control py-4 px-8" id="correo_electronico" type="text" placeholder="Correo" name="email" />
+                                <!--end::Email-->
+                            </div>
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-8" data-kt-password-meter="false">
+                                <!--begin::Wrapper-->
+                                <div class="mb-1">
+                                    <!--begin::Input wrapper-->
+                                    <div class="position-relative mb-3">
+                                        <input class="form-control h-auto form-control py-4 px-8 password" type="password" id="password" placeholder="Contraseña" name="password" />
+                                        <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                                            <i class="bi bi-eye-slash fs-2"></i>
+                                            <i class="bi bi-eye fs-2 d-none"></i>
+                                        </span>
+                                    </div>
+                                    <!--end::Input wrapper-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Input group=-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-8" data-kt-password-meter="false">
+                                <!--begin::Wrapper-->
+                                <div class="mb-1">
+                                    <!--begin::Input wrapper-->
+                                    <div class="position-relative mb-3">
+                                        <input class="form-control h-auto form-control py-4 px-8" type="password" id="rpasssword" placeholder="Confirmar contraseña" name="rpassword" />
+                                        <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                                            <i class="bi bi-eye-slash fs-2"></i>
+                                            <i class="bi bi-eye fs-2 d-none"></i>
+                                        </span>
+                                    </div>
+                                    <!--end::Input wrapper-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>
+                            <!--end::Input group=-->
+                            <!--begin::Accept-->
+                            <div class="fv-row mb-8">
+                                <label class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="agree" id="Terminos" value="1" />
+                                    <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
+                                        Acepto los
+                                        <a href="#" class="ms-1 link-primary">términos y condiciones</a>
+                                    </span>
+                                </label>
+                            </div>
+                            <!--end::Accept-->
+                            <!--begin::Submit button-->
+                            <div class="d-grid mb-10">
+                                <button type="submit" id="kt_sign_up_submit" class="btn btn-primary" onclick="guardarUsuario()">
+                                    <!--begin::Indicator label-->
+                                    <span class="indicator-label">Registrarme</span>
+                                    <!--end::Indicator label-->
+                                    <!--begin::Indicator progress-->
+                                    <span class="indicator-progress">
+                                        Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                    <!--end::Indicator progress-->
+                                </button>
+                            </div>
+                            <!--end::Submit button-->
+                            <!--begin::Sign up-->
+                            <div class="text-gray-500 text-center fw-semibold fs-6">
+                                ¿Ya tienes cuenta?
+                                <a href="javascript:;" id="kt_login_signup_cancel" onclick=" window.location.reload();" class="link-primary fw-semibold">Iniciar sesión</a>
+                            </div>
+                            <!--end::Sign up-->
+                        </div>
+                        <!--end::Form-->
+                    </div>
+
+                    <div class="d-none flex-column" id="register-confirm">
+                        <div class="login-heading">
+                            <img class="login-client-logo" alt="Grupo 86"
+                                 src="@Url.Content("~/img/Cliente/cliente.png")" width="170" height="170" />
+                            <h2 class="login-title" id="recovery-title" tabindex="-1">Recuperar contraseña</h2>
+                            <p class="login-subtitle">Para recuperar su contraseña, contacte al administrador de Grupo 86.</p>
+                        </div>
+                        <button type="button" class="btn login-submit" onclick="volverAlLogin()">Volver al login</button>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Body-->
+    </div>
+    <!--end::Root-->
+    <!--begin::Toast-->
+    <div class="position-fixed top-0 end-0 p-3 z-index-3">
+        <div id="kt_docs_toast_toggle" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <span class="svg-icon svg-icon-2 svg-icon-primary me-3">...</span>
+                <strong class="me-auto" id="toasttype"></strong>
+                @*<small>11 mins ago</small>*@
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+            <div class="toast-body" id="toasttext">
+            </div>
+        </div>
+    </div>
+    <!--end::Toast-->
+    <!--begin::Javascript-->
+    <script>var hostUrl = "~/assets/";</script>
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="@Url.Content("~/assets/plugins/global/plugins.bundle.js")"></script>
+    <script src="@Url.Content("~/assets/js/scripts.bundle.js")"></script>
+    <!--end::Global Javascript Bundle-->
+
+    <script src="@Url.Content("~/Scripts/Shared/Layout.js")"></script>
+    <script>
+        // url del controlador
+        const RURL = '@Url.Content("~/Login")/'
+    </script>
+    <script src="@Url.Content("~/Scripts/Login/Index.js")?v=grupo86-login-20261009-2"></script>
+    <!--end::Javascript-->
+</body>
+<!--end::Body-->
+</html>

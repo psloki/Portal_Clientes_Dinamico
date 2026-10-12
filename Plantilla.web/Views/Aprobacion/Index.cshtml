@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewBag.Title = "Cuentas por Cobrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="row align-items-center mt-7">
+
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Rango de fechas</label>
+                            <input class="form-control " placeholder="Pick date rage" id="rangoFechas" value="@(DateTime.Now.ToString("01/MM/yyyy")) - @(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Documento</label>
+                            <select id="documento_cxc" class="form-select" data-control="select2" data-placeholder="Filtrar por documento" style="width:100%">
+                                <option></option>
+                                <option value="0">Todos</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Tipo de documento</label>
+                            <select id="tipo_cxc"
+                                    class="form-select"
+                                    data-control="select2"
+                                    data-placeholder="Filtrar por tipo de documento"
+                                    multiple
+                                    style="width:100%">
+                                <option value="0" selected>Todos</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Forma de pago | Subtipo</label>
+                            <select id="subtipo_cxc" class="form-select" data-control="select2" data-placeholder="Filtrar por subtipo de documento" style="width:100%" multiple>
+                                <option></option>
+                                <option selected value="0">Todos</option>
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <!--begin::Table-->
+                    <table class="table align-middle table-row-dashed fs-6 gy-4" id="miTabla">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                <th class="text-left min-w-25px">Tipo</th>
+                                <th class="text-left min-w-150px">Documento</th>
+                                <th class="text-left min-w-150px">Subtipo</th>
+                                @*<th class="text-left min-w-150px">Referencia</th>*@
+                                <th class="text-left min-w-80px">Fecha</th>
+                                <th class="text-left min-w-80px">Vence</th>
+                                <th class="text-left min-w-50px ">Vendedor</th>
+                                <th class="text-left min-w-25px">DV</th>
+                                <th class="text-left min-w-100px">Monto</th>
+                                <th class="text-left min-w-100px">Abonado</th>
+                                <th class="text-left min-w-100px">Saldo</th>
+                                @*<th class="text-left min-w-100px">Acciones</th>*@
+
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<div class="modal fade" id="modalcorreos" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enviar comprobante por correos</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+
+                <div class="col-md-12 mb-3">
+                    <label>Correo de cuentas por pagar</label>
+                    <input type="text" class="form-control form-control-solid" name="start" autocomplete="off" value="cxp@cliente.com" disabled />
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Correos opcionales</label>
+                    <input type="text" class="form-control" name="start" autocomplete="off" value="cobrador@ancla.com" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" onclick="EnviarCorreo()" class="btn btn-primary font-weight-bold" value="Default">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalcomentario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ver comentario tesorería</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <label>Estado</label>
+                    <select class="form-select" data-control="select2" data-placeholder="Filtrar" style="width:100%" id="estadomodal" disabled>
+                        <option></option>
+                        <option value="Aprobado">Aprobado</option>
+                        <option selected value="Anulado">Anulado</option>
+                    </select>
+                </div>
+                <div class="form-group  mb-3">
+                    <label for="Observaciones">Comentario de Cuentas Por Cobrar a cobrador</label>
+                    <textarea class="form-control" rows="3" id="Observaciones">Esta factura no se cancela por xyz razón</textarea>
+                </div>
+                <div class="form-group  mb-3">
+                    <label>Fecha</label>
+                    <input type="text" class="form-control form-control-solid" readonly placeholder="Seleccionar fecha" id="fechacambioestado" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" disabled />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Correo del cobrador</label>
+                    <input type="text" class="form-control" disabled value="bnunez@tienda.com" id="Correocob" />
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <span>
+                    Notas: Al aprobar se debe crear el movimiento en MOV_BANCOS<br />
+                    Al rechazar se debe enviar un correo al cobrador de que se rechazó
+                </span>
+                <span>
+                    Notas: Al eliminar se debe eliminar de la tabla auxiliar_cc<br />
+                    Y ANULAR EL DOCUMENTO
+                    AL DESAPLICAR
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" onclick="GuardarComentario()" class="btn btn-primary font-weight-bold" value="Default">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--begin::Engage-->
+<div class="app-engage" id="kt_app_engage">
+
+    <a href="javascript:;" onclick="comentario()" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2">
+            <i class="la la-comment-o fs-2x"></i>
+        </span>Estado
+    </a>
+
+    <a href="@Url.Content("~/img/colilla.PNG")" target="_blank" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2">
+            <i class="la la-print fs-2x"></i>
+        </span>Imprimir
+    </a>
+    <a href="javascript:;" onclick="ModalCorreos()" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2">
+            <i class="la la-envelope fs-2x"></i>
+        </span>Correo
+    </a>
+    <a href="@Url.Content("~/RegistroPagos")?marcardocs=1" target="_blank" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2">
+            <i class="la la-edit fs-2x"></i>
+        </span>Editar rec
+    </a>
+
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableRight()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M9.63433 11.4343L5.45001 7.25C5.0358 6.83579 5.0358 6.16421 5.45001 5.75C5.86423 5.33579 6.5358 5.33579 6.95001 5.75L12.4929 11.2929C12.8834 11.6834 12.8834 12.3166 12.4929 12.7071L6.95001 18.25C6.5358 18.6642 5.86423 18.6642 5.45001 18.25C5.0358 17.8358 5.0358 17.1642 5.45001 16.75L9.63433 12.5657C9.94675 12.2533 9.94675 11.7467 9.63433 11.4343Z" fill="currentColor" />
+                <path d="M15.6343 11.4343L11.45 7.25C11.0358 6.83579 11.0358 6.16421 11.45 5.75C11.8642 5.33579 12.5358 5.33579 12.95 5.75L18.4929 11.2929C18.8834 11.6834 18.8834 12.3166 18.4929 12.7071L12.95 18.25C12.5358 18.6642 11.8642 18.6642 11.45 18.25C11.0358 17.8358 11.0358 17.1642 11.45 16.75L15.6343 12.5657C15.9467 12.2533 15.9467 11.7467 15.6343 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Derecha
+    </a>
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableLeft()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Izquierda
+    </a>
+    <!--end::Get help-->
+    <a href="javascript:;" onclick="Volver()" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+<!-- end::Sticky Toolbar -->
+<script>
+	const URL = '@Url.Content("~/Data")'
+	const CURL = '@Url.Content("~/RegistroPagos")'
+	const REPORTE = '@Url.Content("~/Files/EstadoCuenta.pdf")'
+    const COLILLA = '@Url.Content("~/img/colilla.PNG")'
+    const Aprobacion_URL = '@Url.Content("~/Aprobacion")'
+</script>
+@*Desarrollo*@
+@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/AprobacionIndex", true))
+@*Produccion*@
+@*@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Aprobacion/Index", true))*@
+
+

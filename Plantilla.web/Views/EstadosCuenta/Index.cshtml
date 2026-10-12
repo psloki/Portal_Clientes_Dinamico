@@ -1,0 +1,652 @@
+﻿
+@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Globalization
+@{
+    // Fecha de hoy, sin hora
+    var hoy = DateTime.Today;
+}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            @{
+                var forceMobileByQuery = string.Equals(Context.Request["mobile"], "1", StringComparison.OrdinalIgnoreCase);
+                var userAgent = (Context.Request.Headers["User-Agent"] ?? string.Empty).ToLowerInvariant();
+                var browserIsMobile = Context.Request.Browser != null && Context.Request.Browser.IsMobileDevice;
+                var isMobile = forceMobileByQuery
+                    || browserIsMobile
+                    || userAgent.Contains("mobi")
+                    || userAgent.Contains("android")
+                    || userAgent.Contains("iphone")
+                    || userAgent.Contains("ipad")
+                    || userAgent.Contains("ipod")
+                    || userAgent.Contains("tablet")
+                    || userAgent.Contains("lenovo")
+                    || userAgent.Contains("silk")
+                    || userAgent.Contains("kindle");
+            }
+            <div class="card mb-6  ">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Semana</label>
+                            <select id="semana"
+                                    name="semana"
+                                    class="form-select filtro_multiple"
+                                    data-control="select2"
+                                    data-placeholder="Filtrar por semana"
+                                    multiple>
+                                <option value=""></option>
+                                <option value="0">Todas</option>
+
+                                @* Recorres tu ViewBag.Semana y marcas la opción cuya semana contenga “hoy” *@
+                                @if (ViewBag.Semana != null)
+                                {
+                                    foreach (var item in ViewBag.Semana)
+                                    {
+                                        var inicio = DateTime.ParseExact(item.inicio_semana, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                                        var fin = DateTime.ParseExact(item.fin_semana, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                                        var esActual = (hoy >= inicio && hoy <= fin);
+
+                                        <option value="@item.semana" @(esActual ? "selected" : "")>
+                                            @item.Descripcion  |  @item.inicio_semana  |  @item.fin_semana
+                                        </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Día de la semana</label>
+                            <select id="dia" name="dia" class="form-select filtro" data-control="select2" data-placeholder="Filtrar por día">
+                                <option></option>
+                                @*<option value="0">Todos</option>
+                                 <option value="L" @((DateTime.Now.DayOfWeek == DayOfWeek.Monday) ? "selected" : "")>Lunes</option>
+                                 <option value="K" @((DateTime.Now.DayOfWeek == DayOfWeek.Tuesday) ? "selected" : "")>Martes</option>
+                                 <option value="M" @((DateTime.Now.DayOfWeek == DayOfWeek.Wednesday) ? "selected" : "")>Miércoles</option>
+                                 <option value="J" @((DateTime.Now.DayOfWeek == DayOfWeek.Thursday) ? "selected" : "")>Jueves</option>
+                                 <option value="V" @((DateTime.Now.DayOfWeek == DayOfWeek.Friday) ? "selected" : "")>Viernes</option>
+                                 <option value="S" @((DateTime.Now.DayOfWeek == DayOfWeek.Saturday) ? "selected" : "")>Sábado</option>*@
+                                <option selected value="0">Todos</option>
+                                <option value="L">Lunes</option>
+                                <option value="K">Martes</option>
+                                <option value="M">Miercoles</option>
+                                <option value="J">Jueves</option>
+                                <option value="V">Viernes</option>
+                                <option value="S">Sabado</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Saldo</label>
+                            <select id="saldo" name="param" class="form-select filtro" data-control="select2" data-placeholder="Filtrar por saldo">
+                                <option></option>
+                                <option selected value="0">Todas</option>
+                                <option value="1">Terminado</option>
+                                <option value="2">Pendiente</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Condición de pago</label>
+                            <select id="condpago" name="param" class="form-select filtro" data-control="select2" data-placeholder="Filtrar por condición de pago">
+                                <option></option>
+                                <option selected value="0">Todas</option>
+                                @{
+                                    if (ViewBag.Condicion_Pago != null)
+                                    {
+                                        foreach (var item in ViewBag.Condicion_Pago)
+                                        {
+                                            <option value="@item.CONDICION_PAGO">
+                                                @(System.Text.RegularExpressions.Regex.Replace(
+              item.DIAS_NETO ?? string.Empty,
+              "(?i)dias",
+              "Días"))
+                                            </option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Estado visita</label>
+                            <select id="EstadoVisita" name="param" class="form-select filtro" data-control="select2" data-placeholder="Filtrar por condición de pago">
+                                <option></option>
+                                <option selected value="0">Todas</option>
+                                @{
+                                    if (ViewBag.EstadoVisita != null)
+                                    {
+                                        foreach (var item in ViewBag.EstadoVisita)
+                                        {
+                                            <option value="@item.ESTADO_VISITA">@item.DESCRIPCION </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-4" id="miTabla">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                    <th class="min-w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" id="checkAll" type="checkbox" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" />
+                                        </div>
+                                    </th>
+                                    <th class="text-left min-w-15px verSubtabla"></th>
+                                    <th class="text-left min-w-10px">E</th>
+                                    <th class="text-left @(isMobile? "min-w-100px" : "min-w-200px")">Cliente</th>
+                                    <th class="text-left min-w-150px">Alias</th>
+                                    <th class="text-left min-w-50px ">Vendedor</th>
+                                    <th class="text-left min-w-125px ">Correo</th>
+                                    <th class="text-left min-w-125px ">Cobrador</th>
+                                    <th class="text-left min-w-50px ">Teléfono</th>
+                                    <th class="text-center min-w-25px">CNP</th>
+                                    <th class="min-w-75px" style="text-align:right">Saldo</th>
+                                    <th class="text-center min-w-25px">DV</th>
+                                    <th class="text-left min-w-25px">IDV</th>
+                                    <th class="text-left min-w-75px">Últ vis</th>
+                                    <th class="text-left min-w-50px">Sem</th>
+                                    <th class="text-left min-w-275px">Acciones</th>
+                                    @*<th class="text-end"></th>*@
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-bold text-gray-600">
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    
+                </div>
+
+            </div>
+            <!--end::Card body-->
+        </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+
+<div class="modal fade" tabindex="-1" id="modalvisita">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="labelvisita">Agregar nueva visita</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-6">
+                            <label>Cliente</label>
+                            <input id="clientevisita"
+                                   type="text"
+                                   class="form-control text-gray-500"
+                                   style="font-size:0.90rem;"
+                                   value=""
+                                   disabled />
+                        </div>
+
+                        <div class="form-group mb-6">
+                            <label>Tipo de visita</label>
+                            <select id="tipovisita" name="tipovisita" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                                <option></option>
+
+                                @if (ViewBag.TipoVisita != null)
+                                {
+                                    foreach (var item in ViewBag.TipoVisita)
+                                    {
+                                        <option value="@item.U_CODIGO">@item.U_DESCRIP</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-5">
+                            <label>Comentarios</label>
+                            <textarea class="form-control text-gray-500" rows="1" placeholder="Ingrese un comentario" id="comentariovisita"></textarea>
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Documentos vencidos</label>
+                            <textarea disabled type="text" class="form-control text-danger" rows="1" style="font-size:0.90rem;" id="Doc_Vencido"></textarea>
+                        </div>
+
+                        <div class="form-group mb-6">
+                            <label>Cobrador</label>
+                            <input id="cobradorVisita" type="text" class="form-control text-gray-500" style="font-size:0.90rem;" value="" disabled />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-6">
+                            <label>Fecha visita</label>
+                            <input id="fechavisita" disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" value="@(DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"))" />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Latitud</label>
+                            <input id="latitudvisita" disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" value="" />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Longitud</label>
+                            <input id="longitudvisita" disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" value="" />
+                        </div>
+
+                        <div class="form-group mb-6">
+                            <label>Usuario</label>
+                            <input id="usuariovisita" disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" value="@Session["Usuario"].ToString()" />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Fecha creación</label>
+                            <input id="fechavisitacreacion" disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                @*<a href="@Url.Content("~/RegistroPagos")" target="_blank" class="btn btn-primary">Pagos</a>*@
+
+                @*@if (Array.IndexOf(Session["PERMISOS_GESTION_DE_PEDIDOS"].ToString().Split(','), "28") != -1)
+                    {*@
+                <button type="button" id="Pagos" class="btn btn-primary">Pagos</button>
+                @*}
+                    @if (Array.IndexOf(Session["PERMISOS_GESTION_DE_PEDIDOS"].ToString().Split(','), "28") != -1)
+                    {*@
+                <button type="button" id="deleteButton" onclick="guardarVisita();" class="btn btn-success">Pedido</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL Emvio de correo estado cuenta ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalenviocorreo">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Envío de estado de cuenta por correo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group mb-6">
+                    <label>Correo seleccionado</label>
+                    <input type="text" class="form-control text-gray-500" id="correos" style="font-size:0.90rem;" name="correos" autocomplete="off" value="" disabled />
+                </div>
+                <div class="form-group mb-6">
+                    <label>Agregar destinatarios extra del correo</label>
+                    <textarea class="form-control text-gray-500" rows="5" placeholder="Ingrese destinatarios extra" id="correosextra" style="font-size:0.90rem;" onchange="validarCorreos('correosextra')"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="BtnEnviarEstadoCuenta" onclick="guardarEntrega();" value="Default" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="modalenviarFE">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Envío Factura Electronica</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group mb-6">
+                    <label>Documento</label>
+                    <input type="text" class="form-control text-gray-500" id="NumFactura" name="NumFactura" style="font-size:0.90rem;" autocomplete="off" value="" disabled />
+                </div>
+                <div class="form-group mb-6">
+                    <label>Correo seleccionado</label>
+                    <input type="text" class="form-control text-gray-500" id="correosFE" style="font-size:0.90rem;" name="correosFE" autocomplete="off" value="" disabled />
+                </div>
+                <div class="form-group mb-6">
+                    <label>Agregar destinatarios extra del correo</label>
+                    <textarea class="form-control text-gray-500" rows="5" placeholder="Ingrese destinatarios extra" id="correosextraFE" style="font-size:0.90rem;" onchange="validarCorreos('correosextraFE')"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="EnviarFacturaElectronica" onclick="EnviarCorreoFE();" value="Default" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL Reporte de aplicaciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="kt_daterangepicker_modal">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reporte de auxiliares</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group mb-6">
+                    <label>Rango de fechas de aplicaciones</label>
+                    <input class="form-control " placeholder="Pick date rage" id="kt_daterangepicker_1_modal" value="@(DateTime.Now.ToString("01/MM/yyyy")) - @(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="BtnDescargarAuxiliar" onclick="DescargarExcel();" value="Default" class="btn btn-success">Descargar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL ENVIAR Reporte de aplicaciones ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalenviocorreoAux">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Envío de Reporte de Aplicaciones por correo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group mb-6">
+                    <label>Rango de fechas de aplicaciones</label>
+
+                    <input class="form-control " placeholder="Pick date rage" id="kt_daterangepicker_2_modal" value="@(DateTime.Now.ToString("01/MM/yyyy")) - @(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                </div>
+                <div class="form-group mb-6">
+                    <label>Correo seleccionado</label>
+                    <input type="text" class="form-control text-gray-500" id="correosAux" style="font-size:0.90rem;" name="correos" autocomplete="off" value="" disabled />
+                </div>
+                <div class="form-group mb-6">
+                    <label>Agregar destinatarios extra del correo</label>
+                    <textarea class="form-control text-gray-500" rows="5" placeholder="Ingrese destinatarios extra" id="correosextraAux" style="font-size:0.90rem;" onchange="validarCorreos('correosextraAux')"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="AgregarSucesosAux" onclick="EnviarCorreoReporteAuxiliar();" value="Default" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL ENVIAR Estado cuenta batch ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="modalenviocorreoBatch">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Envío de estado de cuenta por correo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group mb-6">
+                    <label>Correo seleccionado</label>
+                    <input type="text" class="form-control text-gray-500" id="correosBatch" style="font-size:0.90rem;" name="correos" autocomplete="off" value="Varios" disabled />
+                </div>
+                <div class="form-group mb-6">
+                    <label>Agregar destinatarios extra del correo</label>
+                    <textarea class="form-control text-gray-500" rows="5" placeholder="Ingrese destinatarios extra" id="correosextraBatch" style="font-size:0.90rem;" onchange="validarCorreos('correosextraBatch')"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="BtnEnviarEstadoCuentaBatch" onclick="EnviarEstadoCuentaBatch();" value="Default" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*++++++++++++++++++++++++++++++++++++++++++++++++MODAL Ver PDF ++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<div class="modal fade" tabindex="-1" id="Modal_PDF">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Ver pdf</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+
+                <div id="pdf_preview" class="d-none" style="pointer-events:auto;"><embed type="application/pdf" id="pdf" src="" style="width:100%; height:800px" /></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--begin::Engage-->
+<div class="app-engage" id="kt_app_engage">
+
+    @if (Array.IndexOf(Session["PERMISOS_GESTION_DE_PEDIDOS"].ToString().Split(','), "11") != -1)
+    {
+        <a href="javascript:;" onclick="DescargarExcel_Index(this.value)" class="app-engage-btn hover-success d-none multi">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-file-excel fs-2x"></i>
+            </span>Excel
+        </a>
+    }
+    @if (Array.IndexOf(Session["PERMISOS_GESTION_DE_PEDIDOS"].ToString().Split(','), "21") != -1)
+    {
+        <a hidden href="javascript:;" onclick="abrirmodalCorreosBatch()" class="app-engage-btn hover-success d-none multi">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-envelope fs-2x"></i>
+            </span>Correo
+
+        </a>
+    }
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableRight()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M9.63433 11.4343L5.45001 7.25C5.0358 6.83579 5.0358 6.16421 5.45001 5.75C5.86423 5.33579 6.5358 5.33579 6.95001 5.75L12.4929 11.2929C12.8834 11.6834 12.8834 12.3166 12.4929 12.7071L6.95001 18.25C6.5358 18.6642 5.86423 18.6642 5.45001 18.25C5.0358 17.8358 5.0358 17.1642 5.45001 16.75L9.63433 12.5657C9.94675 12.2533 9.94675 11.7467 9.63433 11.4343Z" fill="currentColor" />
+                <path d="M15.6343 11.4343L11.45 7.25C11.0358 6.83579 11.0358 6.16421 11.45 5.75C11.8642 5.33579 12.5358 5.33579 12.95 5.75L18.4929 11.2929C18.8834 11.6834 18.8834 12.3166 18.4929 12.7071L12.95 18.25C12.5358 18.6642 11.8642 18.6642 11.45 18.25C11.0358 17.8358 11.0358 17.1642 11.45 16.75L15.6343 12.5657C15.9467 12.2533 15.9467 11.7467 15.6343 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Derecha
+    </a>
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableLeft()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Izquierda
+    </a>
+    <!--end::Get help-->
+    <a href="javascript:;" onclick="Volver()" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+<script>
+    const urlEcomercePedido = '@System.Configuration.ConfigurationManager.AppSettings["EcomercePedido"]';
+</script>
+
+<script>
+	const URL = '@Url.Content("~/Data")'
+    const CURL = '@Url.Content("~/EstadosCuenta")'
+	const FURL = '@Url.Content("~/Facturas")'
+    const CPURL = '@Url.Content("~/Pedidos/Detalles")'
+    const RURL = '@Url.Content("~/RegistroPagos")'
+    const PPURL = '@Url.Content("~/Pedidos")'
+	const REPORTE = '@Url.Content("~/Files/EstadoCuenta.pdf")'
+    const REPORTEAUX = '@Url.Content("~/Files/Reporte.pdf")'
+    const vurl = '@Url.Content("~/Visitas")'
+    const peurl = '@Url.Content("~/Pedidos/Detalles")'
+    const ecurl = '@Url.Content("~/EstadosCuenta")'
+    let ec_cliente = '@Session["cliente"].ToString()'
+    const USUARIO_PER = '@Session["USUARIO_PER"]' == 1
+    //const USUARIO_PER = true
+    const MODULO_GESTION_PEDIDOS = '@Session["MOD_GESTION_DE_PEDIDOS"]'
+    const PERMISOS_GESTION_PEDIDOS = '@Session["PERMISOS_GESTION_DE_PEDIDOS"]'
+    const PERMISOS_PORTAL_DE_CLIENTES = '@(Session["PERMISOS_PORTAL_DE_CLIENTES"] ?? "")';
+        const PERMISOS_MENU = '@(Session["PERMISOS_MENU"] ?? "")';
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("La geolocalización no es compatible con este navegador.");
+        }
+    }
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        alert("Latitud: " + latitude + "\nLongitud: " + longitude);
+    }
+
+
+    function initMap() {
+        // No es necesario hacer nada aquí para este ejemplo
+    }
+
+</script>
+
+@*Desarrollo*@
+@Scripts.Render("~/Scripts/EstadosCuenta/Index.js?v=2")
+@*Produccion*@
+@*@Scripts.Render(System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/EstadosCuenta/Index", true))*@

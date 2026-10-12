@@ -1,0 +1,27 @@
+[
+
+	{
+		"INGRESO": 1,
+		"CODIGO_INGRESO": "I0001",
+		"DESCRIPCION": "P\u00e1gina Web",
+		"ACTIVO": "S"
+	},
+	{
+		"INGRESO": 2,
+		"CODIGO_INGRESO": "I0002",
+		"DESCRIPCION": "Correo",
+		"ACTIVO": "S"
+	},
+	{
+		"INGRESO": 3,
+		"CODIGO_INGRESO": "I0003",
+		"DESCRIPCION": "WhatsApp",
+		"ACTIVO": "N"
+	},
+	{
+		"INGRESO": 4,
+		"CODIGO_INGRESO": "I0004",
+		"DESCRIPCION": "Presencial",
+		"ACTIVO": "N"
+	}
+]

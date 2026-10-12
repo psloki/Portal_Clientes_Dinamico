@@ -1,0 +1,752 @@
+﻿
+@{
+    ViewBag.Title = "Liquidación de valores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .custom-column {
+        width: 20%; /* 100% dividido por 5 */
+        float: left;
+        box-sizing: border-box;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <input type="hidden" id="cia" value="@Session["CIA"]" />
+    <input type="hidden" id="cobradorHeader" value="@Session["Cod_Cobrador"]" />
+    <input type="hidden" id="vendedorHeader" value="@Session["Vendedor"]" />
+    <input type="hidden" id="clienteHeader" value="@Session["cliente"]" />
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="row align-items-center mt-7">
+
+                        <div class="form-group col-md-3 mb-4">
+                            <label>Rango de fechas</label>
+                            <input class="form-control filtro" placeholder="Pick date range" id="FechaInicioV"
+                                   value="@((DateTime.Now.AddMonths(-2).ToString("dd/MM/yyyy")) + " - " + DateTime.Now.ToString("dd/MM/yyyy"))" />
+                        </div>
+                        @*<div class="col-md-2 mb-4 d-none">
+            <label>Cliente</label>
+            <select id="clienteliquidacion" name="clienteliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar" style="width:100%">
+                <option></option>
+                <option selected value="0">Todos</option>
+                @{
+                    if (ViewBag.Clientes != null)
+                    {
+                        foreach (var item in ViewBag.Clientes)
+                        {
+                            <option value="@item.CLIENTE">@item.CLIENTE - @item.ALIAS </option>
+                        }
+                    }
+                }
+            </select>
+        </div>*@
+                        <div class="col-md-3  col-12 mb-4">
+                            <label for="subtipoliquidacion">Subtipo</label>
+                            <select id="subtipoliquidacion" name="subtipoliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar por un subtipo" style="width:100%">
+                                <option></option>
+                                <option value="0">Todos</option>
+                                @{
+                                    if (ViewBag.TipoDoc != null)
+                                    {
+                                        foreach (var item in ViewBag.TipoDoc)
+                                        {
+                                            var selected = item.SUBTIPO == "17" ? "selected" : "";
+
+                                            <option value="@(item.SUBTIPO)" @selected>@item.TIPO | @item.SUBTIPO | @item.DESCRIPCION</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3  col-12 mb-4">
+                            <label for="Depositadoliquidacion">Depositado</label>
+                            <select id="Depositadoliquidacion" name="depositadoliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar por depositado" style="width:100%">
+                                <option></option>
+                                <option value="0">Todos</option>
+                                <option value="S">Si</option>
+                                <option selected value="N">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-12 mb-4" style="visibility: hidden; pointer-events: none;"> @*Oculta a solicitud, en espera de funcionalidad*@
+                            <label for="Depositoliquidacion">Deposito</label>
+                            <select id="Depositoliquidacion" name="depositoliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar por deposito" style="width:100%">
+                                <option></option>
+                                <option value="0" selected>Todos</option>
+                            </select>
+                        </div>
+
+
+                        @*<div class="col-md-2 mb-4">
+            <label>Banco</label>
+            <select id="bancoliquidacion" name="bancoliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar" style="width:100%">
+                <option></option>
+                <option selected value="0">Todos</option>
+                @{
+                    if (ViewBag.Bancos != null)
+                    {
+                        foreach (var item in ViewBag.Bancos)
+                        {
+                            <option value="@item.BANCO" data-cuenta="@item.CUENTA_BANCO">@item.BANCO - @item.NOMBRE </option>
+                        }
+                    }
+                }
+            </select>
+        </div>*@
+                        @*<div class="col-md-2 mb-4">
+            <label>Moneda</label>
+            <input readonly disabled type="text" class="form-control" id="monedaLiquidacion" placeholder="Seleccione una cuenta" />
+        </div>
+        <div class="col-md-2 mb-4">
+            <label>Tipo</label>
+            <select id="tipoliquidacion" name="tipoliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar" style="width:100%">
+                <option></option>
+                <option selected value="0">Todos</option>
+                @{
+                    if (ViewBag.Tipo != null)
+                    {
+                        foreach (var item in ViewBag.Tipo)
+                        {
+                            <option value="@item.TIPO">@item.TIPO </option>
+                        }
+                    }
+                }
+            </select>
+        </div>*@
+                        <!--<div class="col-md-4 mb-4">
+    <label>Forma de pago</label>
+    <select id="formapagoliquidacion" name="formapagoliquidacion" class="form-select" data-control="select2" data-placeholder="Filtrar" style="width:100%">
+        <option></option>
+        <option selected value="0">Todos</option>-->
+                        @*<option selected value="Efectivo">Efectivo</option>
+        <option value="Sinpe móvil">Sinpe móvil</option>
+        <option selected value="Cheque">Cheque</option>
+        <option value="Cheque postfechado">Cheque postfechado</option>
+        <option value="Transferencia">Transferencia</option>*@
+                        <!--</select>
+    </div>
+    <div class="col-md-2 mb-4">
+        <label>Estado</label>
+        <select id="estadoliq" name="estadoliq" class="form-select" data-control="select2" data-placeholder="Filtrar" style="width:100%">
+            <option></option>
+            <option selected value="0">Todos</option>
+            @{
+                if (ViewBag.EstadoLiquidacion != null)
+                {
+                    foreach (var item in ViewBag.EstadoLiquidacion)
+                    {
+                        <option value="@item.ID_ESTADO_LIQ">@item.DESCRIPCION </option>
+                    }
+                }
+            }-->
+                        @*<option selected value="0">Todos</option>*@
+                        @*<option value="Sin aprobar">Sin aprobar</option>
+        <option value="Aprobado">Aprobado</option>
+        <option value="Rechazado">Rechazado</option>
+        <option value="No depositado">No depositado</option>*@
+                        <!--</select>
+    </div>-->
+
+
+                        <div class="col-md-3 mt-3">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            @{
+                var forceMobileByQuery = string.Equals(Context.Request["mobile"], "1", StringComparison.OrdinalIgnoreCase);
+                var userAgent = (Context.Request.Headers["User-Agent"] ?? string.Empty).ToLowerInvariant();
+                var browserIsMobile = Context.Request.Browser != null && Context.Request.Browser.IsMobileDevice;
+                var isMobile = forceMobileByQuery
+                    || browserIsMobile
+                    || userAgent.Contains("mobi")
+                    || userAgent.Contains("android")
+                    || userAgent.Contains("iphone")
+                    || userAgent.Contains("ipad")
+                    || userAgent.Contains("ipod")
+                    || userAgent.Contains("tablet")
+                    || userAgent.Contains("lenovo")
+                    || userAgent.Contains("silk")
+                    || userAgent.Contains("kindle");
+            }
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0 pb-0">
+                    <div class="row align-items-center">
+                        <!--begin::Row-->
+                        <div class="row g-5 g-xl-8 mt-0">
+                            <div class="@(isMobile? "col-12" : "col")">
+                                <!--begin::Statistics Widget 5-->
+                                <div class="card bg-light-secondary hoverable card-xl-stretch  mb-xl-2">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
+                                        <span class="svg-icon svg-icon-dark svg-icon-3x ms-n1">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Mail-opened.svg-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <path d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z" fill="currentColor" opacity="0.3" transform="translate(11.500000, 12.000000) rotate(-345.000000) translate(-11.500000, -12.000000) " />
+                                                    <path d="M2,6 L21,6 C21.5522847,6 22,6.44771525 22,7 L22,17 C22,17.5522847 21.5522847,18 21,18 L2,18 C1.44771525,18 1,17.5522847 1,17 L1,7 C1,6.44771525 1.44771525,6 2,6 Z M11.5,16 C13.709139,16 15.5,14.209139 15.5,12 C15.5,9.790861 13.709139,8 11.5,8 C9.290861,8 7.5,9.790861 7.5,12 C7.5,14.209139 9.290861,16 11.5,16 Z M11.5,14 C12.6045695,14 13.5,13.1045695 13.5,12 C13.5,10.8954305 12.6045695,10 11.5,10 C10.3954305,10 9.5,10.8954305 9.5,12 C9.5,13.1045695 10.3954305,14 11.5,14 Z" fill="currentColor" />
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <span class="text-gray-900 fw-bold fs-2 mb-2 mt-5">Efectivo</span>
+                                        <div class="text-gray-900 fw-bold fs-2 mb-2 mt-2" id="monto_17">₡ 0.00</div>
+                                        <div class="fw-semibold text-gray-700 fs-8"><span id="monto_count_17">0</span> Documentos</div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+                            <div class="@(isMobile? "col-12" : "col")">
+                                <!--begin::Statistics Widget 5-->
+                                <div class="card bg-light-warning hoverable card-xl-stretch mb-xl-2">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm008.svg-->
+                                        <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <path d="M4,4 L20,4 C21.1045695,4 22,4.8954305 22,6 L22,18 C22,19.1045695 21.1045695,20 20,20 L4,20 C2.8954305,20 2,19.1045695 2,18 L2,6 C2,4.8954305 2.8954305,4 4,4 Z" fill="currentColor" opacity="0.3" />
+                                                    <path d="M18.5,11 L5.5,11 C4.67157288,11 4,11.6715729 4,12.5 L4,13 L8.58578644,13 C8.85100293,13 9.10535684,13.1053568 9.29289322,13.2928932 L10.2928932,14.2928932 C10.7456461,14.7456461 11.3597108,15 12,15 C12.6402892,15 13.2543539,14.7456461 13.7071068,14.2928932 L14.7071068,13.2928932 C14.8946432,13.1053568 15.1489971,13 15.4142136,13 L20,13 L20,12.5 C20,11.6715729 19.3284271,11 18.5,11 Z" fill="currentColor" />
+                                                    <path d="M5.5,6 C4.67157288,6 4,6.67157288 4,7.5 L4,8 L20,8 L20,7.5 C20,6.67157288 19.3284271,6 18.5,6 L5.5,6 Z" fill="currentColor" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <span class="text-warning fw-bold fs-2 mb-2 mt-5">Cheque</span>
+                                        <div class="text-gray-900 fw-bold fs-2 mb-2 mt-2" id="monto_18">₡ 0.00</div>
+                                        <div class="fw-semibold text-gray-700 fs-8"><span id="monto_count_18">0</span> Documentos</div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+                            <div class="@(isMobile? "col-12" : "col")">
+                                <!--begin::Statistics Widget 5-->
+                                <div class="card bg-light-warning hoverable card-xl-stretch mb-xl-2">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
+                                        <span class="svg-icon svg-icon-warning svg-icon-3x ms-n1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <circle fill="currentColor" opacity="0.3" cx="20.5" cy="12.5" r="1.5" />
+                                                    <rect fill="currentColor" opacity="0.3" transform="translate(12.000000, 6.500000) rotate(-15.000000) translate(-12.000000, -6.500000) " x="3" y="3" width="18" height="7" rx="1" />
+                                                    <path d="M22,9.33681558 C21.5453723,9.12084552 21.0367986,9 20.5,9 C18.5670034,9 17,10.5670034 17,12.5 C17,14.4329966 18.5670034,16 20.5,16 C21.0367986,16 21.5453723,15.8791545 22,15.6631844 L22,18 C22,19.1045695 21.1045695,20 20,20 L4,20 C2.8954305,20 2,19.1045695 2,18 L2,6 C2,4.8954305 2.8954305,4 4,4 L20,4 C21.1045695,4 22,4.8954305 22,6 L22,9.33681558 Z" fill="currentColor" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <span class="text-warning fw-bold fs-2 mb-2 mt-5">Cheque posfechado</span>
+                                        <div class="text-gray-900 fw-bold fs-2 mb-2 mt-2" id="monto_19">₡ 0.00</div>
+                                        <div class="fw-semibold text-gray-700 fs-8"><span id="monto_count_19">0</span> Documentos</div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+
+                            <div class="@(isMobile? "col-12" : "col")">
+                                <!--begin::Statistics Widget 5-->
+                                <div class="card bg-light-danger hoverable card-xl-stretch mb-5 mb-xl-2">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
+                                        <span class="svg-icon svg-icon-danger svg-icon-3x ms-n1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <path d="M14,9 L14,8 C14,6.8954305 13.1045695,6 12,6 C10.8954305,6 10,6.8954305 10,8 L10,9 L8,9 L8,8 C8,5.790861 9.790861,4 12,4 C14.209139,4 16,5.790861 16,8 L16,9 L14,9 Z M14,9 L14,8 C14,6.8954305 13.1045695,6 12,6 C10.8954305,6 10,6.8954305 10,8 L10,9 L8,9 L8,8 C8,5.790861 9.790861,4 12,4 C14.209139,4 16,5.790861 16,8 L16,9 L14,9 Z" fill="currentColor" fill-rule="nonzero" opacity="0.3" />
+                                                    <path d="M6.84712709,9 L17.1528729,9 C17.6417121,9 18.0589022,9.35341304 18.1392668,9.83560101 L19.611867,18.671202 C19.7934571,19.7607427 19.0574178,20.7911977 17.9678771,20.9727878 C17.8592143,20.9908983 17.7492409,21 17.6390792,21 L6.36092084,21 C5.25635134,21 4.36092084,20.1045695 4.36092084,19 C4.36092084,18.8898383 4.37002252,18.7798649 4.388133,18.671202 L5.86073316,9.83560101 C5.94109783,9.35341304 6.35828794,9 6.84712709,9 Z" fill="currentColor" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <span class="text-danger fw-bold fs-2 mb-2 mt-5">No depositado</span>
+                                        <div class="text-gray-900 fw-bold fs-2 mb-2 mt-2" id="monto_no_depositado">₡ 0.00</div>
+                                        <div class="fw-semibold text-gray-700 fs-9"><span id="monto_count_no_depositado">0</span> Documentos</div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+                            <div class="@(isMobile? "col-12" : "col")">
+                                <!--begin::Statistics Widget 5-->
+                                <div class="card bg-success hoverable card-xl-stretch mb-5 mb-xl-2">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <!--begin::Svg Icon | path: icons/duotune/graphs/gra007.svg-->
+                                        <span class="svg-icon svg-icon-white svg-icon-3x ms-n1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <polygon points="0 0 24 0 24 24 0 24" />
+                                                    <path d="M9.26193932,16.6476484 C8.90425297,17.0684559 8.27315905,17.1196257 7.85235158,16.7619393 C7.43154411,16.404253 7.38037434,15.773159 7.73806068,15.3523516 L16.2380607,5.35235158 C16.6013618,4.92493855 17.2451015,4.87991302 17.6643638,5.25259068 L22.1643638,9.25259068 C22.5771466,9.6195087 22.6143273,10.2515811 22.2474093,10.6643638 C21.8804913,11.0771466 21.2484189,11.1143273 20.8356362,10.7474093 L17.0997854,7.42665306 L9.26193932,16.6476484 Z" fill="currentColor" fill-rule="nonzero" opacity="0.3" transform="translate(14.999995, 11.000002) rotate(-180.000000) translate(-14.999995, -11.000002) " />
+                                                    <path d="M4.26193932,17.6476484 C3.90425297,18.0684559 3.27315905,18.1196257 2.85235158,17.7619393 C2.43154411,17.404253 2.38037434,16.773159 2.73806068,16.3523516 L11.2380607,6.35235158 C11.6013618,5.92493855 12.2451015,5.87991302 12.6643638,6.25259068 L17.1643638,10.2525907 C17.5771466,10.6195087 17.6143273,11.2515811 17.2474093,11.6643638 C16.8804913,12.0771466 16.2484189,12.1143273 15.8356362,11.7474093 L12.0997854,8.42665306 L4.26193932,17.6476484 Z" fill="currentColor" fill-rule="nonzero" transform="translate(9.999995, 12.000002) rotate(-180.000000) translate(-9.999995, -12.000002) " />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <span class="text-white fw-bold fs-2 mb-2 mt-5">Total Seleccionado</span>
+                                        <div class="text-white fw-bold fs-2 mb-2 mt-2" id="monto_total">₡0.00</div>
+                                        <div class="fw-semibold text-white fs-9"><span id="monto_count_total">0</span>Documentos</div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Statistics Widget 5-->
+                            </div>
+
+
+                        </div>
+                        <!--end::Row-->
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-4" id="kt_datatable_documentos">
+                            <thead>
+                                <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                    <!-- Select All -->
+                                    <th class="min-w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" id="checkAll"
+                                                   type="checkbox"
+                                                   data-kt-check="true"
+                                                   data-kt-check-target="#kt_datatable_documentos .form-check-input"
+                                                   value="1" />
+                                        </div>
+                                    </th>
+
+                                    <th class="text-left min-w-50px">Tipo</th>
+                                    <th class="text-left min-w-100px">Subtipo</th>
+                                    <th class="text-left min-w-100px">Documento</th>
+                                    <th class="text-left min-w-100px">Depositado</th>
+                                    <th class="text-left @(isMobile ? "min-w-150px" : "min-w-250px")">Vendedor</th>
+                                    <th class="text-left @(isMobile ? "min-w-150px" : "min-w-250px")">Cliente</th>
+                                    <th class="text-left min-w-100px">Fecha</th>
+                                    <th class="text-left min-w-80px">Moneda</th>
+                                    <th class="text-left min-w-120px">Monto</th>
+                                    <th class="text-left min-w-120px">Saldo</th>
+                                    <th class="text-left min-w-150px">Monto a liquidar</th>
+
+                                    <th class="text-left min-w-120px">Tipo cambio</th>
+                                    <th class="text-left min-w-120px">Usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-bold text-gray-600"></tbody>
+                        </table>
+
+                        <!--end::Table-->
+                    </div>
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+
+
+<div class="modal fade" id="CrearTefModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+
+            <!-- ===== Header ===== -->
+            <div class="modal-header">
+                <h5 class="modal-title">Crear depósito</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+
+            <!-- ===== Body ===== -->
+            <div class="modal-body">
+                <div class="container-fluid">
+
+                    <input type="hidden" id="clienteModalHidden">
+                    <input type="hidden" id="docIdsHidden">
+
+                    <!-- ===== Fila 1: Moneda + Monto + Banco + #Referencia + Fecha ===== -->
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-1">
+                            <label>Moneda</label>
+                            <input disabled type="text" class="form-control" id="moneda" value="CRC" />
+                        </div>
+
+                        <div class="col-12 col-md-2">
+                            <label>Monto seleccionado</label>
+                            <input type="text" class="form-control" id="TotalMontoSeleccionado" value="₡0.00" disabled />
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label>Banco</label>
+                            <select id="bancoliquidacion" name="bancoliquidacion" class="form-select" data-dropdown-parent="#CrearTefModal" data-control="select2" data-placeholder="Filtrar">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                @if (ViewBag.Bancos != null)
+                                {
+                                    foreach (var item in ViewBag.Bancos)
+                                    {
+                                        <option value="@item.BANCO" data-cuenta="@item.CUENTA_BANCO">@item.BANCO - @item.NOMBRE</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-2">
+                            <label># Referencia</label>
+                            <input type="number" class="form-control" id="numtefr" />
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label>Fecha</label>
+                            <input id="FechaInicio2Seguimiento" type="text" class="form-control fecha text-gray-500" data-td-toggle="datetimepicker" data-td-target="#FechaInicio2Seguimiento" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                        </div>
+
+                    </div>
+
+                    <!-- ===== Fila 2: Subtipo + Cobrador + Comentarios ===== -->
+                    <div class="row g-3 mt-3">
+
+                        <div class="col-12 col-md-3">
+                            <label>Subtipo</label>
+                            <select id="subtipo" name="subtipo" class="form-select" data-dropdown-parent="#CrearTefModal" data-control="select2" data-placeholder="Filtrar por un subtipo">
+                                <option></option>
+                                <option selected value="00">Todos</option>
+                                @if (ViewBag.ListaSubtiposTODOS != null)
+                                {
+                                    foreach (var item in ViewBag.ListaSubtiposTODOS)
+                                    {
+                                        if (item.SUBTIPO.ToString() == "0" && item.DESCRIPCION == "Depósito")
+                                        {
+                                            <option value="@item.SUBTIPO">@item.SUBTIPO || @item.DESCRIPCION</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label>Cobrador del cliente</label>
+                            <input type="text" class="form-control" id="cobrador" readonly />
+                        </div>
+
+                        <div class="col-12 col-md-5">
+                            <label>Comentarios del cobrador</label>
+                            <textarea name="Description" id="comentarioscob" rows="2" class="form-control" maxlength="250" placeholder="Ingrese un comentario"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- ===== Fila 3: Concepto ===== -->
+                    <div class="row g-3 mt-3">
+                        <div class="col-12">
+                            <label>Concepto</label>
+                            <input class="form-control" disabled id="concepto" value="00100001010000005178 | 00500001010000002979" />
+                        </div>
+                    </div>
+
+                    <!-- ===== Fila 4: Facturas (opcional) ===== -->
+                    <div class="row mt-4" id="facturas">
+                        <!-- Contenido dinámico -->
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== Footer ===== -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="guardarcambios();" class="btn btn-success font-weight-bold">Guardar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*</div>*@
+
+
+<div class="modal fade" tabindex="-1" id="agregarRef">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Seleccionar Deposito de Efectivo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group mb-6">
+                        <label>Cuenta origen *</label>
+                        <select id="bancoModal" disabled data-dropdown-parent="#agregarRef" name="cuentaorigen" class="form-select" data-control="select2" data-placeholder="Seleccione una cuenta">
+                            <option></option>
+                            @{
+                                if (ViewBag.ListaCuentas != null)
+                                {
+                                    foreach (var item in ViewBag.ListaCuentas)
+                                    {
+                                        <option value="@item.CUENTA_BANCO">@item.COMPLETO</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                        @*<input type="text" class="form-control" id="cuentabancaria_cxc" value="" maxlength="22" />*@
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Numero Deposito *</label>
+                        <input type="number" class="form-control" id="referencia_cxc" value="" onchange="ValidarSiExisteNumBancoTEF_DEP()" />
+                    </div>
+
+                    <div class="form-group mb-6">
+                        <label>Tipo *</label>
+                        <select id="tipo_cxc" disabled data-dropdown-parent="#agregarRef" name="tipo_cxc" class="form-select" data-control="select2" data-placeholder="Seleccione un tipo">
+                            <option></option>
+                            @*<option selected value="TEF">TEF</option>*@
+                            <option selected value="DEP">DEP</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Subtipo *</label>
+                        <select id="subtipo_cxc" disabled data-dropdown-parent="#agregarRef" name="tipo_cxc" class="form-select" data-control="select2" data-placeholder="Seleccione un subtipo">
+                            <option></option>
+
+                            <option selected value="0">1 || Liquidacion Efectivo</option>
+                            @*<option selected value="0">0 || T.E.F.</option>*@
+
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cliente</label>
+                        <input type="text" class="form-control" id="cliente_cxc" value="" disabled />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Concepto</label>
+                        <input type="text" class="form-control" id="concepto_cxc" value="" />
+                    </div>
+
+                    <div class="form-group mb-6">
+                        <label>Fecha</label>
+                        <input type="text" class="form-control" id="fechadoc_cxc" value="" disabled />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Moneda</label>
+                        <input type="text" class="form-control" id="moneda_cxc" value="" disabled />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Monto</label>
+                        <input type="number" class="form-control" id="monto_cxc" value="" min="0" readonly />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>Documento</label>
+                        <input type="text" class="form-control" id="documento_cxc" value="" />
+                    </div>
+                    <div class="form-group mb-6 d-none">
+                        <label>ID</label>
+                        <input type="text" class="form-control" id="idlinea_cxc" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarAsignarCC()" class="btn btn-success">Asignar Recibos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--begin::Engage-->
+<div class="app-engage" id="kt_app_engage">
+
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableRight()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M9.63433 11.4343L5.45001 7.25C5.0358 6.83579 5.0358 6.16421 5.45001 5.75C5.86423 5.33579 6.5358 5.33579 6.95001 5.75L12.4929 11.2929C12.8834 11.6834 12.8834 12.3166 12.4929 12.7071L6.95001 18.25C6.5358 18.6642 5.86423 18.6642 5.45001 18.25C5.0358 17.8358 5.0358 17.1642 5.45001 16.75L9.63433 12.5657C9.94675 12.2533 9.94675 11.7467 9.63433 11.4343Z" fill="currentColor" />
+                <path d="M15.6343 11.4343L11.45 7.25C11.0358 6.83579 11.0358 6.16421 11.45 5.75C11.8642 5.33579 12.5358 5.33579 12.95 5.75L18.4929 11.2929C18.8834 11.6834 18.8834 12.3166 18.4929 12.7071L12.95 18.25C12.5358 18.6642 11.8642 18.6642 11.45 18.25C11.0358 17.8358 11.0358 17.1642 11.45 16.75L15.6343 12.5657C15.9467 12.2533 15.9467 11.7467 15.6343 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Derecha
+    </a>
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableLeft()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Izquierda
+    </a>
+    @*<a href="javascript:;" onclick="AgregarReferencia()" class="app-engage-btn hover-success d-none multi">
+            <span class="svg-icon svg-icon-2">
+                <i class="la la-university fs-2x"></i>
+            </span>Bancario
+        </a>*@
+
+    <a href="javascript:;" id="btnLiquidar" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2"><i class="la la-money-bill fs-2x"></i></span>
+        Liquidar
+    </a>
+
+    @*<a href="javascript:;" onclick="exportarExcelSeleccionados()" class="app-engage-btn hover-success">
+            <span class="svg-icon svg-icon-2">
+                <i class="las la-file-excel fs-2x"></i>
+            </span>
+            Excel
+        </a>*@
+
+    <!--end::Get help-->
+    <a href="javascript:;" onclick="Volver()" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+<script>
+    const URLP = '@Url.Content("~/Liquidacion")'
+    let _vendedorFiltro = '@Session["Vendedor"]';
+    let _clienteFiltro = '@Session["cliente"]';
+
+</script>
+@Scripts.Render("~/Scripts/Liquidacion/Index.js")
+
+@*Codigo anterior para subir comprobantes, la funcionalidad no esta disponible*@
+<!--<div class="form-group col-md-12 mt-4">
+    <label>Adjuntar foto de comprobante (máximo 2)</label>
+    <div class="row">-->
+<!-- Comprobante #1 -->
+<!--<div class="col-lg-4 col-xl-4">
+    <div class="image-input image-input-outline mt-6" data-kt-image-input="true">
+        <div class="image-input-wrapper w-125px h-125px"></div>
+        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+               data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Subir documento #1">
+            <i class="bi bi-pencil-fill fs-7"></i>-->
+<!-- name debe coincidir con la propiedad del VM -->
+<!--<input id="ComprobantePago1" type="file" name="ComprobantePago" accept=".png,.jpg,.jpeg,.pdf" />
+            <input type="hidden" name="avatar_remove" />
+        </label>
+        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+              data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Quitar documento #1">
+            <i class="bi bi-x fs-2"></i>
+        </span>
+        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+              data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Quitar documento #1">
+            <i class="bi bi-x fs-2"></i>
+        </span>
+    </div>
+</div>-->
+<!-- Comprobante #2 -->
+<!--<div class="col-lg-4 col-xl-4">
+    <div class="image-input image-input-outline mt-6" data-kt-image-input="true">
+        <div class="image-input-wrapper w-125px h-125px"></div>
+        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+               data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Subir documento #2">
+            <i class="bi bi-pencil-fill fs-7"></i>-->
+<!-- mismo name para que el binder cree la colección -->
+<!--<input id="ComprobantePago2" type="file" name="ComprobantePago" accept=".png,.jpg,.jpeg,.pdf" />
+                    <input type="hidden" name="avatar_remove" />
+                </label>
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                      data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Quitar documento #2">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                      data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Quitar documento #2">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>-->

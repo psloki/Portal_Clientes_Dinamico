@@ -1,0 +1,258 @@
+﻿
+@{
+    ViewBag.Title = "Requisiciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<script type='text/javascript' src='http://paperjs.org/assets/js/paper.js'></script>
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Rango de fechas</label>
+                            <input class="form-control " placeholder="Pick date rage" id="kt_daterangepicker_1" />
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Requisición</label>
+                            <select id="requisicion" name="requisicion" class="form-select" data-control="select2" data-placeholder="Filtrar por un requisición">
+                                <option></option>
+                                <option selected value="Todos">Todos</option>
+                                <option value="REQ-8710700001">REQ-8710700001</option>
+                                <option value="REQ-8712300001">REQ-8712300001</option>
+                                <option value="REQ-8715800001">REQ-8715800001</option>
+                                <option value="REQ-8716900001">REQ-8716900001</option>
+                                <option value="REQ-8719600001">REQ-8719600001</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Estado</label>
+                            <select id="estado" name="estado" class="form-select" data-control="select2" data-placeholder="Filtrar por un estado">
+                                <option></option>
+                                <option selected value="Todos">Todos</option>
+                                <option value="En proceso">En proceso</option>
+                                <option value="Entregado">Entregado</option>
+                                <option value="Aplicado">Aplicado</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Solicitante</label>
+                            <select id="solicitante" name="solicitante" class="form-select" data-control="select2" data-placeholder="Filtrar por un solicitante">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="DSM6834">DSM6834 - DOUGLAS FRANCISCO SAENZ MONTERO</option>
+                                <option value="FSD0000">FSD0000 - FIORELLA MARIA SOLORZANO DIAZ</option>
+                                <option value="GAB6815">GAB6815 - GUSTAVO ADOLFO BARRANTES AVENDAÑO</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Ejecutado por</label>
+                            <select id="usuario" name="usuario" class="form-select" data-control="select2" data-placeholder="Filtrar por un usuario">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="FARTAVIA">FARTAVIA</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <!--begin::Table-->
+                    <table class="table  table-row-dashed fs-6 gy-4  " id="miTabla">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                <th class="w-10px pe-2">
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" value="1" />
+                                    </div>
+                                </th>
+                                <th class="text-left min-w-10 verSubtabla"></th>
+                                <th class="text-left min-w-10">Requisición</th>
+                                <th class="text-left min-w-100">Referencia</th>
+                                <th class="text-left min-w-10">Estado</th>
+                                <th class="text-left min-w-10">Estado</th>
+                                <th class="text-left min-w-10">Líneas</th>
+                                <th class="text-left min-w-10">Fecha</th>
+                                <th class="text-left min-w-10">Ejecutado por</th>
+                                <th class="text-left min-w-10">Solicitante</th>
+                                @*<th class="text-left min-w-100px">Asiento</th>*@
+                                <th class="text-left min-w-150px">Acciones</th>
+                                @*<th class="text-end"></th>*@
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<div class="modal fade" tabindex="-1" id="modalDespacho">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Aprobar entrega</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Requisición</label>
+                        <input type="text" class="form-control form-control-solid" id="req" disabled value="REQ-8719600001" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha y hora de aprobación</label>
+                        <input type="text" class="form-control form-control-solid" disabled value="@(DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"))" />
+                    </div>
+
+                    <div class="form-group mb-6">
+                        <label>Líneas</label>
+                        <input type="text" class="form-control form-control-solid" disabled value="3" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Recibido por</label>
+                        <select id="recibido" name="recibido" class="form-select" data-control="select2" data-placeholder="Seleccione un solicitante">
+                            <option></option>
+                            <option value="DSM6834">DSM6834 - DOUGLAS FRANCISCO SAENZ MONTERO</option>
+                            <option value="FSD0000">FSD0000 - FIORELLA MARIA SOLORZANO DIAZ</option>
+                            <option value="GAB6815">GAB6815 - GUSTAVO ADOLFO BARRANTES AVENDAÑO</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-6">
+                        <label>Código de aprobación</label>
+                        <input type="password" class="form-control " value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarDespacho()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-engage" id="kt_app_engage">
+    <!--begin::Prebuilts toggle-->
+    <a href="javascript:;" class="app-engage-btn hover-success d-none multi">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.3" d="M10.3 14.3L11 13.6L7.70002 10.3C7.30002 9.9 6.7 9.9 6.3 10.3C5.9 10.7 5.9 11.3 6.3 11.7L10.3 15.7C9.9 15.3 9.9 14.7 10.3 14.3Z" fill="currentColor" />
+                <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM11.7 15.7L17.7 9.70001C18.1 9.30001 18.1 8.69999 17.7 8.29999C17.3 7.89999 16.7 7.89999 16.3 8.29999L11 13.6L7.70001 10.3C7.30001 9.89999 6.69999 9.89999 6.29999 10.3C5.89999 10.7 5.89999 11.3 6.29999 11.7L10.3 15.7C10.5 15.9 10.8 16 11 16C11.2 16 11.5 15.9 11.7 15.7Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Aprobar
+    </a>
+    <!--begin::Prebuilts toggle-->
+    <a href="@Url.Action("Detalles", "Requisiciones")" class="app-engage-btn hover-success">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Crear
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--<a class="app-engage-btn hover-success" data-bs-toggle="tooltip" title="Descarga un reporte en excel de las requisiciones">-->
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <!--<span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Microsoft Excel</title><path d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z" fill="currentColor" /></svg>
+        </span>-->
+        <!--end::Svg Icon--><!--Excel
+    </a>-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+@Scripts.Render("~/Scripts/Requisiciones/Index.js")
+
+<script>
+        const rpurl = '@Url.Content("~/Requisiciones")'
+        const opurl = '@Url.Content("~/TomaFisica")'
+        const pdfurl = '@Url.Content("~/Files/oc.pdf")'
+</script>
+
+

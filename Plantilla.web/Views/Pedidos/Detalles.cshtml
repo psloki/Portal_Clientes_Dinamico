@@ -1,0 +1,328 @@
+﻿
+@{
+    ViewBag.Title = "Pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Navbar-->
+            <div class="card my-6">
+                <!--begin::Card head-->
+                <div class="card-header card-header-stretch">
+                    <!--begin::Title-->
+                    <div class="card-title d-flex align-items-center">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                        <span class="svg-icon svg-icon-1 svg-icon-primary me-3 lh-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z" fill="currentColor" />
+                                <rect x="7" y="17" width="6" height="2" rx="1" fill="currentColor" />
+                                <rect x="7" y="12" width="10" height="2" rx="1" fill="currentColor" />
+                                <rect x="7" y="7" width="6" height="2" rx="1" fill="currentColor" />
+                                <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                        <h3 class="fw-bold m-0 text-gray-800">Detalles del pedido</h3>
+                    </div>
+                    <!--end::Title-->
+                </div>
+                <!--end::Card head-->
+                <div class="card-body pt-9 pb-0">
+                    <!--begin::Details-->
+                    <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
+                        <!--begin::Wrapper-->
+                        <div class="flex-grow-1 col-12 row">
+                            @*<div class="form-group col-md-3  mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Consecutivo de pedido</label>
+                                <input type="text" class="form-control text-gray-500" id="ConsecutivoPed" style="font-size:0.90rem;" disabled value="@(ViewBag.Consecutivo_Ped != null? @ViewBag.Consecutivo_Ped.CONSECUTIVO: "")" />
+                            </div>*@
+                            <div class="form-group col-md-3 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Consecutivo de pedido</label>
+                                <input type="text" class="form-control text-gray-500" id="ConsecutivoPed" style="font-size:0.90rem;" disabled
+                                       value="@(Request["Pedido"] != null ? Request["Pedido"] : (ViewBag.Consecutivo_Ped != null ? ViewBag.Consecutivo_Ped.CONSECUTIVO : ""))" />
+                            </div>
+
+
+                            <div class="form-group col-md-2 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Fecha de creación</label>
+                                <input disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" id="fechacreacion" placeholder="fechaoferta" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                            </div>
+                            <div class="form-group col-md-2  mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Estado</label>
+                                <select id="FiltroCuotasVencidas" class="form-select text-gray-500 FiltroCuotasVencidas" style="font-size:0.90rem;" data-control="select2" data-placeholder="seleccione un cliente">
+                                    <option value="Normal">Normal</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-2 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Subtotal del pedido</label>
+                                <input type="text" class="form-control text-gray-500" style="font-size:0.90rem;" id="pretot" placeholder="subtotal" value="₡0" disabled />
+                            </div>
+                            <div class="form-group col-md-3 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Total del pedido</label>
+                                <input disabled type="text" class="form-control text-gray-500" style="font-size:0.90rem;" id="tot" value="₡0" />
+                            </div>
+                            <div class="form-group col-md-3 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Cliente</label>
+                                <select id="clienteDetalle" name="clienteDetalle" @(string.IsNullOrEmpty(Request["cliente"]) ? "" : "disabled") class="form-select text-gray-500" style="font-size:0.90rem;" data-control="select2" data-placeholder="seleccione un cliente">
+                                    <option></option>
+                                    @{
+                                        if (ViewBag.Clientes != null)
+                                        {
+                                            foreach (var item in ViewBag.Clientes)
+                                            {
+                                                <option @(item.CLIENTE == Request["cliente"] || item.CLIENTE == Session["cliente"].ToString() ? "selected" : "") value="@item.CLIENTE">@item.CLIENTE - @item.ALIAS </option>
+                                            }
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Bodega</label>
+                                <input disabled type="text" class="form-control text-gray-500 fw-bold" style="font-size:0.90rem;" id="BodegaEncabezado" value="01" />
+                            </div>
+                            <div class="form-group col-md-6 mb-6">
+                                <label class="text-gray-600 fw-bold text-uppercase fs-7">Observaciones</label>
+                                <textarea class="form-control text-gray-500" style="font-size:0.90rem;" id="observaciones-textarea" placeholder="Ingrese las observaciones"></textarea>
+                            </div>
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                </div>
+            </div>
+            <!--end::Navbar-->
+            @if (!string.IsNullOrEmpty(Request["pedido"]))
+            {
+                <!--begin::Timeline-->
+                <div class="card">
+                    <!--begin::Card head-->
+                    <div class="card-header card-header-stretch">
+                        <!--begin::Title-->
+                        <div class="card-title d-flex align-items-center">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                            <span class="svg-icon svg-icon-1 svg-icon-primary me-3 lh-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                    <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                                    <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            <h3 class="fw-bold m-0 text-gray-800">Agregar líneas al pedido</h3>
+                        </div>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Card head-->
+                    <!--begin::Card body-->
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
+                            <div class="col-12 row">
+                                <div class="form-group col-md-4 mb-6">
+                                    <label class="text-gray-600 fw-bold text-uppercase fs-7">Artículo</label>
+                                    <select id="articulodet" name="articulodet" class="form-select text-gray-500" style="font-size:0.90rem;" data-control="select2" data-placeholder="seleccione un artículo">
+                                        <option></option>
+                                        @{
+                                            if (ViewBag.Lista_Articulos != null)
+                                            {
+                                                foreach (var item in ViewBag.Lista_Articulos)
+                                                {
+                                                    <option value="@item.ARTICULO">@item.ARTICULO-@item.DESCRIPCION - @item.CODIGO_BARRAS_VENT </option>
+                                                }
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-1  mb-6">
+                                    <label class="text-gray-600 fw-bold text-uppercase fs-7">Existencia</label>
+                                    <input type="number" class="form-control text-gray-500" style="font-size:0.90rem;" id="existenciadet" value="0" disabled />
+                                </div>
+                                <div class="col-lg-1 col-xl-1">
+                                    <label>Cantidad</label>
+                                    <input type="number" class="form-control  text-gray-500" id="cantidaddet" onkeyup="calctotal()" onchange="calctotal()" value="0" />
+                                </div>
+
+                                <div class="form-group col-md-2 mb-6">
+                                    <label class="text-gray-600 fw-bold text-uppercase fs-7">Precio unidad</label>
+                                    <input type="text" class="form-control text-gray-500 text-end" style="font-size:0.90rem;" placeholder="Porcentaje de utilidad" value="0" id="preciodet" disabled onchange="calctotal()" />
+                                </div>
+                                <div class="form-group col-md-2 mb-6">
+                                    <label class="text-gray-600 fw-bold text-uppercase fs-7">Descuento (%)</label>
+                                    <input type="text" class="form-control text-gray-500 text-right" style="font-size:0.90rem;" value="0%" id="descuentodet" disabled />
+                                </div>
+                                <div class="form-group col-md-2 mb-6">
+                                    <label class="text-gray-600 fw-bold text-uppercase fs-7">Subtotal</label>
+                                    <input type="text" class="form-control text-gray-500 text-end" style="font-size:0.90rem;" value="0" id="subtotaldet" disabled />
+                                </div>
+
+                                <input type="text" class="d-none" id="montodesc" value="" disabled />
+                                <input type="text" class="d-none" id="montoiva" value="" disabled />
+                                <input type="text" class="d-none" id="total" value="" disabled />
+                                <div class="form-group col-md-2  mb-5">
+
+                                    <a href="javascript:;" onclick="AgregarLinea()" class="btn btn-success">
+                                        <span class="svg-icon svg-icon-1">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                                            </svg>
+                                        </span>Agregar
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Timeline-->
+                <div class="card my-6">
+                    <!--begin::Card head-->
+                    <div class="card-header card-header-stretch">
+                        <!--begin::Title-->
+                        <div class="card-title d-flex align-items-center">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                            <span class="svg-icon svg-icon-1 svg-icon-primary me-3 lh-0">
+                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="6" width="16" height="3" rx="1.5" fill="currentColor" />
+                                    <rect opacity="0.3" y="12" width="8" height="3" rx="1.5" fill="currentColor" />
+                                    <rect opacity="0.3" width="12" height="3" rx="1.5" fill="currentColor" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                            <h3 class="fw-bold m-0 text-gray-800">Líneas del pedido</h3>
+                        </div>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Card head-->
+                    <div class="card-body pt-0">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-4" id="miTabla">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                    <th class="text-left min-w-50px">
+                                        <div class="text-uppercase font-weight-bolder mb-2 total-titulo">Líneas</div>
+                                        <span class="btn btn-sm btn-text btn-primary font-weight-bold text-white" style="width: 50px; text-align: right; color:white!important" id="lineasEncabezado">0</span>
+                                    </th>
+                                    <th class="text-left min-w-300px" >Producto</th>
+                                    <th class="text-left min-w-50px" >Cantidad</th>
+                                    @*<th class="min-w-100px" style="text-align:right">Existencia</th>*@
+                                    <th class="min-w-50px" style="text-align:right">Precio und</th>
+                                    <th class="min-w-50px" style="text-align:right" >D(%)</th>
+                                    
+                                    <th class="min-w-100px" style="text-align:right">
+                                        <div class="text-uppercase font-weight-bolder mb-2 total-titulo" style="text-align:right">Desc(₡)</div>
+                                        <span class="btn btn-sm btn-text btn-primary font-weight-bold text-white" style="width: 100px; text-align: right; color:white!important" id="DescuentoEncabezado">0</span>
+                                    </th>
+                                    <th class="min-w-50px" style="text-align:right">IVA (%)</th>
+                                    
+                                    <th class="min-w-100px" style="text-align:right">
+                                        <div class="text-uppercase font-weight-bolder mb-2 total-titulo" style="text-align:right">IVA(₡)</div>
+                                        <span class="btn btn-sm btn-text btn-primary font-weight-bold text-white" style="width: 100px; text-align: right; color:white!important" id="IVAEncabezado">0</span>
+                                    </th>
+                                    <th class="min-w-100px" style="text-align:right">
+                                        <div class="text-uppercase font-weight-bolder mb-2 total-titulo" style="text-align:right">Subtotal(₡)</div>
+                                        <span class="btn btn-sm btn-text btn-primary font-weight-bold text-white" style="width: 100px; text-align: right; color:white!important" id="SubtotalEncabezado">0</span>
+                                    </th>
+                                    <th class="min-w-100px" style="text-align:right">
+                                        <div class="text-uppercase font-weight-bolder mb-2 total-titulo" style="text-align:right">Total(₡)</div>
+                                        <span class="btn btn-sm btn-text btn-primary font-weight-bold text-white" style="width: 100px; text-align: right; color:white!important" id="TotalEncabezado">0</span>
+                                    </th>
+                                    <th class="text-left min-w-150px">Acciones</th>
+                                    @*<th class="text-end"></th>*@
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="text-gray-600 fw-semibold">
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                </div>
+            }
+
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<!--begin::Engage-->
+<div class="app-engage" id="kt_app_engage">
+    @if (Session["Visita"] != null && string.IsNullOrEmpty(Request["pedido"]))
+    {
+        <!--begin::Prebuilts toggle-->
+        <a href="javascript:;" onclick="Guardar()" class="app-engage-btn hover-primary  text-gray-600">
+            <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+            <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor" />
+                    <path opacity="0.3" d="M10.3 15.3L11 14.6L8.70002 12.3C8.30002 11.9 7.7 11.9 7.3 12.3C6.9 12.7 6.9 13.3 7.3 13.7L10.3 16.7C9.9 16.3 9.9 15.7 10.3 15.3Z" fill="currentColor" />
+                    <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM11.7 16.7L16.7 11.7C17.1 11.3 17.1 10.7 16.7 10.3C16.3 9.89999 15.7 9.89999 15.3 10.3L11 14.6L8.70001 12.3C8.30001 11.9 7.69999 11.9 7.29999 12.3C6.89999 12.7 6.89999 13.3 7.29999 13.7L10.3 16.7C10.5 16.9 10.8 17 11 17C11.2 17 11.5 16.9 11.7 16.7Z" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->Crear
+        </a>
+        <!--end::Prebuilts toggle-->
+    }
+
+    @if (!string.IsNullOrEmpty(Request["pedido"]))
+    {
+        <!--begin::Prebuilts toggle-->
+        <a href="javascript:;" onclick="EnviarSoftland()" class="app-engage-btn hover-primary  text-gray-600">
+            <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+            <span class="svg-icon svg-icon-1 pt-1 mb-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor" />
+                    <path opacity="0.3" d="M10.3 15.3L11 14.6L8.70002 12.3C8.30002 11.9 7.7 11.9 7.3 12.3C6.9 12.7 6.9 13.3 7.3 13.7L10.3 16.7C9.9 16.3 9.9 15.7 10.3 15.3Z" fill="currentColor" />
+                    <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM11.7 16.7L16.7 11.7C17.1 11.3 17.1 10.7 16.7 10.3C16.3 9.89999 15.7 9.89999 15.3 10.3L11 14.6L8.70001 12.3C8.30001 11.9 7.69999 11.9 7.29999 12.3C6.89999 12.7 6.89999 13.3 7.29999 13.7L10.3 16.7C10.5 16.9 10.8 17 11 17C11.2 17 11.5 16.9 11.7 16.7Z" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->Softland
+        </a>
+        <!--end::Prebuilts toggle-->
+       
+    }
+
+    <!--begin::Get help-->
+<a href="javascript:;" class="app-engage-btn hover-primary  text-gray-600" onclick="irRuta();"> @*href="@Url.Action("Index", "EstadosCuenta")"*@
+    <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+    <span class="svg-icon svg-icon-1 pt-1 mb-2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+            <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+        </svg>
+    </span>
+    <!--end::Svg Icon-->Ir Ruta
+</a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+<script>
+	const URL = '@Url.Content("~/Data")'
+	const CURL = '@Url.Content("~/Lista")'
+    // url de la carpeta de archivos.
+    const furl = '@Url.Content("~/Files/Adjuntos")'
+    const dped = '@Url.Content("~/Pedidos")'
+    const step = '@Session["EstadoBotones"]' == 1;
+    const sesionVisita = '@Session["Visita"]';
+    const URLRTA = '@Url.Content("~/EstadosCuenta")'
+</script>
+@Scripts.Render("~/Scripts/Pedidos/Detalles.js")

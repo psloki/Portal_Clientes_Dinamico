@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "Existencia bodegas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<script type='text/javascript' src='http://paperjs.org/assets/js/paper.js'></script>
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-6 mt-3 ">
+                            <label>Artículos</label>
+                            <input class="form-control" placeholder="Escriba su búsqueda" id="articulos" />
+                            @*<select id="articulos" name="articulos" class="form-select" data-control="select2" data-placeholder="Filtrar por artículos" multiple>
+            <option></option>
+            <option value="AA94039 - PCB CARR INTFC ANLOG 7C">AA94039 - PCB CARR INTFC ANLOG 7C</option>
+            <option value="45080879 - PCBA COMTROLER BOARD PCI">45080879 - PCBA COMTROLER BOARD PCI</option>
+            <option value="45104692 - ASM SENSOR ,PREEURE ,48MM WIRE INK CMYK">45104692 - ASM SENSOR ,PREEURE ,48MM WIRE INK CMYK</option>
+            <option value="AA94040 - PCB CARR INTFC DIGITAL 7C">AA94040 - PCB CARR INTFC DIGITAL 7C</option>
+            <option value="MMS-0003-01 - SERVO MOTOR">MMS-0003-01 - SERVO MOTOR</option>
+            <option value="MIF-0002-01 - Bulk 6un Filter SCF 3112J060">MIF-0002-01 - Bulk 6un Filter SCF 3112J060</option>
+            <option value="MIT-0001-01 - PERISTALTIC PUMP">MIT-0001-01 - PERISTALTIC PUMP</option>
+            <option value="FD-1245-02 - BIOMEDIC BACUUM NIPPLE SUPPORT">FD-1245-02 - BIOMEDIC BACUUM NIPPLE SUPPORT</option>
+            <option value="AL-5052-01 - INK PIPE CUTTING DRAWING">AL-5052-01 - INK PIPE CUTTING DRAWING</option>
+            <option value="CBL-6011-01 - 3/2 VALVE CONTROL CABLE">CBL-6011-01 - 3/2 VALVE CONTROL CABLE</option>
+            <option value="OPT-S1005 - PROTUSION ADJUSTER">OPT-S1005 - PROTUSION ADJUSTER</option>
+            <option value="SPA-0319 - A106746 CAP BV2 PACKING ASSY">SPA-0319 - A106746 CAP BV2 PACKING ASSY</option>
+            <option value="OPT-C0066 - PROTRUSION ADJUSTER">OPT-C0066 - PROTRUSION ADJUSTER</option>
+            <option value="OPT-SS036 - USB Serial Adapter">OPT-SS036 - USB Serial Adapter</option>
+            <option value="E300596 - SOLENOIDE VALVE (2 pos /8 PORTS)">E300596 - SOLENOIDE VALVE (2 pos /8 PORTS)</option>
+            <option value="E111261 - EPL3B SHIELD SLIDER CABLE 160 ASSY">E111261 - EPL3B SHIELD SLIDER CABLE 160 ASSY</option>
+            <option value="G02766277 - KIT MOTOR W/T PULLEY Y PLATE">G02766277 - KIT MOTOR W/T PULLEY Y PLATE</option>
+            <option value="G42452128 - FAN SODECA 30-4M sound suppression box">G42452128 - FAN SODECA 30-4M sound suppression box</option>
+            <option value="G32565368 - TOOL BOARD GC800,HS MILLER">G32565368 - TOOL BOARD GC800,HS MILLER</option>
+            <option value="G42454728 - COLLECT CHUCH P10 Dia 6IBAG HP  B-66">G42454728 - COLLECT CHUCH P10 Dia 6IBAG HP  B-66</option>
+        </select>*@
+                        </div>
+                        <div class="form-group col-md-4 mt-3 ">
+                            <label>Clasificación (Tecnología)</label>
+                            <select id="clas1" name="clas1" class="form-select" data-control="select2" data-placeholder="Filtrar por una clasificación">
+                                <option></option>
+                                <option value="Digital">Digital</option>
+                                <option selected value="Offset">Offset</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 mt-3 d-none">
+                            <label>Clasificación 2</label>
+                            <select id="clas2" name="clas2" class="form-select" data-control="select2" data-placeholder="Filtrar por una clasificación">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="EFI">EFI</option>
+                                <option value="SCODIX">SCODIX</option>
+                                <option value="MIMAKI">MIMAKI</option>
+                                <option value="KOMGSBERG- ESKO">KOMGSBERG- ESKO</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 mt-3 ">
+                            <a href="javascript:;" onclick="AplicarFiltros()" class="btn btn-primary mt-5">Aplicar filtros</a>
+                        </div>
+                        @*<div class="form-group col-md-3 mt-3 ">
+                            <label>Proveedor</label>
+                            <select id="proveedor" name="proveedor" class="form-select" data-control="select2" data-placeholder="Filtrar por un proveedor">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="EFI">EFI</option>
+                                <option value="SCODIX">SCODIX</option>
+                                <option value="MIMAKI">MIMAKI</option>
+                                <option value="KOMGSBERG- ESKO">KOMGSBERG- ESKO</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <!--begin::Table-->
+                    <table class="table  table-row-dashed fs-6 gy-4  " id="miTabla">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                <th class="w-10px pe-2">
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" value="1" />
+                                    </div>
+                                </th>
+                                <th class="text-left min-w-10 verSubtabla"></th>
+                                <th class="text-left min-w-300">Artículo</th>
+                                <th class="text-left min-w-100">Clasificación 1</th>
+                                <th class="text-left min-w-100">Clasificación 2</th>
+                                <th class="text-left min-w-10">Proveedor</th>
+                                <th class="text-left min-w-100">Disponible</th>
+                                <th class="text-left min-w-10">Costo unit</th>
+                                <th class="text-left min-w-10">Costo total</th>
+                                <th class="text-left min-w-150px">Acciones</th>
+                                @*<th class="text-end"></th>*@
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+<div class="modal fade" tabindex="-1" id="modalEnvio">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Enviar por correo</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Correo bodega</label>
+                        <input type="text" class="form-control form-control-solid" id="correobodega" disabled value="grafocentro@gruposg.com" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>con copia a</label>
+                        <input type="text" class="form-control form-control-solid" disabled value="bnunez@gruposg.com" />
+                    </div>
+
+                    <div class="form-group mb-6">
+                        <label>Correos extra (opcional)</label>
+                        <input type="text" class="form-control" placeholder="Ingrese correos extra para enviar el correo" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="envio()" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-engage" id="kt_app_engage">
+    <!--begin::Prebuilts toggle-->
+    <a href="@Url.Content("~/Files/ReporteBodegas.xls")" target="_blank" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2">
+            <i class="las la-file-excel fs-2x"></i>
+        </span>Excel
+    </a>
+    <!--begin::Prebuilts toggle-->
+    <a  href="javascript:;" onclick="EnviarPorCorreo('Varios')" class="app-engage-btn hover-success d-none multi">
+        <span class="svg-icon svg-icon-2">
+            <i class="las la-envelope fs-2x"></i>
+        </span>Correo
+        
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--<a class="app-engage-btn hover-success" data-bs-toggle="tooltip" title="Descarga un reporte en excel de las requisiciones">-->
+    <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+    <!--<span class="svg-icon svg-icon-1 pt-1 mb-2">
+        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Microsoft Excel</title><path d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z" fill="currentColor" /></svg>
+    </span>-->
+    <!--end::Svg Icon-->
+    <!--Excel
+    </a>-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+@Scripts.Render("~/Scripts/Bodegas/Index.js")
+
+<script>
+        const rpurl = '@Url.Content("~/Requisiciones")'
+        const reporte = '@Url.Content("~/Files/ReporteBodegas.xls")'
+</script>
+
+

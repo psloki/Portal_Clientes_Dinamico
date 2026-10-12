@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracking.core", "Plantilla.core\Tracking.core.csproj", "{EE7E89E3-383B-4B7F-AD2E-94C094B3F94B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracking.web", "Plantilla.web\Tracking.web.csproj", "{9CED9F0E-7698-4425-9AE2-8AFF5C7B3CC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE7E89E3-383B-4B7F-AD2E-94C094B3F94B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE7E89E3-383B-4B7F-AD2E-94C094B3F94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE7E89E3-383B-4B7F-AD2E-94C094B3F94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE7E89E3-383B-4B7F-AD2E-94C094B3F94B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CED9F0E-7698-4425-9AE2-8AFF5C7B3CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CED9F0E-7698-4425-9AE2-8AFF5C7B3CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CED9F0E-7698-4425-9AE2-8AFF5C7B3CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CED9F0E-7698-4425-9AE2-8AFF5C7B3CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {891C8B42-F356-4F9E-8D43-A0738E308561}
+	EndGlobalSection
+EndGlobal

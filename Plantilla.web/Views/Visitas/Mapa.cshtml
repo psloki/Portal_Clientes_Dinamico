@@ -1,0 +1,86 @@
+﻿
+
+@{
+    ViewBag.Title = "Mapa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="~/Scripts/leaflet.bundle.css" rel="stylesheet" />
+
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-2 mt-3 ">
+                            <label>Fecha de Visita</label>
+                            @*<div class="input-group" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                    <input id="fechavisita" type="text" class="form-control fecha text-gray-500"
+                                           data-td-toggle="datetimepicker" style="font-size:0.90rem;" data-td-target="#fechavisita" value="@(DateTime.Now.ToString("dd/MM/yyyy"))" />
+
+                                </div>*@
+                            <div class="form-group">
+                                @{
+                                    string fechaVisita = (Request["fecha_visita"] == null || Request["fecha_visita"] == "null") ? DateTime.Now.ToString("dd/MM/yyyy") : Request["fecha_visita"];
+                                }
+                                <input id="fechavisitaMapa" type="text" class="form-control text-gray-500" style="font-size: 0.90rem;" value="@fechaVisita" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0" id="contenedorMapa">
+
+                    <div id="kt_leaflet_3" style="height:700px;"></div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Subheader-->
+
+<script>
+	const URL = '@Url.Content("~/Data")'
+	const CURL = '@Url.Content("~/EstadosCuenta")'
+	const REPORTE = '@Url.Content("~/Files/EstadoCuenta.pdf")'
+    const REPORTEAUX = '@Url.Content("~/Files/Reporte.pdf")'
+    const vmurl = '@Url.Content("~/Visitas")'
+    let vendedor = '@Session["Vendedor"].ToString()'
+    let cliente = '@Session["cliente"].ToString()'
+    console.log(vendedor, cliente);
+</script>
+
+
+@Scripts.Render("~/Scripts/leaflet.bundle.js")
+@Scripts.Render("~/Scripts/Visitas/Mapa.js")
+
+

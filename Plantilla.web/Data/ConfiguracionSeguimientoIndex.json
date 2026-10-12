@@ -1,0 +1,70 @@
+[
+	{
+		"SEGUIMIENTO": "S0001",
+		"TIPO": "Cotizaci\u00F3n anuncio en tv (3 canales)",
+		"FECHA_SOLICITUD": "15/08/2021",
+		"COLEGIADO": "00002 - Daniela Sandoval ",
+		"ESTADO": "V",
+		"CODIGO_ESTADO": "01",
+		"ENCARGADO": "Diego",
+		"CODIGO_ENCARGADO": "03",
+		"EQUIPO": "EQUIPO-001",
+		"COTIZACION": "COT-000025",
+		"FACTURA": ""
+	},
+	{
+		"SEGUIMIENTO": "S0002",
+		"TIPO": "Cotizaci\u00F3n anuncio en tv (3 canales)",
+		"FECHA_SOLICITUD": "25/01/2022",
+		"COLEGIADO": "00001 - Armando Porras",
+		"ESTADO": "P",
+		"CODIGO_ESTADO": "02",
+		"ENCARGADO": "Ivannia",
+		"CODIGO_ENCARGADO": "02",
+		"EQUIPO": "EQUIPO-001",
+		"COTIZACION": "COT-000165",
+		"FACTURA": ""
+	},
+	{
+		"SEGUIMIENTO": "S0003",
+		"TIPO": "Control horas",
+		"FECHA_SOLICITUD": "08/12/2021",
+		"COLEGIADO": "00003 - Juan Carlos Aguilar",
+		"ESTADO": "R",
+		"CODIGO_ESTADO": "03",
+		"ENCARGADO": "Diego",
+		"CODIGO_ENCARGADO": "03",
+		"EQUIPO": "EQUIPO-002",
+		"COTIZACION": "COT-000165",
+		"FACTURA": ""
+	},
+	{
+		"SEGUIMIENTO": "S0004",
+		"TIPO": "Control horas",
+		"FECHA_SOLICITUD": "06/05/2020",
+		"COLEGIADO": "00004 - Dario Perez",
+		"ESTADO": "C",
+		"CODIGO_ESTADO": "04",
+		"ENCARGADO": "Marianela",
+		"CODIGO_ENCARGADO": "01",
+		"EQUIPO": "EQUIPO-001",
+		"COTIZACION": "",
+		"FACTURA": ""
+	},
+	{
+		"SEGUIMIENTO": "S0005",
+		"TIPO": "Control horas",
+		"FECHA_SOLICITUD": "22/05/2021",
+		"COLEGIADO": "00005 - Daniel Obando",
+		"ESTADO": "V",
+		"CODIGO_ESTADO": "01",
+		"ENCARGADO": "Diego",
+		"CODIGO_ENCARGADO": "03",
+		"EQUIPO": "EQUIPO-002",
+		"COTIZACION": "",
+		"FACTURA": ""
+	}
+
+]
+
+

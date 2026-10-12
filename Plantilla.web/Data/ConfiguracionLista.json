@@ -1,0 +1,112 @@
+[
+
+	{
+		"LISTA": 1,
+		"CODIGO_LISTA": "COT-000025",
+		"NOMBRE": "00002 - Daniela Sandoval",
+		"DESCRIPCION": "Cotizaci\u00F3n de capacitaci\u00F3n de comunicaci\u00F3n interna",
+		"COLABORADOR": "psanchez",
+		"HORAS": "19",
+		"DESCUENTO": "$0",
+		"TOTAL": "$450",
+		"TIPO": "Cotizaci\u00F3n",
+		"FECHA_CREACION": "19/04/2021",
+		"CANTIDAD": "3",
+		"ACTIVO": "N",
+		"EQUIPO": "EQUIPO-001",
+		"ESTADO": "P",
+		"TAREAS": [
+			{
+				"LINEA": "1212",
+				"TRABAJO": "Direcci\u00F3n y an\u00E2lisis t\u00E9cnico",
+				"TAREA": "Ejecuci\u00F3n t\u00E9cnica.",
+				"HORAS": "10",
+				"DESCUENTO": "$0",
+				"TOTAL": "$200",
+				"ENCARGADO": "BNUNEZ"
+			},
+			{
+				"LINEA": "1213",
+				"TRABAJO": "Direcci\u00F3n y an\u00E2lisis t\u00E9cnico",
+				"TAREA": "Cargo administrativo.",
+				"HORAS": "1",
+				"DESCUENTO": "$0",
+				"TOTAL": "$50",
+				"ENCARGADO": "BNUNEZ"
+			},
+			{
+				"LINEA": "1214",
+				"TRABAJO": "Direcci\u00F3n y an\u00E2lisis t\u00E9cnico",
+				"TAREA": "Direcci\u00F3n t\u00E9cnica",
+				"HORAS": "8",
+				"DESCUENTO": "$0",
+				"TOTAL": "$200",
+				"ENCARGADO": "BNUNEZ"
+			}
+		]
+	},
+	{
+		"LISTA": 2,
+		"CODIGO_LISTA": "COT-000165",
+		"NOMBRE": "00001 - Armando Porras",
+		"DESCRIPCION": "Consultor\u00EDa de comunicaciones",
+		"COLABORADOR": "aalvarez",
+		"HORAS": "12",
+		"DESCUENTO": "$0",
+		"TOTAL": "$125",
+		"TIPO": "Cotizaci\u00F3n",
+		"FECHA_CREACION": "19/04/2021",
+		"CANTIDAD": "1",
+		"ACTIVO": "S",
+		"EQUIPO": "EQUIPO-001",
+		"ESTADO": "A",
+		"TAREAS": [
+			{
+				"LINEA": "2829",
+				"TRABAJO": "Preparaci\u00F3n",
+				"TAREA": "Adaptaci\u00F3n de consultor\u00EDa",
+				"HORAS": "6",
+				"DESCUENTO": "$0",
+				"TOTAL": "$25",
+				"ENCARGADO": "aalvarez"
+			},
+			{
+				"LINEA": "2830",
+				"TRABAJO": "Ejecuci\u00F3n",
+				"TAREA": "Hacer consultor\u00EDa",
+				"HORAS": "6",
+				"DESCUENTO": "$0",
+				"TOTAL": "$100",
+				"ENCARGADO": "aalvarez"
+			}
+		]
+	},
+	{
+		"LISTA": 3,
+		"CODIGO_LISTA": "COT-000168",
+		"NOMBRE": "00004 - Dario Perez",
+		"DESCRIPCION": "Cotizaci\u00F3n Media Analytics",
+		"COLABORADOR": "ecalderon",
+		"HORAS": "22",
+		"DESCUENTO": "$0",
+		"TOTAL": "$600",
+		"TIPO": "Cotizaci\u00F3n",
+		"FECHA_CREACION": "19/04/2021",
+		"CANTIDAD": "1",
+		"ACTIVO": "S",
+		"EQUIPO": "EQUIPO-002",
+		"ESTADO": "C",
+		"TAREAS": [
+			{
+				"LINEA": "2832",
+				"TRABAJO": "Preparaci\u00F3n",
+				"TAREA": "Adaptaci\u00F3n de consultor\u00EDa",
+				"HORAS": "6",
+				"DESCUENTO": "$0",
+				"TOTAL": "$25",
+				"ENCARGADO": "aalvarez"
+			}
+		]
+	}
+]
+

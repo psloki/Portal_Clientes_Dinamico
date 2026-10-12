@@ -1,0 +1,432 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+@Scripts.Render("~/Scripts/Dashboard.js")
+<!-- begin:: Content -->
+<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-sm-2 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget20">
+                        <div class="kt-widget20__content kt-portlet__space-x">
+                            <span class="kt-widget20__number kt-font-brand" style="color:purple !important;">$ 0</span>
+                            <span class="kt-widget20__desc">REAL SALES JUNE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget20">
+                        <div class="kt-widget20__content kt-portlet__space-x">
+                            <span class="kt-widget20__number kt-font-brand" style="color:khaki !important;">
+                                $ 60,364
+                            </span>
+                            <span class="kt-widget20__desc">BUDGET JUNE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget20">
+                        <div class="kt-widget20__content kt-portlet__space-x">
+                            <span class="kt-widget20__number kt-font-brand" style="color:gold !important;">
+                                $ 41,026
+                            </span>
+                            <span class="kt-widget20__desc">SALES JUNE 2018</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget20">
+                        <div class="kt-widget20__content kt-portlet__space-x">
+                            <span class="kt-widget20__number kt-font-brand" style="color:dodgerblue !important;">
+                                $ 130,107
+                            </span>
+                            <span class="kt-widget20__desc">REAL SALES YTD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget20">
+                        <div class="kt-widget20__content kt-portlet__space-x">
+                            <span class="kt-widget20__number kt-font-brand" style="color:cornflowerblue !important;">
+                                $ 130,107
+                            </span>
+                            <span class="kt-widget20__desc">ANNUAL REAL SALES YTD + FCAST</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div class="col-sm-2 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-widget20">
+                        <div class="kt-widget20__content kt-portlet__space-x">
+                            <span class="kt-widget20__number kt-font-brand" style="color:goldenrod !important;">
+                                $ 1,653,932
+                            </span>
+                            <span class="kt-widget20__desc">ANNUAL BGT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-2">
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Dashboard Filter
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="tab-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Forecast
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" id="num" name="num" value="">
+                                                <option value="FCTJUN19">FCTJUN19</option>
+                                                <option value="FCTMAY19">FCTMAY19</option>
+                                                <option value="FCTAPR19">FCTAPR19</option>
+                                                <option value="FCTFEB19">FCTFEB19</option>
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Country
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" id="CIA" name="CIA" value="" multiple>
+                                                <option value="">Select a state</option>
+                                                <option value="ACCB" selected="">ACCB</option>
+                                                <option value="ACDM"> ACDM </option>
+                                                <option value="ACGT"> ACGT </option>
+                                                <option value="ACHN"> ACHN </option>
+                                                <option value="ACMX"> ACMX </option>
+                                                <option value="ACNI"> ACNI </option>
+                                                <option value="ACPA"> ACPA </option>
+                                                <option value="AGRICENTCR"> AGRICENTCR </option>
+
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Sales Rep
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" id="Seller" name="Seller" value="" multiple>
+                                                <option value="1">1 - Omar Liscano</option>
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Corp Client
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" multiple id="CorpClient" name="CorpClient" value="">
+                                                <option value="C0002">C0002 - HIPRO FARM SUPPLIES</option>
+                                                <option value="C0003">C0003 - AGRI-CHEMICALS (JAMAICA) LTD</option>
+                                                <option value="C0004">C0004 - CHEPHACU NV</option>
+                                                <option value="C0005">C0005 - MARIO ALMANZA</option>
+                                                <option value="C0006">C0006 - EXCE LAG VENEZUELA CA</option>
+                                                <option value="C0008">C0008 - JONKA ENTERPRISES N.V.</option>
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Client
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" multiple id="Client" name="Client" value="">
+                                                <option value="C0002">C0002 - HIPRO FARM SUPPLIES</option>
+                                                <option value="C0003">C0003 - AGRI-CHEMICALS (JAMAICA) LTD</option>
+                                                <option value="C0004">C0004 - CHEPHACU NV</option>
+                                                <option value="C0005">C0005 - MARIO ALMANZA</option>
+                                                <option value="C0006">C0006 - EXCE LAG VENEZUELA CA</option>
+                                                <option value="C0008">C0008 - JONKA ENTERPRISES N.V.</option>
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Clasification
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" multiple id="Clasification" name="Clasification" value="">
+                                                <option value="Artículos">Artículos</option>
+                                                <option value="Bio-Fungicidas">Bio-Fungicidas</option>
+                                                <option value="Fertilizantes">Fertilizantes</option>
+                                                <option value="Fungicidas">Fungicidas</option>
+                                                <option value="Herbicidas">Herbicidas</option>
+                                                <option value="Insecticiidas">Insecticiidas</option>
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>
+                                        Product
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <select type="text" class="form-control kt-input bootstrap-select icono" multiple id="Product" name="Product" value="">
+                                                <option value="002003"></option>
+                                                <option value="010001">010001 - FERT. FOLIAR GREEN PLANTS K 35% ***LT***</option>
+                                                <option value="010003">010003 - FERT. FOLIAR GREEN PLANTS MULTIMINERAL ***LT***</option>
+                                                <option value="010004">010004 - FERT. GP NITROGEN 50 *** 3.5 LTS ***</option>
+                                                <option value="010005">010005 - FERT. NPK SOLUBLE. (20-20-20) + 0.1% Te (Fe+Mn+Zn+Cu+B+Mo) *** 21.78 LBS ***</option>
+                                                <option value="010006">010006 - FERT. NPK SOLUBLE. (20-20-20) + 0.1% Te (Fe+Mn+Zn+Cu+B+Mo) *** 1 LB ***</option>
+                                                <option value="010007">010007 - FERT. FOLIAR GREEN PLANTS Ca-B ***500 ML***</option>
+                                                <option value="010008">010008 - FERT. AGROFOS K ***500 ML***</option>
+                                                <option value="010009">010009 - FERT. GP MULTIMINERAL 1 LT</option>
+                                                <option value="010010">010010 - FERT. FOLIAR GREEN PLANTS NPK ***500 ML***</option>
+                                                <option value="010011">010011 - FERT. FOLIAR GREEN PLANTS K 35% ***500 ML***</option>
+                                                <option value="010012">010012 - FERT. PHOSPHORUS K 00-73-02 ***500 ML***</option>
+                                                <option value="010013">010013 - FERT. ZINCAZOT ***500 ML***</option>
+                                                <option value="010014">010014 - FERT. FOLIAR GREEN PLANTS ZN ***500 ML***</option>
+                                                <option value="010015">010015 - FERT. FOLIAR GREEN PLANTS Fe 10% ***500 ML***</option>
+                                                <option value="010016">010016 - FERT. FOLIAR GREEN PLANTS B 10% ***500 ML***</option>
+                                                <option value="010017">010017 - FERT. FOLIAR GREEN PLANTS Ca 18% ***500 ML***</option>
+                                            </select>
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span>
+                                                    <span class="livicon-evo" data-options="name: sky-dish.svg; morphState: start; style: lines; size: 30px; tryToSharpen: true; strokeColor:#898b96"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-10" id="BloquearDobleClick">
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Real Sales vs Budget vs Forecast
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar" id="divSeleccionarTipoFactura">
+                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_grafico_mensual" role="tab" id="nav_grafico_mensual">
+                                    Montly $
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_sku_lt" role="tab" id="nav_sku_lt">
+                                    SKU KG/LT
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_sku_$" role="tab" id="nav_sku_$">
+                                    SKU $
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#kt_client" role="tab" id="nav_client">
+                                    Client
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="kt_grafico_mensual">
+                            <div id="chartdiv" style="overflow: hidden; text-align: left;"><div class="amcharts-main-div" style="position: relative; width: 100%; height: 100%;"><div class="amcharts-chart-div" style="overflow: hidden; position: relative; text-align: left; width: 1160px; height: 452px; padding: 0px; touch-action: auto;"><svg version="1.1" style="position: absolute; width: 1160px; height: 452px; top: 0px; left: -0.015625px;"><desc>JavaScript chart by amCharts 3.20.12</desc><g><path cs="100,100" d="M0.5,0.5 L1159.5,0.5 L1159.5,451.5 L0.5,451.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-bg"></path><path cs="100,100" d="M0.5,0.5 L1044.5,0.5 L1044.5,395.5 L0.5,395.5 L0.5,0.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-plot-area" transform="translate(100,30)"></path></g><g><g class="amcharts-category-axis" transform="translate(100,30)"><g><path cs="100,100" d="M1.5,395.5 L1.5,395.5 L1.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M88.5,395.5 L88.5,395.5 L88.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M175.5,395.5 L175.5,395.5 L175.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M262.5,395.5 L262.5,395.5 L262.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M349.5,395.5 L349.5,395.5 L349.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M436.5,395.5 L436.5,395.5 L436.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M523.5,395.5 L523.5,395.5 L523.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M610.5,395.5 L610.5,395.5 L610.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M697.5,395.5 L697.5,395.5 L697.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M784.5,395.5 L784.5,395.5 L784.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M871.5,395.5 L871.5,395.5 L871.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M958.5,395.5 L958.5,395.5 L958.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M1045.5,395.5 L1045.5,395.5 L1045.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1557507715495" transform="translate(100,30)" visibility="visible"><g><path cs="100,100" d="M0.5,395.5 L6.5,395.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,395.5 L0.5,395.5 L1044.5,395.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,329.5 L6.5,329.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,329.5 L0.5,329.5 L1044.5,329.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,263.5 L6.5,263.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,263.5 L0.5,263.5 L1044.5,263.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,198.5 L6.5,198.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,198.5 L0.5,198.5 L1044.5,198.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,132.5 L6.5,132.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,132.5 L0.5,132.5 L1044.5,132.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,66.5 L6.5,66.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,66.5 L0.5,66.5 L1044.5,66.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,0.5 L6.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,0.5 L0.5,0.5 L1044.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.1" stroke="#000000" class="amcharts-axis-grid"></path></g></g></g><g></g><g></g><g></g><g></g><g><g transform="translate(100,30)" class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496"><g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(9,395)" visibility="visible" aria-label="Real Sales 2019 Jan 68,067"><path cs="100,100" d="M0.5,0.5 L0.5,-89.5 L32.5,-89.5 L32.5,0.5 L0.5,0.5 Z" fill="#67b7dc" stroke="#67b7dc" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(96,395)" visibility="visible" aria-label="Real Sales 2019 Feb 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(183,395)" visibility="visible" aria-label="Real Sales 2019 Mar 62,040"><path cs="100,100" d="M0.5,0.5 L0.5,-81.5 L32.5,-81.5 L32.5,0.5 L0.5,0.5 Z" fill="#67b7dc" stroke="#67b7dc" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(270,395)" visibility="visible" aria-label="Real Sales 2019 Apr 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(357,395)" visibility="visible" aria-label="Real Sales 2019 May 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(444,395)" visibility="visible" aria-label="Real Sales 2019 Jun 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(531,395)" visibility="visible" aria-label="Real Sales 2019 Jul 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(618,395)" visibility="visible" aria-label="Real Sales 2019 Aug 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(705,395)" visibility="visible" aria-label="Real Sales 2019 Sep 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(792,395)" visibility="visible" aria-label="Real Sales 2019 Oct 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(879,395)" visibility="visible" aria-label="Real Sales 2019 Nov 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496" transform="translate(966,395)" visibility="visible" aria-label="Real Sales 2019 Dec 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#67b7dc" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g><g transform="translate(100,30)" class="amcharts-graph-line amcharts-graph-graph2" opacity="1" visibility="visible"><g></g><g clip-path="url(#AmChartsEl-1)"><path cs="100,100" d="M44.5,180.9755 L131.5,196.89795 L218.5,193.49042 L305.5,238.65208 L392.5,259.59103 L479.5,316.02073 L566.5,130.43393 L653.5,208.87698 L740.5,313.53223 L827.5,97.50542 L914.5,145.92847 L1001.5,286.41548 M0,0 L0,0" fill="none" stroke-width="3" stroke-opacity="1" stroke="#DCC767" stroke-linejoin="round" class="amcharts-graph-stroke"></path></g><clipPath id="AmChartsEl-1"><rect x="0" y="0" width="1044" height="395" rx="0" ry="0" stroke-width="0"></rect></clipPath><g></g></g><g transform="translate(100,30)" class="amcharts-graph-line amcharts-graph-graph3" opacity="1" visibility="visible"><g></g><g clip-path="url(#AmChartsEl-2)"><path cs="100,100" d="M44.5,395.5 L131.5,395.5 L218.5,395.5 L305.5,395.5 L392.5,395.5 L479.5,395.5 L566.5,395.5 L653.5,395.5 L740.5,395.5 L827.5,395.5 L914.5,395.5 L1001.5,395.5 M0,0 L0,0" fill="none" stroke-width="3" stroke-opacity="1" stroke="#84b761" stroke-linejoin="round" class="amcharts-graph-stroke"></path></g><clipPath id="AmChartsEl-2"><rect x="0" y="0" width="1044" height="395" rx="0" ry="0" stroke-width="0"></rect></clipPath><g></g></g><g transform="translate(100,30)" class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497"><g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(47,395)" visibility="visible" aria-label="Real Sales Last Year Jan 50,587"><path cs="100,100" d="M0.5,0.5 L0.5,-66.5 L32.5,-66.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(134,395)" visibility="visible" aria-label="Real Sales Last Year Feb 240,128"><path cs="100,100" d="M0.5,0.5 L0.5,-315.5 L32.5,-315.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(221,395)" visibility="visible" aria-label="Real Sales Last Year Mar 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#cc4748" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(308,395)" visibility="visible" aria-label="Real Sales Last Year Apr 56,000"><path cs="100,100" d="M0.5,0.5 L0.5,-73.5 L32.5,-73.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(395,395)" visibility="visible" aria-label="Real Sales Last Year May 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#cc4748" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(482,395)" visibility="visible" aria-label="Real Sales Last Year Jun 41,026"><path cs="100,100" d="M0.5,0.5 L0.5,-53.5 L32.5,-53.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(569,395)" visibility="visible" aria-label="Real Sales Last Year Jul 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#cc4748" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(656,395)" visibility="visible" aria-label="Real Sales Last Year Aug 72,772"><path cs="100,100" d="M0.5,0.5 L0.5,-95.5 L32.5,-95.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(743,395)" visibility="visible" aria-label="Real Sales Last Year Sep 0"><path cs="100,100" d="M0.5,0.5 L32.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.9" stroke="#cc4748" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(830,395)" visibility="visible" aria-label="Real Sales Last Year Oct 33,300"><path cs="100,100" d="M0.5,0.5 L0.5,-43.5 L32.5,-43.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(917,395)" visibility="visible" aria-label="Real Sales Last Year Nov 61,266"><path cs="100,100" d="M0.5,0.5 L0.5,-80.5 L32.5,-80.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497" transform="translate(1004,395)" visibility="visible" aria-label="Real Sales Last Year Dec 178,240"><path cs="100,100" d="M0.5,0.5 L0.5,-234.5 L32.5,-234.5 L32.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g></g><g></g><g><path cs="100,100" d="M0.5,395.5 L1044.5,395.5 L1044.5,395.5" fill="none" stroke-width="1" stroke-opacity="0.2" stroke="#000000" transform="translate(100,30)" class="amcharts-axis-zero-grid-valueAxisAuto0_1557507715495 amcharts-axis-zero-grid"></path><g class="amcharts-category-axis"><path cs="100,100" d="M0.5,0.5 L1044.5,0.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(100,425)" class="amcharts-axis-line"></path></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1557507715495"><path cs="100,100" d="M0.5,0.5 L0.5,395.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(100,30)" class="amcharts-axis-line" visibility="visible"></path></g></g><g></g><g></g><g><g transform="translate(100,30)" class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496"></g><g transform="translate(100,30)" class="amcharts-graph-line amcharts-graph-graph2" opacity="1" visibility="visible"><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(44,180)" aria-label="Budget  2019 Jan 162,930" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(131,196)" aria-label="Budget  2019 Feb 150,837" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(218,193)" aria-label="Budget  2019 Mar 153,425" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(305,238)" aria-label="Budget  2019 Apr 119,125" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(392,259)" aria-label="Budget  2019 May 103,222" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(479,316)" aria-label="Budget  2019 Jun 60,364" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(566,130)" aria-label="Budget  2019 Jul 201,316" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(653,208)" aria-label="Budget  2019 Aug 141,739" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(740,313)" aria-label="Budget  2019 Sep 62,254" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(827,97)" aria-label="Budget  2019 Oct 226,325" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(914,145)" aria-label="Budget  2019 Nov 189,548" class="amcharts-graph-bullet"></circle><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(1001,286)" aria-label="Budget  2019 Dec 82,849" class="amcharts-graph-bullet"></circle></g><g transform="translate(100,30)" class="amcharts-graph-line amcharts-graph-graph3" opacity="1" visibility="visible"><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(44,395)" aria-label="Forecast  2019 Jan 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(131,395)" aria-label="Forecast  2019 Feb 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(218,395)" aria-label="Forecast  2019 Mar 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(305,395)" aria-label="Forecast  2019 Apr 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(392,395)" aria-label="Forecast  2019 May 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(479,395)" aria-label="Forecast  2019 Jun 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(566,395)" aria-label="Forecast  2019 Jul 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(653,395)" aria-label="Forecast  2019 Aug 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(740,395)" aria-label="Forecast  2019 Sep 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(827,395)" aria-label="Forecast  2019 Oct 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(914,395)" aria-label="Forecast  2019 Nov 0" class="amcharts-graph-bullet"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" transform="translate(1001,395)" aria-label="Forecast  2019 Dec 0" class="amcharts-graph-bullet"></path></g><g transform="translate(100,30)" class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497"></g></g><g><g></g></g><g><g class="amcharts-category-axis" transform="translate(100,30)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(44.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Jan</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(131.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Feb</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(218.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Mar</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(305.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Apr</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(392.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">May</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(479.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Jun</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(566.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Jul</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(653.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Aug</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(740.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Sep</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(827.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Oct</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(914.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Nov</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(1001.5,407.5)" class="amcharts-axis-label"><tspan y="6" x="0">Dec</tspan></text></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1557507715495" transform="translate(100,30)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,394)" class="amcharts-axis-label"><tspan y="6" x="0">0</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,328)" class="amcharts-axis-label"><tspan y="6" x="0">50,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,262)" class="amcharts-axis-label"><tspan y="6" x="0">100,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,197)" class="amcharts-axis-label"><tspan y="6" x="0">150,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,131)" class="amcharts-axis-label"><tspan y="6" x="0">200,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,65)" class="amcharts-axis-label"><tspan y="6" x="0">250,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,-1)" class="amcharts-axis-label"><tspan y="6" x="0">300,000</tspan></text></g></g><g></g><g transform="translate(100,30)"></g><g></g><g></g></svg></div><div class="amChartsLegend amcharts-legend-div" style="overflow: hidden; position: relative; text-align: left; width: 1160px; height: 48px;"><svg version="1.1" style="position: absolute; width: 1160px; height: 48px;"><desc>JavaScript chart by amCharts 3.20.12</desc><g transform="translate(100,0)"><path cs="100,100" d="M0.5,0.5 L1044.5,0.5 L1044.5,37.5 L0.5,37.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-legend-bg"></path><g transform="translate(0,11)"><g cursor="pointer" class="amcharts-legend-item-graphAuto0_1557507715496" aria-label="Real Sales 2019" transform="translate(0,0)"><path cs="100,100" d="M-15.5,8.5 L16.5,8.5 L16.5,-7.5 L-15.5,-7.5 Z" fill="#67b7dc" stroke="#67b7dc" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" transform="translate(16,8)" class="amcharts-graph-column amcharts-graph-graphAuto0_1557507715496 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(37,7)"><tspan y="6" x="0">Real Sales 2019</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-value" transform="translate(131,7)"> </text><rect x="32" y="0" width="138.6875" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graph2" aria-label="Budget  2019" transform="translate(190,0)"><g class="amcharts-graph-line amcharts-graph-graph2 amcharts-legend-marker"><path cs="100,100" d="M0.5,8.5 L32.5,8.5" fill="none" stroke-width="3" stroke-opacity="1" stroke="#DCC767" class="amcharts-graph-stroke"></path><circle r="3.5" cx="0" cy="0" fill="#FFFFFF" stroke="#DCC767" fill-opacity="1" stroke-width="3" stroke-opacity="1" class="amcharts-graph-bullet" transform="translate(17,8)"></circle></g><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(37,7)"><tspan y="6" x="0">Budget  2019</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-value" transform="translate(113,7)"> </text><rect x="32" y="0" width="120.9375" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graph3" aria-label="Forecast  2019" transform="translate(362,0)"><g class="amcharts-graph-line amcharts-graph-graph3 amcharts-legend-marker"><path cs="100,100" d="M0.5,8.5 L32.5,8.5" fill="none" stroke-width="3" stroke-opacity="1" stroke="#84b761" class="amcharts-graph-stroke"></path><path cs="100,100" d="M-2.5,4.5 L4.5,4.5 L4.5,-2.5 L-2.5,-2.5 Z" fill="#FFFFFF" stroke="#84b761" fill-opacity="1" stroke-width="3" stroke-opacity="1" class="amcharts-graph-bullet" transform="translate(17,8)"></path></g><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(37,7)"><tspan y="6" x="0">Forecast  2019</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-value" transform="translate(120,7)"> </text><rect x="32" y="0" width="128.21875" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graphAuto3_1557507715497" aria-label="Real Sales Last Year" transform="translate(541,0)"><path cs="100,100" d="M-15.5,8.5 L16.5,8.5 L16.5,-7.5 L-15.5,-7.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="1" stroke-width="1" stroke-opacity="0.9" transform="translate(16,8)" class="amcharts-graph-column amcharts-graph-graphAuto3_1557507715497 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(37,7)"><tspan y="6" x="0">Real Sales Last Year</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-value" transform="translate(155,7)"> </text><rect x="32" y="0" width="162.609375" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g></g></g></svg></div></div></div>
+                        </div>
+                        <div class="tab-pane" id="kt_sku_lt">
+                            hhhhh
+                        </div>
+                        <div class="tab-pane" id="kt_sku_$">
+                        </div>
+                        <div class="tab-pane" id="kt_client">
+                        </div>
+                        <div class="kt-section" id="BotoneraDePago" style="display:none">
+                            <div class="kt-section__info">Métodos de pago:</div>
+                            <div class="kt-section__content kt-section__content--solid">
+                                <button type="button" name="mixto" id="mixto" hover="btn-outline-hover-primary" normal="btn-outline-primary" class="btn btncito btn-outline-hover-primary" onclick="MostrarModalMixto();">Mixto</button>
+                                <button type="button" name="efectivo" id="efectivo" hover="btn-outline-hover-brand" normal="btn-outline-brand" class="btn btncito btn-outline-hover-brand" onclick="GenerarFactura('E','ND')">Efectivo</button>
+                                <button type="button" name="tarjeta" id="tarjeta" hover="btn-outline-hover-success" normal="btn-outline-success" class="btn btncito btn-outline-hover-success" onclick="MostrarModalTarjeta();">Tarjeta</button>
+                                <button type="button" name="credito" id="credito" hover="btn-outline-hover-info" normal="btn-outline-info" class="btn btncito btn-outline-hover-info" onclick="GenerarFactura('C','ND')">Crédito</button>
+                                <button type="button" name="cheque" id="cheque" hover="btn-outline-hover-warning" normal="btn-outline-warning" class="btn btncito btn-outline-hover-warning" onclick="GenerarFactura('Q','ND')">Cheque</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalMixto" name="ModalMixto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pago Mixto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label">Monto total:</label>
+                            <input type="text" class="form-control" name="monTotal" id="monTotal" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Monto Efectivo:</label>
+                            <input type="number" class="col-md-12 form-control" name="monEfe" id="monEfe" required disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Tipo de Tarjeta:</label>
+                            <select class="form-control m-select2" id="monTip" name="monTip">
+                                <option value="">Seleccione una tarjeta</option>
+                                @if (ViewBag.Tarjetas != null)
+                                {
+                                    foreach (var item in ViewBag.Tarjetas)
+                                    {
+                                        <option value="@item.TIPO_TARJETA">@item.TIPO_TARJETA</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Monto Tarjeta:</label>
+                            <input type="text" class="form-control" name="monTar" id="monTar" onkeyup="calcularMonto()" required value="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancelar" name="btnCancelar" class="btn btn-info" data-allow-outside-click="true" onclick="GenerarFactura('Mixto',$('select[name=\'monTip\']').val());">Guardar</button>
+                <button id="btnCancelar" name="btnCancelar" class="btn btn-warning" data-allow-outside-click="true" data-confirm-button-class="btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalPagoTarjeta" name="ModalPagoTarjeta" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-small">
+        <div class="modal-content">
+            <div class="modal-header bg-green font-white">
+                <h2 class="modal-title font-white">Selección de Tarjeta</h2>
+            </div>
+            <div class="modal-body">
+                <div class="kt-portlet__body">
+                    <div class="kt-notification-v2">
+                        @if (ViewBag.Tarjetas != null)
+                        {
+                            foreach (var item in ViewBag.Tarjetas)
+                            {
+                                <a class="kt-notification-v2__item" onclick="GenerarFactura('T','@item.TIPO_TARJETA');">
+                                    <div class="kt-notification-v2__item-icon">
+                                        <img src='@Url.Content("~/assets/Img/Sistema/Tarjeta/" + (item.TIPO_TARJETA == "ND" ? "americanexpress" : item.TIPO_TARJETA) + ".png")' style="width:40px;" alt="logo" class="logo-default">
+                                    </div>
+                                    <div class="kt-notification-v2__itek-wrapper">
+                                        <div class="kt-notification-v2__item-title">
+                                            @item.TIPO_TARJETA
+                                        </div>
+                                        <div class="kt-notification-v2__item-desc">
+                                            Tarjeta
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancelar" name="btnCancelar" class="btn btn-danger" data-allow-outside-click="true" data-confirm-button-class="btn-danger" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

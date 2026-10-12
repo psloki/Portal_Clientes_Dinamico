@@ -1,0 +1,183 @@
+﻿@{
+    Layout = null;
+}
+
+<html lang="es">
+<!--begin::Head-->
+<head>
+    <base href="../../../">
+    <meta charset="utf-8" />
+    <title>CCK | Marca</title>
+    <meta name="description" content="Login page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Page Custom Styles(used by this page)-->
+    <link href="~/assets/css/pages/users/login-3.css" rel="stylesheet" type="text/css" />
+    <!--end::Page Custom Styles-->
+    <!--begin::Global Theme Styles(used by all pages)-->
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/App.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Theme Styles-->
+    <!--begin::Layout Themes(used by all pages)-->
+    <link href="~/assets/css/themes/layout/header/base/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/themes/layout/header/menu/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
+    <!--end::Layout Themes-->
+    <link rel="shortcut icon" href="~/img/Cliente/favicon.png" />
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+    <!--begin::Main-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Login-->
+        <div class="login login-signin-on login-3 d-flex flex-row-fluid" id="kt_login">
+            <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat" style="background-image: url(@Url.Content("~/img/Cliente/bgcck.jpg"));">
+                <div class="login-form text-center p-7 position-relative overflow-hidden" style="background-color: rgba(136,136,136,0.8); border-radius: 3%;">
+                    <!--begin::Login Header-->
+                    <div class="d-flex flex-center mb-15">
+                        <a href="@Url.Action("Index", "Login")">
+                            <img src="~/img/Cliente/cck.png" class="max-h-75px" alt="" />
+                        </a>
+                    </div>
+                    <!--end::Login Header-->
+                    <!--begin::Login Sign in form-->
+                    <div class="login-signin">
+                        <div class="mb-5">
+                            <h2 class="text-white">Registro de horas</h2>
+                            <h4 class="text-white" id="relojnumerico"></h4>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-xl-5 col-sm-12">
+                                <div class="text-white font-weight-bold">Foto</div>
+                                <img class="rounded mx-auto my-5 d-block" src="@Url.Content("~/img/Users/default.png")" style="width:124px" alt="Foto" />
+                                <div class="form-group text-left">
+                                    <label class="text-white">Horas:</label>
+                                    <input id="horas" type="text" class="form-control" value="1" name="demo0" placeholder="Select time" />
+                                </div>
+                                <div class=" form-group text-left" >
+                                    <label class="text-white">Minutos:</label>
+                                    <input id="minutos" type="text" class="form-control" value="0" name="demo0" placeholder="Select time" />
+                                </div>
+                                <div class=" form-group text-left">
+                                    <label class="text-white">Detalle de servicio:</label>
+                                    <textarea class="form-control" rows="3" id="Observaciones"></textarea>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-7 col-xl-7 col-sm-12 text-left">
+                                <div class="col-md-12 form-group">
+                                    <label  class="text-white">Funcionario:</label>
+                                    <input type="text" disabled class="form-control" id="funcionario" value="PRODUSOFT" />
+                                </div>
+                                @*Solo el admin puede seleccionar el funcionario*@
+                                <div class="col-md-12 form-group d-none">
+                                    <label  class="text-white">Funcionario:</label>
+                                    <select id="funcionario" class="form-control mx-2" style="width: 100%">
+                                        <option></option>
+                                        <option value="abarrantes">abarrantes</option>
+                                        <option value="asolis">asolis</option>
+                                        <option value="bnunez">bnunez</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="text-white">Fecha de registro:</label>
+                                    <input type="text" class="form-control fecha" id="DescripcionFecha" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="text-white">Tipo de trabajo:</label>
+                                    <select id="tipotrabajo" class="form-control mx-2" style="width: 100%">
+                                        <option></option>
+                                        <option selected value="Teletrabajo">Teletrabajo</option>
+                                        <option value="En oficina">En oficina</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="text-white">Cliente:</label>
+                                    <select id="cliente" class="form-control mx-2" style="width: 100%">
+                                        <option></option>
+                                        <option value="ASOPAPAGAYO">ASOPAPAGAYO</option>
+                                        <option selected value="Banco Lafise S.A">Banco Lafise S.A</option>
+                                        <option value="Big Sur Productions">Big Sur Productions</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="text-white">Línea de servicio:</label>
+                                    <select id="linea" class="form-control mx-2" style="width: 100%">
+                                        <option></option>
+                                        <option selected value="Asesoría">Asesoría</option>
+                                        <option value="Monitoreo">Monitoreo</option>
+                                        <option value="Talleres">Talleres</option>
+                                    </select>
+                                </div>
+                                @*<div class="form-group">
+                                    <div class="input-group text-align-center">
+                                        <select id="TipoMarca" class="form-control mx-2" style="width: 100%">
+                                            <option value="HE">Entrada laboral</option>
+                                            <option value="IA">Inicio almuerzo</option>
+                                            <option value="FA">Fin almuerzo</option>
+                                            <option value="IC">Salida cita u otro</option>
+                                            <option value="FC">Llegada cita u otro</option>
+                                            <option value="HS">Salida laboral</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group text-align-center">
+                                        <select id="Trabajo" class="form-control mx-2" style="width: 100%">
+                                            <option></option>
+                                            <option value="COT-000025">COT-000025 Cotización de capacitación de comunicación interna</option>
+                                            <option value="COT-000165">COT-000165 Consultoría de comunicaciones</option>
+                                            <option value="COT-000168">COT-000168 Cotización Media Analytics</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                        <form id="login-form" class="form">
+                            <div class="form-group d-flex flex-wrap flex-center mt-10">
+                                <button id="registrar_marca" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">
+                                    <strong>Guardar</strong>
+                                </button>
+                                <button id="registrar_marcasalir" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">
+                                    <strong>Guardar y salir</strong>
+                                </button>
+                                <button id="regresar" class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-2">
+                                    <strong>Cancelar</strong>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end::Login Sign in form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Login-->
+    </div>
+
+    <!--end::Main-->
+    <script>var HOST_URL = "https://keenthemes.com/metronic/tools/preview";</script>
+    <!--begin::Global Config(global config for global JS scripts)-->
+    <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#6993FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#E1E9FF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
+    <!--end::Global Config-->
+    <!--begin::Global Theme Bundle(used by all pages)-->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <!--end::Global Theme Bundle-->
+    <script>
+        const rurl = '@Url.Content("~/Login")/'
+    </script>
+    <!--begin::Page Scripts(used by this page)-->
+    <script src="~/Scripts/Login/RegistrarTarea.js"></script>
+
+    <!--end::Page Scripts-->
+</body>
+<!--end::Body-->
+</html>

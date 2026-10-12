@@ -1,0 +1,43 @@
+[
+
+	{
+		"INFORMACION": 1,
+		"NOMBRE": "LUIS DIEGO CUBILLO GONZALEZ",
+		"CEDULA": "205880684",
+		"CORREO": "ludicu1983@gmail.com",
+		"COLEGIADO": "No",
+		"GENERO": "M",
+		"CONDICION": "Con atraso",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Los Chiles",
+		"DISTRITO": "Los Chiles",
+		"CUOTAS": "03",
+		"SECTOR": "Sector privado",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "05",
+		"CODIGO_GENERO": "01",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "03"
+	},
+	{
+		"INFORMACION": 2,
+		"NOMBRE": "GRETHEL CASTRILLO VARGAS",
+		"CEDULA": "107540753",
+		"CORREO": "gcastrillo@ice.go.cr",
+		"COLEGIADO": "Si",
+		"GENERO": "F",
+		"CONDICION": "Al d\u00eda",
+		"ACTIVO": "S",
+		"PROVINCIA": "Alajuela",
+		"CANTON": "Alajuela",
+		"DISTRITO": "San Isidro",
+		"CUOTAS": "02",
+		"SECTOR": "Desempleado",
+		"CODIGO_PROVINCIA": "04",
+		"CODIGO_CANTON": "01",
+		"CODIGO_GENERO": "02",
+		"CODIGO_CONDICION": "01",
+		"CODIGO_CUOTA": "02"
+	}
+]

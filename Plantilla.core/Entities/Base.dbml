@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PS_PORTAL_CLIENTE" Class="BaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.12.8;Initial Catalog=PS_PORTAL_CLIENTE;User ID=SA;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="Plantilla.core.Properties.Settings" SettingsPropertyName="PS_TRACKINGConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="GLOBAL.PROC_EDI_MT940_NUMERO_BANCO" Method="PROC_EDI_MT940_NUMERO_BANCO">
+    <Parameter Name="ID_LINEA" Parameter="iD_LINEA" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="NUM_NUEVO" Parameter="nUM_NUEVO" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CIA" Parameter="cIA" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="GLOBAL.PROC_OBT_ESTADO_CUENTA_BANCARIO" Method="PROC_OBT_ESTADO_CUENTA_BANCARIO">
+    <Parameter Name="FECHA_INICIO" Parameter="fECHA_INICIO" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="FECHA_FINAL" Parameter="fECHA_FINAL" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="CUENTA_BANCARIA" Parameter="cUENTA_BANCARIA" Type="System.String" DbType="VarChar(22)" />
+    <Parameter Name="TIPO" Parameter="tIPO" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="SUBTIPO" Parameter="sUBTIPO" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="DOCUMENTO_SOFTLAND" Parameter="dOCUMENTO_SOFTLAND" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="PROVEEDOR" Parameter="pROVEEDOR" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="CLIENTE" Parameter="cLIENTE" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DEBITO_O_CREDITO" Parameter="dEBITO_O_CREDITO" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="CXC_CXP" Parameter="cXC_CXP" Type="System.String" DbType="VarChar(3)" />
+    <Parameter Name="CARGADO_BANCOS" Parameter="cARGADO_BANCOS" Type="System.String" DbType="VarChar(2)" />
+    <Parameter Name="CIA" Parameter="cIA" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="PROC_OBT_ESTADO_CUENTA_BANCARIOResult">
+      <Column Name="ID_H2H" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_LINEA" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CUENTA_BANCO" Type="System.String" DbType="VarChar(22)" CanBeNull="true" />
+      <Column Name="REFERENCIA" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TIPO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SUBTIPO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DOCUMENTO" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CARGADO_ERP" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="FECHA_TEF" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FECHA_TEF_STR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PS_86_REFERENCIA" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="CREDITO" Type="System.Decimal" DbType="Decimal(28,8)" CanBeNull="true" />
+      <Column Name="DEBITO" Type="System.Decimal" DbType="Decimal(28,8)" CanBeNull="true" />
+      <Column Name="CREDITO_STR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DEBITO_STR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CREDITO_DEBITO" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ESTADO_CB" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FECHA_MT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FECHA_MT_STR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PROVEEDOR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CLIENTE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CC_CP" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="MONEDA" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="ASOCIADO_H2H" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="ASIENTO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ESTADO" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="DOCUMENTO_FUSION" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DOCUMENTO_BANCO_VIEJO" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SE_INSERTO_EN_MOV_REPORTADOS" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="DUPLICADO_EN_LIBROS" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

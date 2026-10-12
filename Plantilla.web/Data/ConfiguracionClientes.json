@@ -1,0 +1,63 @@
+[
+	{
+		"CLIENTE": 1,
+		"CODIGO_CLIENTE": "0001",
+		"NOMBRE": "Armando Porras",
+		"CEDULA": "504290333",
+		"CODIGO_CONDICION": "AC",
+		"CONDICION": "Fisica",
+		"TELEFONO": "89380824",
+		"CORREO": "aporras@gmail.com",
+		"EQUIPO": "EQUIPO-002",
+		"GENERO": "F",
+		"EDAD": "22",
+		"NOMBRE_COMERCIAL": "ND",
+		"ESTADO": "A"
+	},
+	{
+		"CLIENTE": 2,
+		"CODIGO_CLIENTE": "0002",
+		"NOMBRE": "Daniela Sandoval",
+		"CEDULA": "206670649",
+		"CODIGO_CONDICION": "EX",
+		"CONDICION": "Fisica",
+		"TELEFONO": "70149291",
+		"CORREO": "dsandoval@hotmail.com",
+		"EQUIPO": "EQUIPO-001",
+		"GENERO": "M",
+		"EDAD": "22",
+		"NOMBRE_COMERCIAL": "ND",
+		"ESTADO": "A"
+	},
+	{
+		"CLIENTE": 3,
+		"CODIGO_CLIENTE": "0003",
+		"NOMBRE": "Juan Carlos Aguilar",
+		"CEDULA": "113400254",
+		"CONDICION": "Fisica",
+		"CODIGO_CONDICION": "CT",
+		"TELEFONO": "87639922",
+		"CORREO": "jcaguilar@gmail.com",
+		"EQUIPO": "EQUIPO-001",
+		"GENERO": "F",
+		"EDAD": "22",
+		"NOMBRE_COMERCIAL": "ND",
+		"ESTADO": "I"
+	},
+	{
+		"CLIENTE": 4,
+		"CODIGO_CLIENTE": "0004",
+		"NOMBRE": "Dario Perez",
+		"CEDULA": "401890586",
+		"CONDICION": "Fisica",
+		"CODIGO_CONDICION": "CT",
+		"TELEFONO": "87889233",
+		"CORREO": "Dario@gmail.com",
+		"EQUIPO": "EQUIPO-002",
+		"GENERO": "F",
+		"EDAD": "22",
+		"NOMBRE_COMERCIAL": "ND",
+		"ESTADO": "A"
+	}
+
+]

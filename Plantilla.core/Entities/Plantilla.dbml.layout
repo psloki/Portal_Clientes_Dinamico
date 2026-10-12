@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15, 20.5" name="Plantilla">
+  <DataContextMoniker Name="/PlantillaDataContext" />
+  <nestedChildShapes>
+    <classShape Id="a078a1fd-7cf0-4d29-9e02-ab909d4e7656" absoluteBounds="9.375, 0.5, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PlantillaDataContext/ESTADOS_DEMO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="65eb9205-c631-45e7-aee2-d779bf000185" absoluteBounds="9.39, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d6fba841-7afd-4ee3-aaf7-11489eca1606" absoluteBounds="0.75, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_RUTA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1b402d62-a56e-43c0-9ca8-fd42c0d4633f" absoluteBounds="0.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="47e54966-3523-4811-988e-680e832de6e5" absoluteBounds="0.75, 2.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_SEGUIMIENTO_FACTURA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="67868e35-7b60-495d-a064-ccc08f098c94" absoluteBounds="0.765, 3.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2222b611-c280-46d4-bb28-0714484050bc" absoluteBounds="3.75, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_CLIENTE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d3f135dd-46b1-42fa-a1f8-5ad3ebe58017" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="add0b48a-54e5-4d9b-97f2-291d1b1f28e3" absoluteBounds="3.75, 2.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_AGENTE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cb5277ea-367b-4415-bb7c-d527ec9e745b" absoluteBounds="3.765, 3.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dbd5a282-832e-475e-ad25-03101233bd7f" absoluteBounds="0.75, 4.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_TLA_ESTADO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="671d78b0-6fe9-4876-9872-a64371400bc8" absoluteBounds="0.765, 5.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4978350a-ec80-4677-b154-389674f70c35" absoluteBounds="3.75, 4.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_COD_PEDIDO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="acf945c2-7b4a-4f10-b90a-ad8856ee0131" absoluteBounds="3.765, 5.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="42572859-2971-4c61-86cd-55395f44b2f5" absoluteBounds="0.75, 6.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_COD_FACTURA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="463bd261-5939-4be2-860f-9bd73f262023" absoluteBounds="0.765, 7.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="26a56da6-a994-46e1-b780-12bc4c71d0a1" absoluteBounds="6.75, 2.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_DIA_RUTA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="49d5befd-dd98-41a5-ad77-db4fa74c10d7" absoluteBounds="6.765, 3.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="48f61b2a-e4c3-4628-a578-b64300505217" absoluteBounds="3.75, 6.75, 2, 5.2323225911458318">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_PEDIDO_TRACKING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="65adc496-cf05-4612-a5a2-99f3570a2eee" absoluteBounds="3.765, 7.21, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="773acd04-a1ae-439e-9ab3-fea94c971f53" absoluteBounds="6.75, 4.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_ESTADO_PEDIDO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6e672b4d-0c7f-4f02-b348-d755a43fc803" absoluteBounds="6.765, 5.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="049d8778-3544-4dd1-bcd0-51628bc6d78c" absoluteBounds="6.75, 6.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_HORA_CORTE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9d3a38b6-3c5f-49b4-86d2-1bb980b613d4" absoluteBounds="6.765, 7.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="68fb2bcc-aec5-41c6-92d4-a5050d274d36" absoluteBounds="6.75, 8.75, 2, 5.2323225911458309">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_SEGUIMIENTO_TRACKING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9b304582-591c-4114-bf03-1ad3a3d757a0" absoluteBounds="6.765, 9.21, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4704b671-52d5-4e28-b848-b13ec572de02" absoluteBounds="9.75, 2.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_SUBTABLA_SEGUIMIENTO_TRACKING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1afb3af0-a07f-44ea-a2eb-f0728ed85113" absoluteBounds="9.765, 3.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e11c854d-ba5e-41ce-8c92-ddca2ed9e79f" absoluteBounds="9.75, 6.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_USUARIO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="49f383ca-5f0a-4200-ae05-1e9ed0906267" absoluteBounds="9.765, 7.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a62ffdda-1533-41b9-9dd4-15229777d05b" absoluteBounds="9.75, 8.75, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_SUCESOS_SEGUIMIENTO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bba972d0-68cc-412e-9ee5-3301f3848d0b" absoluteBounds="9.765, 9.21, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="edafa733-b251-4c19-acea-faf7b86e158c" absoluteBounds="9.75, 10.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_COBRADOR" />
+      <nestedChildShapes>
+        <elementListCompartment Id="61656aee-bafb-4aca-bcbc-fd0a8059a305" absoluteBounds="9.765, 11.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="11cef436-75f4-438d-bded-750a2852c581" absoluteBounds="12.75, 0.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_ROLES_MATENIMIENTO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="12addeb6-ec59-4b4a-bf79-b60239d93815" absoluteBounds="12.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9b401255-8696-439d-bf6e-b922188f1f7c" absoluteBounds="0.75, 8.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_RUTA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="118e2f6d-57d5-4bb6-b0a6-5a524de230cd" absoluteBounds="0.765, 9.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c49d428e-ecf4-4782-b6a6-b3d3be759540" absoluteBounds="0.75, 10.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_ESTADO_PEDIDO_PTC" />
+      <nestedChildShapes>
+        <elementListCompartment Id="14f9b350-9574-4d8c-8542-ac019a78ae86" absoluteBounds="0.765, 11.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e6e7c9c5-a345-44af-a443-ee96268bedd4" absoluteBounds="0.75, 12.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_ESTADO_FACTURA_PTC" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f5215337-cc54-4466-9deb-21b57a26add6" absoluteBounds="0.765, 13.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0ca6ed7c-3b21-41e5-9f41-5d8c816267a4" absoluteBounds="12.75, 3.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_LISTA_ARTICULO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b1469886-c16e-40e7-83da-5a57978836a0" absoluteBounds="12.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f937e2bb-2af4-423c-80d6-3120514dca42" absoluteBounds="3.75, 12.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_ROLES_MATENIMIENTO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e9caca17-4952-47d3-b96b-b36ffba16ef5" absoluteBounds="3.765, 13.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="40532ac3-c4f8-451d-80c3-06c2375567bf" absoluteBounds="0.875, 15.625, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_BANCO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6edb6346-210e-40fd-9054-2f44bb8709bb" absoluteBounds="0.89, 16.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a5b3fdef-d34c-4625-817b-3f81ff623450" absoluteBounds="0.625, 14.125, 2, 1.0016910807291668">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_TIPO_DOC_UNICO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fff68405-81b7-45a6-8a5d-8984b8bcbf10" absoluteBounds="0.63999999999999968, 14.585, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b4d56a5d-c213-4954-9780-ab86b1284503" absoluteBounds="3.5, 14.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_ESTADO_LIQ" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4d0db313-1af1-42ea-9933-6474f0a5ce22" absoluteBounds="3.5149999999999997, 14.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="88da169c-02a9-4fa6-a9eb-d184f9613b56" absoluteBounds="9.625, 14.875, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_VENDEDOR" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4b791331-de47-4c67-b8bb-969844b12a9f" absoluteBounds="9.64, 15.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2d2aad92-c851-4c5a-90d4-c69499a7ccad" absoluteBounds="6.5, 15, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBTENER_BODEGA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7d0b0dc9-62a6-4741-b81b-1c69db194120" absoluteBounds="6.5150000000000006, 15.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3b8b4100-a30a-42a5-844a-5ec6977b4066" absoluteBounds="3.25, 16.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_CLIENTE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c1911b26-b735-48e3-a7bc-312afa84a8e4" absoluteBounds="3.265, 16.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="24733421-9a9d-498f-97a4-5039c439fa1e" absoluteBounds="3, 18.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_CLIENTES_PTC" />
+      <nestedChildShapes>
+        <elementListCompartment Id="014b57d0-152a-4f7b-957c-08907fe3f7dc" absoluteBounds="3.0149999999999997, 19.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bf2e2689-c047-4aa5-8f9f-359bdfc1b2d7" absoluteBounds="0.5, 18.875, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PlantillaDataContext/VIEW_OBT_LISTA_ARTICULOS_BONIFICACION" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6f1db933-2aaa-407a-862f-45eab524e5d9" absoluteBounds="0.51499999999999968, 19.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f775d2fd-6df0-49d5-ab9e-c89be3a32f7b" absoluteBounds="6.125, 2.125, 2, 1.0016910807291668">
+      <DataClassMoniker Name="/PlantillaDataContext/VW_TIPOS_DOCUMENTOS_CC" />
+      <nestedChildShapes>
+        <elementListCompartment Id="91347267-b72e-43e0-8cd9-e383dd79767e" absoluteBounds="6.14, 2.585, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

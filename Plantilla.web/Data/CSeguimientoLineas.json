@@ -1,0 +1,32 @@
+[
+	{
+		"CODIGO": "E00001",
+		"DESCRIPCION": "Enviado",
+		"ORDEN": 1,
+		"ESTADO": "A"
+	},
+	{
+		"CODIGO": "E00002",
+		"DESCRIPCION": "Visto",
+		"ORDEN": 2,
+		"ESTADO": "A"
+	},
+	{
+		"CODIGO": "E00003",
+		"DESCRIPCION": "Recibido",
+		"ORDEN": 3,
+		"ESTADO": "A"
+	},
+	{
+		"CODIGO": "E00004",
+		"DESCRIPCION": "Realizado",
+		"ORDEN": 4,
+		"ESTADO": "A"
+	},
+	{
+		"CODIGO": "E00005",
+		"DESCRIPCION": "Cancelado",
+		"ORDEN": 5,
+		"ESTADO": "A"
+	}
+]

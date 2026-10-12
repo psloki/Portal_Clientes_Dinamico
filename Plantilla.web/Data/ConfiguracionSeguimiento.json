@@ -1,0 +1,21 @@
+[
+
+	{
+		"SEGUIMIENTO": 1,
+		"CONSECUTIVO_SEGUIMIENTO": "S0001",
+		"DESCRIPCION": "Control horas",
+		"ACTIVO": "S"
+	},
+	{
+		"SEGUIMIENTO": 2,
+		"CONSECUTIVO_SEGUIMIENTO": "S0002",
+		"DESCRIPCION": "Cotizaci\u00F3n anuncio en tv (3 canales)",
+		"ACTIVO": "S"
+	},
+	{
+		"SEGUIMIENTO": 3,
+		"CONSECUTIVO_SEGUIMIENTO": "S0003",
+		"DESCRIPCION": "Cotizaci\u00F3n anuncio en radio",
+		"ACTIVO": "S"
+	}
+]

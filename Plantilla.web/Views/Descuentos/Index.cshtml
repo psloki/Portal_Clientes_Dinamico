@@ -1,0 +1,457 @@
+﻿
+@{
+    ViewBag.Title = "Descuentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var permisosDescuentos = Convert.ToString(Session["PERMISOS_DESCUENTOS"]).Split(',');
+}
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="row align-items-center mt-7">
+
+
+                        @*<div class="form-group col-md-2 mt-3 ">
+                                <label>Cliente</label>
+                                <select id="clienteDesc" name="clienteDesc" class="form-select " data-control="select2" data-placeholder="Filtrar por cliente">
+                                    <option></option>
+                                    <option selected value="0">Todos</option>
+                                    @{
+                                        if (ViewBag.ClienteDesc != null)
+                                        {
+                                            foreach (var item in ViewBag.ClienteDesc)
+                                            {
+                                                <option value="@item.CLIENTE">@item.CLIENTE | @item.ALIAS</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>*@
+                        <div class="form-group col-md-2 mt-3">
+                            <label>Nivel de precio</label>
+                            <select id="nivelprecioDesc" name="nivelprecioDesc" class="form-select filtro" data-control="select2" data-placeholder="Filtrar por nivel de precio">
+                                <option></option>
+                                @{
+                                    if (ViewBag.NivelPrecioDesc != null)
+                                    {
+                                        foreach (var item in ViewBag.NivelPrecioDesc)
+                                        {
+                                            var selected = item.NIVEL_PRECIO == "ND-LOCAL" ? "selected" : "";
+
+                                            <option @selected value="@item.NIVEL_PRECIO">  @item.NIVEL_PRECIO</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+
+
+
+
+                        <div class="form-group col-md-2 mt-3">
+                            <label>Artículo</label>
+                            <select id="articulosDesc" name="articulosDesc" class="form-select" data-control="select2" data-placeholder="Filtrar por un artículo">
+                                <option value="0" selected>Todos</option>
+                            </select>
+                        </div>
+
+
+                        @*<div class="form-group col-md-2 mt-3">
+                                <label>Categoría cliente</label>
+                                <select id="categoriaDesc" name="categoriaDesc" class="form-select filtro" data-control="select2" data-placeholder="Filtrar por categoría">
+                                    <option></option>
+                                    <option selected value="0">Todas</option>
+                                    @{
+                                        if (ViewBag.CategoriaDesc != null)
+                                        {
+                                            foreach (var item in ViewBag.CategoriaDesc)
+                                            {
+                                                <option value="@item.CATEGORIA_CLIENTE">@item.CATEGORIA_CLIENTE | @item.DESCRIPCION</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>*@
+                        <div class="form-group col-md-2 mt-3">
+                            <label>Casa</label>
+                            <select id="casaDesc" name="casaDesc" class="form-select filtro" data-control="select2" multiple data-placeholder="Filtrar por Casa">
+                                <option></option>
+                                <option selected value="0">Todas</option>
+                                @{
+                                    if (ViewBag.CasaArtDesc != null)
+                                    {
+                                        foreach (var item in ViewBag.CasaArtDesc)
+                                        {
+                                            <option value="@item.CLASIFICACION">@item.CLASIFICACION | @item.DESCRIPCION</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 mt-3">
+                            <label>SubCasa</label>
+                            <select id="SubCasaDesc" name="SubCasaDesc" class="form-select filtro" data-control="select2" multiple data-placeholder="Filtrar por subcasa">
+                                <option></option>
+                                <option selected value="0">Todas</option>
+                                @{
+                                    if (ViewBag.SubCasaArtDesc != null)
+                                    {
+                                        foreach (var item in ViewBag.SubCasaArtDesc)
+                                        {
+                                            <option value="@item.CLASIFICACION">@item.CLASIFICACION | @item.DESCRIPCION</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        @*<div class="form-group col-md-2 mt-3">
+                                <label>SubCasa</label>
+                                <select id="SubCasaDesc" name="SubCasaDesc" class="form-select filtro" data-control="select2" multiple data-placeholder="Filtrar por SubCasa">
+                                    <option></option>
+                                    <option selected value="0">Todas</option>
+                                    @{
+                                        if (ViewBag.SubCasaArtDesc != null)
+                                        {
+                                            foreach (var item in ViewBag.SubCasaArtDesc)
+                                            {
+                                                <option value="@item.CLASIFICACION">@item.CLASIFICACION | @item.DESCRIPCION</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>*@
+
+                        <div class="col-md-2 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_queryDesc" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-4" id="miTabla">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="min-w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" id="checkAll" type="checkbox" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" value="1" />
+                                        </div>
+                                    </th>
+
+                                    @*<th class="text-left min-w-80px">Cat.Cliente</th>
+                                        <th class="text-left min-w-200px ">Cliente</th>*@
+                                    <th class="text-left min-w-100px ">Nivel precio</th>
+                                    <th class="text-left min-w-200px">Artículo</th>
+                                    <th class="text-left min-w-150px">Casa</th>
+                                    <th class="text-left min-w-100px">SubCasa</th>
+                                    <th class="text-left min-w-150px">Categoria Art</th>
+                                    <th class="min-w-75px" style="text-align:right">Precio</th>
+                                    <th class="min-w-100px" style="text-align:right">Desc. actual</th>
+                                    <th class="text-left min-w-110px">Inicio actual</th>
+                                    <th class="text-left min-w-110px">Fin actual</th>
+                                    <th class="min-w-110px" style="text-align:right">Precio actual</th>
+                                    <th class="min-w-130px" style="text-align:right">Desc. proy./anterior</th>
+                                    <th class="text-left min-w-120px">Inicio UDF</th>
+                                    <th class="text-left min-w-120px">Fin UDF</th>
+                                    <th class="min-w-120px" style="text-align:right">Precio proyectado</th>
+                                    <th class="text-left min-w-120px">Estado</th>
+                                    <th class="text-left min-w-100px">Acciones</th>
+                                    @*<th class="text-end"></th>*@
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+
+<div class="modal fade" id="ModalEdiDescuento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Descuento</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Nivel Precio</label>
+                        <input disabled type="text" class="form-control" id="nivelPrecioDescuento" value="" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Artículo</label>
+                        <input disabled type="text" class="form-control" id="ArticuloDescuento" value="" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Cantidad Min</label>
+                        <input type="number" min="1" class="form-control" id="CantidadMin" value="1" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Cantidad Max</label>
+                        <input type="number" min="1" class="form-control" id="CantidadMax" value="1" />
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-4"></div>
+                <h6 class="text-gray-700 mb-3">Descuento actual</h6>
+                <div class="row">
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Porcentaje actual</label>
+                        <input disabled type="number" class="form-control" id="PorDescuentoActual" value="0" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Precio actual</label>
+                        <input disabled type="text" class="form-control" id="PrecioActual" value="0" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Fecha inicio actual</label>
+                        <input disabled type="text" class="form-control" id="fechaIniDescActual" value="" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Fecha final actual</label>
+                        <input disabled type="text" class="form-control" id="fechaFinalDescActual" value="" />
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-4"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-gray-700 mb-0">Descuento proyectado</h6>
+                    <span id="estadoProyeccionModal" class="badge badge-light-secondary">Sin proyección</span>
+                </div>
+                <div id="mensajeProyeccionActiva" class="alert alert-warning d-none py-3">
+                    La proyección ya está activa. Los UDF contienen el descuento anterior y no deben modificarse hasta que el job lo restaure.
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Porcentaje proyectado</label>
+                        <input type="number" min="0" max="100" step="0.01" class="form-control" id="PorDescuentoProyectado" value="1" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Precio proyectado</label>
+                        <input disabled type="text" class="form-control" id="PrecioProyectado" value="0" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Fecha inicio proyectada</label>
+                        <input type="text" class="form-control" id="fechaIniDescProyectada" value="" />
+                    </div>
+                    <div class="col-md-6 mb-3 form-group">
+                        <label>Fecha final proyectada</label>
+                        <input type="text" class="form-control" id="fechaFinalDescProyectada" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardarDescuento" onclick="guardarDescuento();" class="btn btn-primary font-weight-bold">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalDescuento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Programar descuento masivo</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3"
+                                  d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z"
+                                  fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z"
+                                  fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="nivelPrecioDescuento">Nivel Precio</label>
+                    <input disabled type="text" class="form-control" id="nivelPrecioDescuentoMultiple" value="" />
+                </div>
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="ArticuloDescuentoMasivo">Artículos</label>
+                    <input disabled type="text" class="form-control" id="ArticuloDescuentoMultiple" value="" />
+                </div>
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="CantidadMinMasivo">Cantidad Min</label>
+                    <input type="number" class="form-control" id="CantidadMinMasivo" value="1" />
+                </div>
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="CantidadMaxMasivo">Cantidad Max</label>
+                    <input type="number" class="form-control" id="CantidadMaxMasivo" value="1" />
+                </div>
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="PorDescuentoMasivo">Porcentaje proyectado</label>
+                    <input type="number" min="0" max="100" step="0.01" class="form-control" id="PorDescuentoMasivo" value="1" />
+                </div>
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="fechaIniDescMasivo">Fecha inicio proyectada</label>
+                    <input type="text" class="form-control" id="fechaIniDescMasivo" value="" />
+                </div>
+                <div class="col-md-12 mb-3 form-group">
+                    <label for="fechaFinalDescMasivo">Fecha final proyectada</label>
+                    <input type="text" class="form-control" id="fechaFinalDescMasivo" value="" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary font-weight-bold"
+                        data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" onclick="guardarDescuentoNivelMasivo();" class="btn btn-primary font-weight-bold">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade in" id="EdiModalDescuento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="fw-bold" id="ActualizarDescuento">Subir archivo</h2>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close" onclick="closeUploadModalDesc();">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+                                  fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                                  fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mt-2 mb-4">
+                        <label for="">Descripción</label>
+                        <input name="descripcionFileDesc" id="descripcionFileDesc" class="form-control" value="" placeholder="Archivo seleccionado" readonly />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 archivos dz-filename">
+                        <!-- Campo de entrada de archivos -->
+                        <input type="file" class="form-control-file" id="excelFile" required name="excelFile" accept=".xlsx" onchange="updateFileNameDesc(this)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- Botón de aceptar que llama a la función uploadExcel() -->
+                <button type="button" class="btn btn-primary font-weight-bold" id="bt_ProcesarDescuento" onclick="uploadExcelDesc()">Procesar</button>
+                <button type="button" class="btn btn-danger font-weight-bold" data-dismiss="modal" onclick="closeUploadModalDesc()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-engage " id="kt_app_engage">
+
+
+    @if (Array.IndexOf(permisosDescuentos, "82") != -1)
+    {
+        <a href="javascript:;" onclick="abrirModalDescuento()" class="app-engage-btn hover-success  multi d-none">
+            <span class="svg-icon svg-icon-2">
+                <i class="la la-percent fs-2x"></i>
+            </span>Descuento
+        </a>}
+    @if (Array.IndexOf(permisosDescuentos, "80") != -1)
+    {
+        <a href="javascript:;" onclick="openUploadModalDesc();" class="app-engage-btn hover-success">
+            <span class="svg-icon svg-icon-2">
+                <i class="far fa-file-alt"></i>
+            </span>SubirExcel
+        </a>
+    }
+
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableRight()">
+
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M9.63433 11.4343L5.45001 7.25C5.0358 6.83579 5.0358 6.16421 5.45001 5.75C5.86423 5.33579 6.5358 5.33579 6.95001 5.75L12.4929 11.2929C12.8834 11.6834 12.8834 12.3166 12.4929 12.7071L6.95001 18.25C6.5358 18.6642 5.86423 18.6642 5.45001 18.25C5.0358 17.8358 5.0358 17.1642 5.45001 16.75L9.63433 12.5657C9.94675 12.2533 9.94675 11.7467 9.63433 11.4343Z" fill="currentColor" />
+                <path d="M15.6343 11.4343L11.45 7.25C11.0358 6.83579 11.0358 6.16421 11.45 5.75C11.8642 5.33579 12.5358 5.33579 12.95 5.75L18.4929 11.2929C18.8834 11.6834 18.8834 12.3166 18.4929 12.7071L12.95 18.25C12.5358 18.6642 11.8642 18.6642 11.45 18.25C11.0358 17.8358 11.0358 17.1642 11.45 16.75L15.6343 12.5657C15.9467 12.2533 15.9467 11.7467 15.6343 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        Derecha
+    </a>
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableLeft()">
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        Izquierda
+    </a>
+</div>
+
+<script>
+    const _urlDesc = "@Url.Content("~/Descuentos/")";
+    const MODULO_DESCUENTOS = '@Session["MOD_DESCUENTOS"]';
+    const PERMISOS_MOD_DESCUENTOS = '@Session["PERMISOS_DESCUENTOS"]';
+    const _urlAp = "@Url.Content("~/ArticuloPrecio/")";
+</script>
+@Scripts.Render("~/Scripts/Descuentos/Index.js")

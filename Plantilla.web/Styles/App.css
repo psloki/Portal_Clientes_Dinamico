@@ -1,0 +1,24 @@
+﻿
+/*Confuguración de colores y estilos persoanalizados del cliente*/
+
+
+.toast-error {
+    background-color: #f64e60 !important;
+}
+
+.toast-success {
+    background-color: #3699ff !important;
+}
+
+.datatable-head span {
+    color: #000 !important;
+}
+
+.requerido::after {
+    content: ' *';
+    color: red;
+}
+
+.uppy-Dashboard-inner {
+    width: 100% !important;
+}

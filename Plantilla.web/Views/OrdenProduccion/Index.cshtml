@@ -1,0 +1,748 @@
+﻿
+@{
+    ViewBag.Title = "Ticketes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Rango de fechas</label>
+                            <input class="form-control " placeholder="Pick date rage" id="kt_daterangepicker_1" />
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Cliente</label>
+                            <select id="cliente" name="cliente" class="form-select" data-control="select2" data-placeholder="seleccione un cliente">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="DSM6834">DSM6834 - DOUGLAS FRANCISCO SAENZ MONTERO</option>
+                                <option value="FSD0000">FSD0000 - FIORELLA MARIA SOLORZANO DIAZ</option>
+                                <option value="GAB6815">GAB6815 - GUSTAVO ADOLFO BARRANTES AVENDAÑO</option>
+                                <option value="GAGV3161-01">GAGV3161-01 - GANADERA AMERICA GV S.A</option>
+                                <option value="GRO1132">GRO1132 - GRUPO OROSI, S.A.</option>
+                                <option value="AGU6721">AGU6721 - ARTURO GERARDO ULLOA ALICE</option>
+                                <option value="AAG1128">AAG1128 - ARMANDO ARAYA GOMEZ</option>
+                                <option value="ACM6787">ACM6787 - ACARREOS CYM SOCIEDAD DE RESPONSABILIDAD LIMITADA</option>
+                                <option value="ACS115-91">ACS115-91 - AMERICA CONSTRUCCIONES, S.A.</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Estado tickete</label>
+                            <select id="FiltroEstado" name="FiltroEstado" class="form-select" data-control="select2" data-placeholder="Filtrar por estado" style="width:100%">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="Solicitud de despacho">Solicitud de despacho</option>
+                                <option value="Tickete en viaje">Tickete en viaje</option>
+                                <option value="Tickete recibido sin facturar">Tickete recibido sin facturar</option>
+                                <option value="Facturado">Facturado</option>
+                                <option value="Enviado a desechar">Enviado a desechar</option>
+                                <option value="Redestino">Redestino</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Estado Inventario</label>
+                            <select id="FiltroEstadoinv" name="FiltroEstadoinv" class="form-select" data-control="select2" data-placeholder="Filtrar por estado" style="width:100%">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="Sin aplicar">Sin aplicar</option>
+                                <option value="Aplicado">Aplicado</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Pedido</label>
+                            <select id="pedido" name="pedido" class="form-select" data-control="select2" data-placeholder="Filtrar por pedido" style="width:100%">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="1">Sin pedido</option>
+                                <option value="CAP-2023-5066">CAP-2023-5066</option>
+                                <option value="CAP-2022-1096">CAP-2022-1096</option>
+                                <option value="CAP-2023-0208">CAP-2023-0208</option>
+                                <option value="CAP-2022-1794">CAP-2022-1794</option>
+                                <option value="CAP-2022-0817">CAP-2022-0817</option>
+                                <option value="CAP-2023-5010">CAP-2023-5010</option>
+                                <option value="CAP-2023-0180">CAP-2023-0180</option>
+                                <option value="CAP-2023-5140">CAP-2023-5140</option>
+                                <option value="CAP-2022-5439">CAP-2022-5439</option>
+                                <option value="CAP-2022-1686">CAP-2022-1686</option>
+                                <option value="CAP-2023-5125">CAP-2023-5125</option>
+                                <option value="CAP-2022-2109">CAP-2022-2109</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Doc Inv</label>
+                            <select id="docinv" name="docinv" class="form-select" data-control="select2" data-placeholder="Filtrar por doc inv" style="width:100%">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="1">Sin Doc Inv</option>
+                                <option value="CMDP30-00217775">CMDP30-00217775</option>
+                                <option value="CMDP91-00912830">CMDP91-00912830</option>
+                                <option value="CMDP30-00217603">CMDP30-00217603</option>
+                                <option value="CMDP30-00217604">CMDP30-00217604</option>
+                                <option value="CMDP30-00217606">CMDP30-00217606</option>
+                                <option value="CMDP30-00217618">CMDP30-00217618</option>
+                                <option value="CMDP30-00214643">CMDP30-00214643</option>
+                                <option value="CMDP30-00212630">CMDP30-00212630</option>
+                                <option value="CMDP30-00217053">CMDP30-00217053</option>
+                                <option value="CMDP30-00217057">CMDP30-00217057</option>
+                                <option value="CMDP30-00217094">CMDP30-00217094</option>
+                                <option value="CMDP30-00217140">CMDP30-00217140</option>
+                                <option value="CMDP30-00213155">CMDP30-00213155</option>
+                                <option value="CMDP30-00214330">CMDP30-00214330</option>
+                                <option value="CMDP30-00212781">CMDP30-00212781</option>
+                                <option value="CMDP30-00213452">CMDP30-00213452</option>
+                                <option value="CMDP30-00217098">CMDP30-00217098</option>
+                                <option value="CMDP30-00217101">CMDP30-00217101</option>
+                                <option value="CMDP91-00912749">CMDP91-00912749</option>
+                                <option value="CMDP91-00912750">CMDP91-00912750</option>
+                                <option value="CMDP91-00912751">CMDP91-00912751</option>
+                                <option value="CMDP91-00912752">CMDP91-00912752</option>
+                                <option value="CMDP91-00912753">CMDP91-00912753</option>
+                                <option value="CMDP91-00912754">CMDP91-00912754</option>
+                                <option value="CMDP91-00912760">CMDP91-00912760</option>
+                                <option value="CMDP91-00912761">CMDP91-00912761</option>
+                                <option value="CMDP91-00912762">CMDP91-00912762</option>
+                                <option value="CMDP91-00912763">CMDP91-00912763</option>
+                                <option value="CMDP91-00912764">CMDP91-00912764</option>
+                                <option value="CMDP91-00912765">CMDP91-00912765</option>
+                                <option value="CMDP91-00912766">CMDP91-00912766</option>
+                                <option value="CMDP91-00912767">CMDP91-00912767</option>
+                                <option value="CMDP91-00912768">CMDP91-00912768</option>
+                                <option value="CMDP91-00912769">CMDP91-00912769</option>
+                                <option value="CMDP91-00912770">CMDP91-00912770</option>
+                                <option value="CMDP30-00217619">CMDP30-00217619</option>
+                                <option value="CMDP30-00217620">CMDP30-00217620</option>
+                                <option value="CMDP30-00217621">CMDP30-00217621</option>
+                                <option value="CMDP30-00217623">CMDP30-00217623</option>
+                                <option value="CMDP30-00217624">CMDP30-00217624</option>
+                                <option value="CMDP91-00912804">CMDP91-00912804</option>
+                                <option value="CMDP30-00217625">CMDP30-00217625</option>
+                                <option value="CMDP91-00912817">CMDP91-00912817</option>
+                                <option value="CMDP91-00912818">CMDP91-00912818</option>
+                                <option value="CMDP91-00912819">CMDP91-00912819</option>
+                                <option value="CMDP91-00912821">CMDP91-00912821</option>
+                                <option value="CMDP91-00912822">CMDP91-00912822</option>
+                                <option value="CMDP91-00912823">CMDP91-00912823</option>
+                                <option value="CMDP91-00912827">CMDP91-00912827</option>
+                                <option value="CMDP91-00912828">CMDP91-00912828</option>
+                                <option value="CMDP30-00217627">CMDP30-00217627</option>
+                                <option value="CMDP30-00217628">CMDP30-00217628</option>
+                                <option value="CMDP30-00217629">CMDP30-00217629</option>
+                                <option value="CMDP30-00217630">CMDP30-00217630</option>
+                                <option value="CMDP30-00217631">CMDP30-00217631</option>
+                                <option value="CMDP30-00217632">CMDP30-00217632</option>
+
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Factura</label>
+                            <select id="factura" name="factura" class="form-select" data-control="select2" data-placeholder="Filtrar por factura" style="width:100%">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="1">Sin factura</option>
+                                <option value="4641">4641</option>
+                                <option value="6492">6492</option>
+                                <option value="2438">2438</option>
+                                <option value="3343">3343</option>
+                                <option value="5999">5999</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Vendedor</label>
+                            <select id="vendedor" name="vendedor" class="form-select" data-control="select2" data-placeholder="Filtrar por vendedor" style="width:100%">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="VEN000567">VEN000567 - Javier Lozano</option>
+                                <option value="VEN000234">VEN000234 - María valencia</option>
+                                <option value="VEN000912">VEN000912 - Luis Gonzalez</option>
+                                <option value="VEN000456">VEN000456 - Rafael Alvarez</option>
+                                <option value="VEN000789">VEN000789 - Ericka Acosta</option>
+                                <option value="VEN000321">VEN000321 - Julia Hernandez</option>
+                                <option value="VEN000678">VEN000678 - Fernando Ortega</option>
+                                <option value="VEN000543">VEN000543 - Gabriel Medina</option>
+                                <option value="VEN000987">VEN000987 - Nadia Castillo</option>
+                                <option value="VEN000210">VEN000210 - Eder Chavez</option>
+
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Bodega</label>
+                            <select id="bodega" name="bodega" class="form-select" data-control="select2" data-placeholder="Filtrar por bodega">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="MP03">MP03</option>
+                                <option value="MP030">MP030</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Artículo</label>
+                            <select id="articulo" name="articulo" class="form-select" data-control="select2" data-placeholder="Filtrar por artículo">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="CN210D28H">CN210D28H</option>
+                                <option value="5010004">5010004</option>
+                                <option value="200814">200814</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-8 multi d-flex justify-content-start align-items-center d-none" data-kt-subscription-table-toolbar="selected">
+                            <div class="fw-bold me-5">
+                                <span class="me-2" id="cantselect"></span>Seleccionados
+                            </div>
+                            <button type="button" class="btn btn-primary me-3" data-kt-subscription-table-select="delete_selected">Enviar a Softland ERP</button>
+                            <button type="button" class="btn btn-success me-3" data-kt-subscription-table-select="delete_selected">Crear pedido</button>
+                            <button type="button" class="btn btn-danger" data-kt-subscription-table-select="delete_selected">Enviar a desecho</button>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <!--begin::Table-->
+                    <table class="table align-middle table-row-dashed fs-6 gy-4" id="miTabla">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                @*<th class="min-w-100px">Order ID</th>*@
+                                <th class="w-10px pe-2">
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" value="1" />
+                                    </div>
+                                </th>
+                                <th class="text-left min-w-10px verSubtabla"></th>
+                                <th class="text-left min-w-150px">Requisición</th>
+                                <th class="text-left min-w-200px">Referencia</th>
+                                <th class="text-left min-w-350px">Fecha</th>
+                                <th class="text-left min-w-100px">Hora</th>
+                                <th class="text-left min-w-150px">Usuario</th>
+                                <th class="text-left min-w-150px">Asiento</th>
+                                <th class="text-left min-w-350px">Acciones</th>
+                                @*<th class="text-end"></th>*@
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+
+<div class="modal fade" tabindex="-1" id="modalAprobarCliente">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Aprobación cliente</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-6">
+                        <div class="form-group mb-12">
+
+                            <label>Ticket</label>
+                            <input type="text" class="form-control form-control-solid" id="ticketaentregar" disabled value="" />
+                        </div>
+                        <div class="form-group mb-6">
+
+                            <label>Latitud y longitud</label>
+                            <input type="text" class="form-control form-control-solid" disabled value="9.9260904,-84.0963863" />
+                        </div>
+                        <div class="form-group mb-6">
+
+                            <label>Fecha y hora de aprobación</label>
+                            <input type="text" class="form-control form-control-solid" disabled value="@(DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"))" />
+                        </div>
+                        <div class="form-group mb-6">
+
+                            <label>Usuario</label>
+                            <input type="text" class="form-control form-control-solid" disabled value="PRODUSOFT" />
+                        </div>
+                        <div class="form-group mb-6">
+
+                            <label>Cliente</label>
+                            <input type="text" class="form-control form-control-solid" id="Clienterecibe" disabled value="" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-6">
+                            <label>Recibido por</label>
+                            <input class="form-control " value="" id="kt_tagify_7" />
+                            <div class="text-muted fs-7">Selecciona un contacto o crea un contacto nuevo.</div>
+                        </div>
+
+                        <div class="form-group mb-6">
+                            <label>Cantidad recibida:</label>
+                            <input type="text" class="form-control" id="cantidadrecibe" value="" />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Comentarios</label>
+                            <textarea class="form-control" rows="1" aria-label=""></textarea>
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Correo de aprobación</label>
+                            <input type="text" class="form-control form-control-solid" disabled value="facturas@amco.com;facturas@cliente.com" />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Notificar a estos correos:</label>
+                            <input type="text" class="form-control " value="" />
+                        </div>
+                        <div class="form-group mb-6">
+                            <label>Firma</label>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <script type="text/paperscript" canvas="sheet">
+                                        var path;
+                                        var erase;
+                                        var allPaths = [];
+                                        function clearCanvas() {
+                                                erase = new Path.Circle({
+                                                center: new Point(100,100),
+                                                fillColor: 'white',
+                                                radius: 500
+                                            });
+
+                                            }
+
+                                        function onMouseDown(event) {
+                                           path = new Path({
+                                                segments: [event.point],
+                                                strokeColor: 'black'
+                                            });
+
+                                        }
+
+                                        // While the user drags the mouse, points are added to the path
+                                        // at the position of the mouse:
+                                        function onMouseDrag(event) {
+                                            path.add(event.point);
+                                        }
+
+                                        // When the mouse is released, we simplify the path:
+                                        function onMouseUp(event) {
+                                            path.simplify(5);
+                                        }
+                                            $('#BtnLimpiar').on('click', function (e) {
+                                                e.preventDefault()
+                                                clearCanvas();
+                                            });
+                                    </script>
+                                    <div class="mb-3">
+                                        <canvas class="container" id="sheet"></canvas>
+                                    </div>
+                                    <button id="BtnLimpiar" class="btn btn-light-primary mb-3">Limpiar</button>
+                                    <button id="BtnGuardar" class="btn btn-light-primary mb-3">Guardar firma</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                @*<button type="button" onclick="GuardarEntrega()" class="btn btn-primary">Aprobar</button>*@
+                <button type="button" onclick="GuardarEntregaypedido()" class="btn btn-success">Aprobar y crear pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="modalRedestino">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Redestino</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Ticket</label>
+                        <input type="text" class="form-control form-control-solid" id="ticketredestino" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cliente actual</label>
+                        <input type="text" class="form-control form-control-solid" id="Clienteactual" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Orden compra actual</label>
+                        <input type="text" class="form-control form-control-solid" id="ocactual" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cliente redestino</label>
+                        <select id="clientered" name="clientered" class="form-select" data-control="select2" data-placeholder="Seleccione un cliente">
+                            <option></option>
+                            <option value="DSM6834">DSM6834 - DOUGLAS FRANCISCO SAENZ MONTERO</option>
+                            <option value="FSD0000">FSD0000 - FIORELLA MARIA SOLORZANO DIAZ</option>
+                            <option value="GAB6815">GAB6815 - GUSTAVO ADOLFO BARRANTES AVENDAÑO</option>
+                            <option value="GAGV3161-01">GAGV3161-01 - GANADERA AMERICA GV S.A</option>
+                            <option value="GRO1132">GRO1132 - GRUPO OROSI, S.A.</option>
+                            <option value="AGU6721">AGU6721 - ARTURO GERARDO ULLOA ALICE</option>
+                            <option value="AAG1128">AAG1128 - ARMANDO ARAYA GOMEZ</option>
+                            <option value="ACM6787">ACM6787 - ACARREOS CYM SOCIEDAD DE RESPONSABILIDAD LIMITADA</option>
+                            <option value="ACS115-91">ACS115-91 - AMERICA CONSTRUCCIONES, S.A.</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Orden compra redestino</label>
+                        <select id="ocred" name="ocred" class="form-select" data-control="select2" data-placeholder="Seleccione una orden de compra">
+                            <option></option>
+                            <option value="OC000055">OC000055</option>
+                            <option value="OC000120">OC000120</option>
+                            <option value="OC000123">OC000123</option>
+                            <option value="OC000182">OC000182</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cantidad</label>
+                        <input type="text" class="form-control form-control-solid" id="cantactual" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Cantidad a redestinar</label>
+                        <input type="number" class="form-control" value="1" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Comentarios</label>
+                        <textarea class="form-control" rows="1" aria-label=""></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarRedestino()" class="btn btn-success">Crear redestino</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="modalDespacho">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Programar despacho</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-12">
+                        <label>Ticket</label>
+                        <input type="text" class="form-control form-control-solid" id="ticketdespacho" disabled value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Número de camión</label>
+                        <input type="text" class="form-control" id="numcamion" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Marchamo</label>
+                        <input type="text" class="form-control " id="marchamo" value="" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Correo:</label>
+                        <input type="text" class="form-control " disabled value="vendedor@amco.com;ing@cliente.com" />
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Notificar a estos correos:</label>
+                        <input type="text" class="form-control " value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarDespacho()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--begin::Engage-->
+<!--begin::Modal - Upload File-->
+<div class="modal fade" id="kt_modal_upload" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Form-->
+            <form class="form" action="none" id="kt_modal_upload_form">
+                <!--begin::Modal header-->
+                <div class="modal-header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bold">Subir archivo</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body pt-10 pb-15 px-lg-17">
+
+                    <div class="col-12 form-group mb-6">
+                        <label>Ticket</label>
+                        <select id="ticket" name="ticket" class="form-select" disabled data-control="select2" data-placeholder="Filtrar por un ticket">
+                            <option></option>
+                            <option selected value="912839">912839</option>
+                            <option value="912876">912876</option>
+                        </select>
+                    </div>
+                    <div class="col-12 form-group mb-6">
+                        <label>Descripción</label>
+
+                        <input type="text" class="form-control" placeholder="Descripción del documento" value="" />
+                    </div>
+                    <!--begin::Input group-->
+                    <div class="form-group">
+                        <!--begin::Dropzone-->
+                        <div class="dropzone dropzone-queue mb-2" id="kt_modal_upload_dropzone">
+                            <!--begin::Controls-->
+                            <div class="dropzone-panel mb-4">
+                                <a class="dropzone-select btn btn-sm btn-primary me-2">Seleccionar archivos</a>
+                                <a class="dropzone-upload btn btn-sm btn-light-primary me-2">Subir todos</a>
+                                <a class="dropzone-remove-all btn btn-sm btn-light-primary">Remover todos</a>
+                            </div>
+                            <!--end::Controls-->
+                            <!--begin::Items-->
+                            <div class="dropzone-items wm-200px">
+                                <div class="dropzone-item p-5" style="display:none">
+                                    <!--begin::File-->
+                                    <div class="dropzone-file">
+                                        <div class="dropzone-filename text-dark" title="some_image_file_name.jpg">
+                                            <span data-dz-name="">some_image_file_name.jpg</span>
+                                            <strong>
+                                                (
+                                                <span data-dz-size="">340kb</span>)
+                                            </strong>
+                                        </div>
+                                        <div class="dropzone-error mt-0" data-dz-errormessage=""></div>
+                                    </div>
+                                    <!--end::File-->
+                                    <!--begin::Progress-->
+                                    <div class="dropzone-progress">
+                                        <div class="progress bg-light-primary">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress=""></div>
+                                        </div>
+                                    </div>
+                                    <!--end::Progress-->
+                                    <!--begin::Toolbar-->
+                                    <div class="dropzone-toolbar">
+                                        <span class="dropzone-start">
+                                            <i class="bi bi-play-fill fs-3"></i>
+                                        </span>
+                                        <span class="dropzone-cancel" data-dz-remove="" style="display: none;">
+                                            <i class="bi bi-x fs-3"></i>
+                                        </span>
+                                        <span class="dropzone-delete" data-dz-remove="">
+                                            <i class="bi bi-x fs-1"></i>
+                                        </span>
+                                    </div>
+                                    <!--end::Toolbar-->
+                                </div>
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Dropzone-->
+                    </div>
+                    <!--end::Input group-->
+                </div>
+                <!--end::Modal body-->
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+<!--end::Modal - Upload File-->
+<!--begin::Engage-->
+<div class="app-engage" id="kt_app_engage">
+    <!--begin::Prebuilts toggle-->
+    <a href="@Url.Action("Detalles", "OrdenProduccion")" class="app-engage-btn hover-success">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.3" d="M21 13H3C2.4 13 2 12.6 2 12C2 11.4 2.4 11 3 11H21C21.6 11 22 11.4 22 12C22 12.6 21.6 13 21 13Z" fill="currentColor" />
+                <path d="M12 22C11.4 22 11 21.6 11 21V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V21C13 21.6 12.6 22 12 22Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Crear
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--begin::Prebuilts toggle-->
+    <a class="app-engage-btn hover-success">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.3" d="M21 13H3C2.4 13 2 12.6 2 12C2 11.4 2.4 11 3 11H21C21.6 11 22 11.4 22 12C22 12.6 21.6 13 21 13Z" fill="currentColor" />
+                <path d="M12 22C11.4 22 11 21.6 11 21V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V21C13 21.6 12.6 22 12 22Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Excel
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--begin::Prebuilts toggle-->
+    <a class="app-engage-btn hover-success" data-bs-toggle="tooltip"  title="Hace la carga del consumo real de la planta móvil por un txt">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.3" d="M21 13H3C2.4 13 2 12.6 2 12C2 11.4 2.4 11 3 11H21C21.6 11 22 11.4 22 12C22 12.6 21.6 13 21 13Z" fill="currentColor" />
+                <path d="M12 22C11.4 22 11 21.6 11 21V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V21C13 21.6 12.6 22 12 22Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Tick in
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--begin::Prebuilts toggle-->
+    <a class="app-engage-btn hover-success" data-bs-toggle="tooltip"  title="Este es para los reportes de Fernando en Command">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.3" d="M21 13H3C2.4 13 2 12.6 2 12C2 11.4 2.4 11 3 11H21C21.6 11 22 11.4 22 12C22 12.6 21.6 13 21 13Z" fill="currentColor" />
+                <path d="M12 22C11.4 22 11 21.6 11 21V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V21C13 21.6 12.6 22 12 22Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Tick out
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableRight()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M9.63433 11.4343L5.45001 7.25C5.0358 6.83579 5.0358 6.16421 5.45001 5.75C5.86423 5.33579 6.5358 5.33579 6.95001 5.75L12.4929 11.2929C12.8834 11.6834 12.8834 12.3166 12.4929 12.7071L6.95001 18.25C6.5358 18.6642 5.86423 18.6642 5.45001 18.25C5.0358 17.8358 5.0358 17.1642 5.45001 16.75L9.63433 12.5657C9.94675 12.2533 9.94675 11.7467 9.63433 11.4343Z" fill="currentColor" />
+                <path d="M15.6343 11.4343L11.45 7.25C11.0358 6.83579 11.0358 6.16421 11.45 5.75C11.8642 5.33579 12.5358 5.33579 12.95 5.75L18.4929 11.2929C18.8834 11.6834 18.8834 12.3166 18.4929 12.7071L12.95 18.25C12.5358 18.6642 11.8642 18.6642 11.45 18.25C11.0358 17.8358 11.0358 17.1642 11.45 16.75L15.6343 12.5657C15.9467 12.2533 15.9467 11.7467 15.6343 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Derecha
+    </a>
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary" onclick="scrollToTableLeft()">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
+                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Izquierda
+    </a>
+    <!--end::Get help-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+
+<script>
+        const opurl = '@Url.Content("~/OrdenProduccion")'
+</script>
+
+@Scripts.Render("~/Scripts/OrdenProduccion/Index.js")
+@Scripts.Render("~/Scripts/bcPaint.js")

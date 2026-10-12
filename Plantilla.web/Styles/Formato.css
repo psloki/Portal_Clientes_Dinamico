@@ -1,0 +1,31 @@
+﻿table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #3699ff;
+}
+
+thead th:nth-child(1) {
+    width: 24%;
+}
+
+thead th:nth-child(2) {
+    width: 62%;
+}
+
+thead th:nth-child(3) {
+    width: 14%;
+}
+
+th, td {
+    padding: 15px;
+}
+
+tbody td {
+    font-size: 12px;
+}
+
+.black td {
+    font-size: 13px;
+    font-weight: bold;
+}

@@ -1,0 +1,116 @@
+@{
+    ViewBag.Title = "Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="~/Scripts/leaflet.bundle.css" rel="stylesheet" />
+
+
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+            </div>
+
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Rango de fechas</label>
+                            <input class="form-control " placeholder="Pick date rage" id="rangoFechas" value="@(DateTime.Now.ToString("01/MM/yyyy")) - @(DateTime.Now.ToString("dd/MM/yyyy"))" />
+                        </div>
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Tipo de documento</label>
+                            <select id="tipo_documento"
+                                    class="form-select"
+                                    data-control="select2"
+                                    data-placeholder="Filtrar por tipo de documento"
+                                    multiple
+                                    style="width:100%">
+                                <option value="0" selected>Todos</option>
+                            </select>
+
+                        </div>
+                        @*<div class="col-md-2 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>*@
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-4" id="kt_datatabla_documentos">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+
+                                    <th class="min-w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" id="checkAll" type="checkbox" data-kt-check="true" data-kt-check-target="#miTabla .form-check-input" />
+                                        </div>
+                                    </th>
+                                    <th class="text-left min-w-25px">Tipo</th>
+                                    <th class="text-left min-w-150px">Documento</th>
+                                    <th class="text-left min-w-150px">Subtipo</th>
+                                    <th class="text-left min-w-150px">Referencia</th>
+                                    <th class="text-left min-w-80px">Fecha</th>
+                                    <th class="text-left min-w-80px">Vence</th>
+                                    <th class="text-left min-w-25px">DV</th>
+                                    <th class="text-left min-w-100px">Monto</th>
+                                    <th class="text-left min-w-100px">Abonado</th>
+                                    <th class="text-left min-w-100px">Saldo</th>
+                                    <th class="text-left min-w-125px">Usuario</th>
+                                    <th class="text-left min-w-80px">Creaci&oacute;n</th>
+                                    <th class="text-left min-w-80px">Acciones</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-bold text-gray-600">
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const docUrl= '@Url.Content("~/Visitas/Documento")'
+    const vurl = '@Url.Content("~/Visitas")'
+    const registroPagosUrl = '@Url.Content("~/RegistroPagos")'
+</script>
+@Scripts.Render("~/Scripts/leaflet.bundle.js")
+<script type="text/javascript" src="~/Scripts/Visitas/Documento.js?v=1"></script>

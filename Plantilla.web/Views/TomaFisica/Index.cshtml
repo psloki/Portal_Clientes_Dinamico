@@ -1,0 +1,237 @@
+﻿
+@{
+    ViewBag.Title = "Tomas físicas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type='text/javascript' src='http://paperjs.org/assets/js/paper.js'></script>
+<!--begin::Content wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl" style="max-width:100% !important">
+            <!--begin::Toolbar-->
+            <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@ViewBag.Title</h1>
+                    <!--end::Title-->
+                </div>
+                <!--end::Page title-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Card-->
+            <div class="card mb-6">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <div class="row align-items-center mt-7">
+                        <div class="form-group col-md-3 mt-3">
+                            <label>Rango de fechas de subida</label>
+                            <input class="form-control " placeholder="Pick date rage" id="kt_daterangepicker_1" />
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Estado</label>
+                            <select id="estado" name="estado" class="form-select" data-control="select2" data-placeholder="Filtrar por un estado">
+                                <option></option>
+                                <option selected value="Todos">Todos</option>
+                                <option value="Activa">Activa</option>
+                                <option value="1">Inactiva</option>
+                                <option value="Finalizada">Finalizada</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Responsable</label>
+                            <select id="responsable" name="responsable" class="form-select" data-control="select2" data-placeholder="Filtrar por un responsable">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="CRC00130 - BENAVIDEZ COTO JULIO ALBERTO1">CRC00130 - BENAVIDEZ COTO JULIO ALBERTO1</option>
+                                <option value="CRC00339 - ESQUIVEL SANCHEZ JEFFERSON GERARDO">CRC00339 - ESQUIVEL SANCHEZ JEFFERSON GERARDO</option>
+                                <option value="CRC00235 - CASTRO ZUÑIGA LUIS FABIAN">CRC00235 - CASTRO ZUÑIGA LUIS FABIAN</option>
+                                <option value="CRC00381 - GARCIA GARCIA ANTONIO">CRC00381 - GARCIA GARCIA ANTONIO</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mt-3 ">
+                            <label>Ubicación</label>
+                            <select id="ubicacion" name="ubicacion" class="form-select" data-control="select2" data-placeholder="Filtrar por una ubicación">
+                                <option></option>
+                                <option selected value="0">Todos</option>
+                                <option value="ADMINIST - DEPTO. ADMINISTRATIVO">ADMINIST - DEPTO. ADMINISTRATIVO</option>
+                                <option value="FINANC - FINANCIERO">FINANC - FINANCIERO</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-8">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Buscar..." id="kt_datatable_search_query" data-kt-docs-table-filter="search" autocomplete="off" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+                    <!--begin::Table-->
+                    <table class="table align-middle table-row-dashed fs-6 gy-4" id="miTabla">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+                                <th class="text-left min-w-125px">Consecutivo</th>
+                                <th class="text-left min-w-350px">Responsable</th>
+                                <th class="text-left min-w-250px">Ubicación</th>
+                                <th class="text-left min-w-100px">Realización</th>
+                                <th class="text-left min-w-100px">Finaliza</th>
+                                <th class="text-left min-w-150px">Estado</th>
+                                <th class="text-left min-w-350px">Acciones</th>
+                                @*<th class="text-end"></th>*@
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Content wrapper-->
+
+
+<div class="modal fade" tabindex="-1" id="modalTomaFisica">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Toma física</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-muted svg-icon-2x">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor" />
+                            <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group mb-6">
+                        <label>Consecutivo</label>
+                        <input type="text" class="form-control form-control-solid" id="consecutivo" disabled value="TF-0000156" />
+                    </div>
+
+                    <div class="form-group mb-6">
+                        <label>Responsable</label>
+                        <select  data-allow-clear="true" multiple="multiple" name="Encargado" id="ResponsableTF" class="form-select" data-control="select2" data-placeholder="Seleccione responsables" style="width: 100%">
+                            <option></option>
+                            <option value="CRC00130">CRC00130 - BENAVIDEZ COTO JULIO ALBERTO1</option>
+                            <option value="CRC00235">CRC00235 - CASTRO ZUÑIGA LUIS FABIAN</option>
+                            <option value="CRC00339">CRC00339 - ESQUIVEL SANCHEZ JEFFERSON GERARDO</option>
+                            <option value="CRC00381">CRC00381 - GARCIA GARCIA ANTONIO</option>
+                            <option value="CRC00386">CRC00386 - GARCIA NAVARRO ROCIO</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha realización</label>
+                        <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                            <input id="fecharealizacion" type="text" class="form-control fecha" data-td-target="#kt_td_picker_basic"  data-td-toggle="datetimepicker" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Fecha finaliza</label>
+                        <div class="input-group" id="kt_td_picker_simple" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                            <input id="fechafinaliza" type="text" class="form-control fecha" data-td-target="#kt_td_picker_basic" data-td-toggle="datetimepicker" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Ubicación</label>
+                        <select data-allow-clear="true" multiple="multiple"  id="ubicacion" name="ubicacion" class="form-select" data-control="select2" data-placeholder="Seleccione ubicaciones">
+                            <option></option>
+                            <option value="ADMINIST" data-select2-id="19">ADMINIST - DEPTO. ADMINISTRATIVO</option>
+                            <option value="ANAL_OFC" data-select2-id="33">ANAL_OFC - ANALISIS DE PROYECTOS SEDE CENTRAL</option>
+                            <option value="ANAL_REG" data-select2-id="34">ANAL_REG - ANALISIS DE PROYECTOSS REGIONALES</option>
+                            <option value="AUDI_CAB" data-select2-id="35">AUDI_CAB - CABINA DEL AUDITORIO</option>
+                            <option value="AUDI_GNR" data-select2-id="36">AUDI_GNR - AUDITORIO</option>
+                            <option value="AULA" data-select2-id="37">AULA - AULA FEDERADO PLANTA BAJA</option>
+                            <option value="CAJA" data-select2-id="38">CAJA - CAJA</option>
+                            <option value="CEN_DOC" data-select2-id="39">CEN_DOC - CENTRO DE DOCUMENTACION</option>
+                            <option value="CEN_RESO" data-select2-id="40">CEN_RESO - CENTROS DE RESOLUCION DE CONFLICTOS</option>
+                            <option value="CIT GALE" data-select2-id="41">CIT GALE - C.I.T. GALERIAS DEL ESTE</option>
+                            <option value="CIT RP" data-select2-id="42">CIT RP - C.I.T. REGISTRO PUBLICO</option>
+                            <option value="CIT UNA" data-select2-id="43">CIT UNA - C.I.T. UNIVERSIDAD NACIONAL</option>
+                            <option value="COFEIA" data-select2-id="44">COFEIA - COFEIA</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-6">
+                        <label>Estado</label>
+                        <input type="text" class="form-control form-control-solid" id="cantactual" disabled value="Activa" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="GuardarToma()" class="btn btn-success">Crear toma física</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-engage" id="kt_app_engage">
+    <!--begin::Prebuilts toggle-->
+    <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#modalTomaFisica" class="app-engage-btn hover-success">
+        <!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Crear
+    </a>
+    <!--end::Prebuilts toggle-->
+    <!--begin::Get help-->
+    <a href="javascript:;" class="app-engage-btn hover-primary">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen063.svg-->
+        <span class="svg-icon svg-icon-1 pt-1 mb-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.7189 13.9C17.6189 9.8 11.4189 8.79999 6.21895 11.2L7.31895 12.9C11.719 11 16.919 12 20.319 15.4C20.519 15.6 20.819 15.7 21.019 15.7C21.219 15.7 21.5189 15.6 21.7189 15.4C22.1189 14.9 22.1189 14.2 21.7189 13.9Z" fill="currentColor" />
+                <path opacity="0.3" d="M10.119 17.1L3.61896 7L2.01895 14.3C1.91895 14.8 2.21895 15.4 2.81895 15.5L10.119 17.1Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->Volver
+    </a>
+    <!--end::Get help-->
+</div>
+<!--end::Engage-->
+@Scripts.Render("~/Scripts/TomaFisica/Index.js")
+
+<script>
+        const opurl = '@Url.Content("~/TomaFisica")'
+        const pdfurl = '@Url.Content("~/Files/oc.pdf")'
+</script>

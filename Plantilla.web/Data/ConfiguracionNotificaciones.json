@@ -1,0 +1,28 @@
+[
+	{
+		"NOTIFICACION": 1,
+		"CODIGO_NOTIFICACION": "N0001",
+		"NOMBRE": "Norte 2021",
+		"ACTIVO": "I",
+		"CODIGO_ACTIVO": "02",
+		"CORREO": "notificaciones@produsoft.or.cr",
+		"CODIGO_CORREO": "01",
+		"CALENDARIZADO": "N",
+		"FECHA": "19/04/2021",
+		"TIPO": "Correo",
+		"CODIGO_TIPO": "01"
+	},
+	{
+		"NOTIFICACION": 2,
+		"CODIGO_NOTIFICACION": "N0002",
+		"NOMBRE": "Pac\u00edfico 2021",
+		"ACTIVO": "A",
+		"CODIGO_ACTIVO": "01",
+		"CORREO": "notificaciones@produsoft.or.cr",
+		"CODIGO_CORREO": "01",
+		"CALENDARIZADO": "S",
+		"FECHA": "19/04/2021",
+		"TIPO": "Correo",
+		"CODIGO_TIPO": "01"
+	}
+]
